@@ -1,0 +1,14 @@
+.image {
+  display: block;
+  width: var(--image-width, 100%);
+  height: var(--image-height, auto);
+  object-fit: var(--object-fit, cover);
+}
+
+.root[data-loading='true'] {
+  background-color: light-dark(var(--black-a1), var(--white-a2));
+
+  .image {
+    visibility: hidden;
+  }
+}
