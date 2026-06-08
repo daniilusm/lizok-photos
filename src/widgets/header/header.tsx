@@ -16,8 +16,8 @@ export const Header = (props: HeaderProps) => {
 
   return (
     <div className={clsx(s.root, className)}>
-      <Button href="/">home</Button>
-      <Button href="/about">About</Button>
+      <Button href="/">главная</Button>
+      <Button href="/">контакты</Button>
     </div>
   );
 };

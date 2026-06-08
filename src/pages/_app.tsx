@@ -1,5 +1,6 @@
 import "@/shared/styles/globals.scss";
 
+import { FontsProvider } from "@/shared/fonts";
 import { DataStoreProvider } from "@app/model/data-store";
 import { useAppViewport } from "@app/model/viewport-store";
 import { AppHooks } from "@widgets/app-hooks/app-hooks";
@@ -14,12 +15,13 @@ import { Cursor } from "@widgets/сursor";
 import type { AppProps } from "next/app";
 
 import { PreviewBanner } from "@shared/ui/preview-banner";
+import { UIElements } from "@/shared/ui/ui-elements";
 
 export default function App({ Component, pageProps, router }: AppProps) {
   useAppViewport();
 
   return (
-    <>
+    <FontsProvider>
       <Gsap />
       <SeoLayout
         commonSeoData={pageProps?.cms?.commonData?.seo}
@@ -31,6 +33,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
             <Header />
             <Cursor />
             <Preloader />
+            <UIElements />
             <Scroll root wrapper>
               <TransitionLayout router={router}>
                 <DataStoreProvider data={pageProps.cms}>
@@ -42,6 +45,6 @@ export default function App({ Component, pageProps, router }: AppProps) {
         </ResizeProvider>
         <AppHooks />
       </SeoLayout>
-    </>
+    </FontsProvider>
   );
 }

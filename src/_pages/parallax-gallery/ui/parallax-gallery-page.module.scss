@@ -29,10 +29,10 @@
   z-index: 0;
   display: flex;
     height: max-content;
-  gap: 2rem;
+  gap: vw(32);
   will-change: transform;
   align-items: center;
-  padding-inline: 2rem;
+  padding-inline: vw(32);
 
   // &::before, &::after{
   //   content:'';
