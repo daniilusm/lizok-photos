@@ -1,0 +1,78 @@
+.root{
+    background-color: black;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: vw(16);
+
+    padding: vw(48);
+}
+
+.image {
+    border-radius: vw(8);
+    overflow: hidden;
+
+    height: vw(224);
+
+    img{
+        transform: translateY(calc(20% * var(--parallax-scroll-progress))) scale(1.5);
+    }
+}
+
+.imagePopup{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+
+    width: 100%;
+    height: 100svh;
+
+    padding: var(--spacing-32);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    pointer-events: none;
+
+    @include transition((opacity));
+}
+
+.crossBtn {
+    position: absolute;
+    top: var(--spacing-32);
+    right: var(--spacing-32);
+    z-index: 1;
+}
+
+.popupImage{
+    position: relative;
+    z-index: 1;
+    height: 80svh;
+}
+
+.overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100svh;
+
+    backdrop-filter: blur(30px);
+}
+
+.crossBtn, .popupImage, .overlay{
+    opacity: 0;
+
+    @include transition((opacity));
+}
+
+.openPopup{
+    pointer-events: all;
+
+    .crossBtn, .popupImage, .overlay{
+        opacity: 1;
+    }
+}

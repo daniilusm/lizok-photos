@@ -1,6 +1,9 @@
 "use client";
 
 import type { RefObject } from "react";
+import Link from "next/link";
+
+import { Image } from "@/shared/ui/image";
 
 import s from "./parallax-gallery-page.module.scss";
 
@@ -25,14 +28,14 @@ export const GalleryTrack = ({
           className={s.media}
           ref={(node) => setMediaRef(index, node)}
         >
-          {/* biome-ignore lint/performance/noImgElement: Required for texture preloading and fallback */}
-          <img
+          <Image
             ref={(node) => setImageRef(index, node)}
             className={s.mediaImage}
             src={src}
-            alt=""
+            alt="project image"
             draggable={false}
           />
+          <Link className={s.link} href={`/project/${index}`} />
         </div>
       ))}
     </div>

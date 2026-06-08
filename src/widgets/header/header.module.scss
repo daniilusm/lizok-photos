@@ -12,6 +12,8 @@
   text-transform: uppercase;
   font-size: vw(10);
 
+    mix-blend-mode: difference;
+
   @include transition((background-color));
 
   @include mq(lg) {

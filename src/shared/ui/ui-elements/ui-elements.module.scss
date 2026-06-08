@@ -13,6 +13,8 @@
   font-family: var(--font-family-base);
   text-transform: uppercase;
   font-size: vw(10);
+
+    mix-blend-mode: difference;
 }
 
 .wrapper{

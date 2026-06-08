@@ -1,9 +1,10 @@
+import clsx from "clsx";
+
 import type { RebuiltMedia } from "@shared/types";
 import { Image } from "@shared/ui/image";
 import { SwitchTransition } from "@shared/ui/transition";
-import clsx from "clsx";
 
-import s from "./ImageSwitcher.module.scss";
+import s from "./image-switcher.module.scss";
 
 export type ImageSwitcherProps = {
   className: string;
