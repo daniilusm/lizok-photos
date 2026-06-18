@@ -13,6 +13,7 @@ import { useSwitchTransition } from "transition-hook";
 import { lerp, mod } from "@shared/utils";
 
 import s from "./cursor.module.scss";
+import Text from "./ui/Text";
 
 type CursorProps = {
   speed?: number;
@@ -54,7 +55,7 @@ export const CursorBody = ({
         opacity: 0,
       }}
     >
-      {type}
+      <Text />
     </div>
   );
 };

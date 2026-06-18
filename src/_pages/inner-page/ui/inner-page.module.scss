@@ -2,20 +2,64 @@
     background-color: black;
 
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: vw(16);
+    grid-template-columns: repeat(2, 1fr);
+    gap: vw(32);
+    
+    padding: 0 vw(32);
 
-    padding: vw(48);
 }
 
-.image {
+.list{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: vw(16);
+    padding: vw(86) 0;
+
+    @include mq(lg){
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include mq(md){
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include mq(sm){
+        grid-template-columns: 1fr;
+    }
+}
+
+.imageGridWrapper{
+    border: 1px solid transparent;
     border-radius: vw(8);
     overflow: hidden;
 
-    height: vw(224);
+    @include transition((border));
+}
+
+.activeHover{
+    border: 1px solid white;
+}
+
+.image {
+
+    height: vw(150);
 
     img{
         transform: translateY(calc(20% * var(--parallax-scroll-progress))) scale(1.5);
+    }
+}
+
+.imageHover{
+    position: sticky;
+    top: 0;
+    height: 100svh;
+}
+
+.currentImage{
+    height: 100%;
+
+    img{
+        object-fit: contain;
     }
 }
 
@@ -44,6 +88,11 @@
     top: var(--spacing-32);
     right: var(--spacing-32);
     z-index: 1;
+    transform: scale(1);
+
+    @include hover{
+        transform: scale(1.5);
+    }
 }
 
 .popupImage{
@@ -66,7 +115,7 @@
 .crossBtn, .popupImage, .overlay{
     opacity: 0;
 
-    @include transition((opacity));
+    @include transition((opacity, transform));
 }
 
 .openPopup{

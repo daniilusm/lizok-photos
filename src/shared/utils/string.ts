@@ -24,3 +24,24 @@ export const toCamelCaseAdvanced = (str: string): string => {
 
   return camelWords.join("");
 };
+
+export const formatDate = (
+  dateString: string,
+  withMonth: boolean = true,
+  withYear: boolean = true,
+): string => {
+  const date = new Date(dateString);
+  const day = date.getDate();
+  const month = date.getMonth();
+  const year = date.getFullYear();
+
+  if (withYear) {
+    return `${day}/${month}/${year}`;
+  }
+
+  if (withMonth) {
+    return `${day} ${month}`;
+  }
+
+  return `${day}`;
+};

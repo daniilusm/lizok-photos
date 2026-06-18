@@ -4,13 +4,12 @@ import s from "./Text.module.scss";
 
 type TextProps = {
   className: string;
-  text: string | null;
 };
 
 const Text = (props: TextProps) => {
-  const { className, text } = props;
+  const { className } = props;
 
-  return <div className={clsx(s.root, className)}>{text}</div>;
+  return <div className={clsx(s.root, className)} />;
 };
 
 Text.displayName = "Text";
