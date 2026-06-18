@@ -52,7 +52,9 @@ export const Preloader = (props: PreloaderProps) => {
 
   console.log(isFinishEndAnimation);
 
-  if (isFinishEndAnimation) return;
+  console.info(formattedPercents);
+
+  // if (isFinishEndAnimation) return;
 
   return (
     <div ref={$root} className={clsx(s.root, className)}>

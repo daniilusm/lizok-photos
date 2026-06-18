@@ -27,7 +27,7 @@ export const usePreloaderStore = create<PreloaderState>((set) => ({
   isPreloaded: false,
   isStartEndAnimation: false,
   isFinishSequenceAnimation: false,
-  isFinishEndAnimation: isDev,
+  isFinishEndAnimation: false,
   percents: 0,
   formattedPercents: `0%`,
   additionalData: [],
