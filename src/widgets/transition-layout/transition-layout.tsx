@@ -5,7 +5,7 @@ import type { NextRouter } from "next/router";
 
 import { DelayDelete, SwitchElement } from "@shared/ui/animate-presence";
 
-import { TRANSITION_DURATION } from "./constants";
+import { TRANSITION_BLUR, TRANSITION_DURATION } from "./constants";
 import { TransitionLayoutContext } from "./context/transition-layout-context";
 import { EVENTS_TRANSITION_LAYOUT, transitionLayoutEmitter } from "./emmiter";
 
@@ -39,7 +39,7 @@ export const TransitionLayout = memo(
       );
 
       const tween = gsap.to($block.current, {
-        opacity: 0,
+        "--transition-blur": "0px",
         pointerEvents: "none",
         duration: TRANSITION_DURATION,
         ease: "power2.inOut",
@@ -56,7 +56,7 @@ export const TransitionLayout = memo(
       setTransitionStarted(true);
 
       const tween = gsap.to($block.current, {
-        opacity: 1,
+        "--transition-blur": `${TRANSITION_BLUR}px`,
         pointerEvents: "auto",
         duration: TRANSITION_DURATION,
         ease: "power2.inOut",

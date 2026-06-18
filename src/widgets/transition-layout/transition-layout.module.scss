@@ -9,7 +9,10 @@
   left: 0;
   width: 100%;
   height: 100svh;
-  opacity: 0;
-  background: #fff;
+  --transition-blur: 0px;
+  background: transparent;
+  backdrop-filter: blur(var(--transition-blur));
+  -webkit-backdrop-filter: blur(var(--transition-blur));
   pointer-events: none;
+  will-change: backdrop-filter;
 }
