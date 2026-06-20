@@ -3,7 +3,7 @@ import { SplitText } from "@shared/ui/split-text";
 import { composeRefs } from "@shared/utils/compose-refs";
 import clsx from "clsx";
 import { gsap } from "gsap";
-import { useEffect, useRef } from "react";
+import { type ElementType, createElement, useEffect, useRef } from "react";
 
 import s from "./split-text.module.scss";
 
@@ -15,7 +15,7 @@ interface SplitTextAnimateProps {
   stagger?: number;
   duration?: number;
   delay?: number;
-  as?: React.ElementType;
+  as?: ElementType;
   type?: "char" | "word";
   ref?: React.Ref<HTMLElement>;
 }
@@ -69,10 +69,13 @@ export const SplitTextAnimate = ({
     };
   }, [isVisible, delay, stagger, duration]);
 
-  return (
-    <As ref={composeRefs(ref, rootRef)} className={clsx(s.root, className)}>
-      <SplitText type={type}>{children}</SplitText>
-    </As>
+  return createElement(
+    As,
+    {
+      ref: composeRefs(ref, rootRef),
+      className: clsx(s.root, className),
+    },
+    createElement(SplitText, { type, children }),
   );
 };
 

@@ -7,17 +7,16 @@ import {
 } from "../constants";
 import { mediaFragmentShader, mediaVertexShader } from "../shaders";
 
-export const createGalleryShaderMaterial = (texture: THREE.Texture) =>
-  new THREE.ShaderMaterial({
+export const createGalleryShaderMaterial = (texture: THREE.Texture) => {
+  const image = texture.image as HTMLImageElement | undefined;
+
+  return new THREE.ShaderMaterial({
     transparent: true,
     uniforms: {
       uTexture: { value: texture },
       uResolution: { value: new THREE.Vector2(1, 1) },
       uImageResolution: {
-        value: new THREE.Vector2(
-          texture.image?.width ?? 1,
-          texture.image?.height ?? 1,
-        ),
+        value: new THREE.Vector2(image?.width ?? 1, image?.height ?? 1),
       },
       uParallax: { value: 0 },
       uUvScale: { value: 0.85 },
@@ -32,3 +31,4 @@ export const createGalleryShaderMaterial = (texture: THREE.Texture) =>
     vertexShader: mediaVertexShader,
     fragmentShader: mediaFragmentShader,
   });
+};

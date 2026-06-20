@@ -13,7 +13,9 @@ import { TransitionLayout } from "@widgets/transition-layout";
 import { Cursor } from "@widgets/сursor";
 import type { AppProps } from "next/app";
 
-import { PreviewBanner } from "@shared/ui/preview-banner";
+// DEPLOY: Strapi preview banner — только для draft mode через API routes.
+// Не используется при static export на Vercel.
+// import { PreviewBanner } from "@shared/ui/preview-banner";
 import { FontsProvider } from "@/shared/fonts";
 import { UIElements } from "@/shared/ui/ui-elements";
 
@@ -24,19 +26,22 @@ export default function App({ Component, pageProps, router }: AppProps) {
     <FontsProvider>
       <Gsap />
       <SeoLayout
+        // DEPLOY: SEO из Strapi CMS — раскомментировать после подключения CMS + SSR/ISR
         commonSeoData={pageProps?.cms?.commonData?.seo}
         pageSeoData={pageProps?.cms?.pageSeoData}
       >
-        <PreviewBanner isDraftMode={pageProps.isDraftMode} />
+        {/* DEPLOY: PreviewBanner требует /api/preview и Strapi PREVIEW_SECRET */}
+        {/* <PreviewBanner isDraftMode={pageProps.isDraftMode} /> */}
         <ResizeProvider>
-          <DataStoreProvider data={pageProps.cms}>
+          {/* DEPLOY: DataStoreProvider — данные из Strapi через getServerSideProps */}
+          <DataStoreProvider data={pageProps.cms ?? {}}>
             <Header />
             <Cursor />
             <Preloader />
             <UIElements />
             <Scroll root wrapper>
               <TransitionLayout router={router}>
-                <DataStoreProvider data={pageProps.cms}>
+                <DataStoreProvider data={pageProps.cms ?? {}}>
                   <Component {...pageProps} />
                 </DataStoreProvider>
               </TransitionLayout>

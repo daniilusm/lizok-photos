@@ -101,8 +101,8 @@ export const GalleryMediaMesh = ({
     material.uniforms.uHover.value = smoothPointer.hover;
     material.uniforms.uResolution.value.set(bounds.width, bounds.height);
     material.uniforms.uImageResolution.value.set(
-      texture.image?.width ?? 1,
-      texture.image?.height ?? 1,
+      (texture.image as HTMLImageElement | undefined)?.width ?? 1,
+      (texture.image as HTMLImageElement | undefined)?.height ?? 1,
     );
   });
 

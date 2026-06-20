@@ -2,9 +2,25 @@ import type { NextConfig } from "next";
 
 import path from "node:path";
 
+/**
+ * Static deploy (Vercel / CDN)
+ *
+ * `output: "export"` — полностью статическая сборка без Node.js runtime.
+ * Не работает с:
+ * - getServerSideProps (используй getStaticProps или client-only)
+ * - API routes (`pages/api/*`)
+ * - Strapi preview / draft mode
+ * - imgproxy на сервере (нужен отдельный сервис или прямые URL из /public)
+ * - ISR / middleware / dynamic routes без getStaticPaths
+ */
 const nextConfig: NextConfig = {
-  /* config options here */
   reactStrictMode: false,
+  output: "export",
+  trailingSlash: true,
+  images: {
+    // Обязательно для static export — Next Image Optimization требует сервер
+    unoptimized: true,
+  },
   sassOptions: {
     includePaths: [
       path.join(__dirname, "src", "shared", "ui"),
@@ -25,7 +41,6 @@ const nextConfig: NextConfig = {
             svgoConfig: {
               plugins: [
                 "prefixIds",
-                // { name: "convertStyleToAttrs" },
                 { name: "removeAttrs", params: { attrs: ["fill"] } },
               ],
             },

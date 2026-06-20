@@ -1,121 +1,44 @@
-import {
-  generateImageUrl,
-  type IGenerateImageUrl,
-} from "@imgproxy/imgproxy-node";
 import type { StaticImageData } from "next/image";
 
-import { IMG_PROXY_CONFIG, STRAPI_CONFIG, siteOrigin } from "@shared/config";
+import { IS_IMGPROXY_ENABLED } from "@shared/config";
 
-type Options = NonNullable<IGenerateImageUrl["options"]>;
-type Format = Options["format"];
-type ResizeOptions = NonNullable<Options["resize"]>;
+type ImageProxyFormat = "webp" | "jpeg" | "png" | "avif";
 
 export type ImageProxySize = {
-  width?: ResizeOptions["width"];
-  height?: ResizeOptions["height"];
-};
-
-// Словарь замен URL
-const urlReplacements: Record<string, string> = {
-  [`${STRAPI_CONFIG.strapiUrl}`]: "local://",
-};
-
-// Словарь экранирования символов
-const escapeReplacements: Record<string, string> = {
-  "%": "%25",
-  "?": "%3F",
-  "@": "%40",
+  width?: number;
+  height?: number;
 };
 
 /**
- * Применяет замены по словарю к строке
- * Заменяет все вхождения каждого ключа на соответствующее значение
+ * DEPLOY (static Vercel): заглушка без imgproxy.
+ * Возвращает исходный URL — подходит для файлов из /public.
+ *
+ * Для imgproxy раскомментировать реализацию с @imgproxy/imgproxy-node
+ * и вызывать только на сервере (getStaticProps / API routes).
  */
-const applyReplacements = (
-  str: string,
-  replacements: Record<string, string>,
-): string => {
-  let result = str;
-  for (const [search, replace] of Object.entries(replacements)) {
-    // Используем replaceAll для замены всех вхождений
-    // Если replaceAll недоступен, используем глобальный regex
-    result = result.replaceAll
-      ? result.replaceAll(search, replace)
-      : result.replace(
-          new RegExp(search.replace(/[.*+?^${}()|[]\\]/g, "\\$&"), "g"),
-          replace,
-        );
-  }
-  return result;
-};
-
 export const imageproxyUrl = (
   src: string | StaticImageData,
-  format: Format,
-  dpr: number = 2,
-  quality: number = 95,
-  size?: ImageProxySize,
+  _format: ImageProxyFormat = "webp",
+  _dpr = 2,
+  _quality = 95,
+  _size?: ImageProxySize,
 ) => {
-  // Валидация quality
-  if (quality < 0 || quality > 100 || !Number.isInteger(quality)) {
-    throw new Error("Quality must be an integer between 0 and 100");
+  if (!IS_IMGPROXY_ENABLED) {
+    return typeof src === "string" ? src : src.src;
   }
 
-  // Валидация dpr
-  if (dpr <= 0 || !Number.isFinite(dpr)) {
-    throw new Error("DPR must be a positive finite number");
-  }
+  // DEPLOY: imgproxy runtime не подключён в static export.
+  console.warn(
+    "[imgproxy] IS_IMGPROXY_ENABLED=true, но серверная генерация URL отключена для static deploy.",
+  );
 
-  // Валидация size
-  if (size) {
-    if (
-      size.width !== undefined &&
-      (size.width <= 0 || !Number.isInteger(size.width))
-    ) {
-      throw new Error("Width must be a positive integer");
-    }
-  }
-
-  const resolvedSrc = typeof src === "string" ? src : src.src;
-
-  const fullSrc = new URL(resolvedSrc, siteOrigin).toString();
-
-  // Применяем замены URL
-  const normalizedSrc = applyReplacements(fullSrc, urlReplacements);
-
-  // Применяем экранирование символов
-  const escapedSrc = applyReplacements(normalizedSrc, escapeReplacements);
-
-  // Формируем объект options
-  const options: IGenerateImageUrl["options"] = {
-    format,
-    dpr,
-    quality,
-  };
-
-  // Добавляем resize только если указан size с width или height
-  if (size && (size.width !== undefined || size.height !== undefined)) {
-    options.resize = {
-      resizing_type: "fill",
-    };
-
-    if (size.width !== undefined) {
-      options.resize.width = size.width;
-    }
-
-    if (size.height !== undefined) {
-      options.resize.height = size.height;
-    }
-  }
-
-  return generateImageUrl({
-    endpoint: IMG_PROXY_CONFIG.URL,
-    url: {
-      value: escapedSrc,
-      displayAs: "plain",
-    },
-    options,
-    salt: IMG_PROXY_CONFIG.SALT,
-    key: IMG_PROXY_CONFIG.KEY,
-  });
+  return typeof src === "string" ? src : src.src;
 };
+
+/*
+ * --- Оригинальная реализация (требует imgproxy-сервис + server runtime) ---
+ *
+ * import { generateImageUrl } from "@imgproxy/imgproxy-node";
+ * import { IMG_PROXY_CONFIG, STRAPI_CONFIG, siteOrigin } from "@shared/config";
+ * ...
+ */

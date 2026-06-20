@@ -3,7 +3,7 @@ import clsx from "clsx";
 import s from "./Text.module.scss";
 
 type TextProps = {
-  className: string;
+  className?: string;
 };
 
 const Text = (props: TextProps) => {

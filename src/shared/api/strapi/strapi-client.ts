@@ -1,8 +1,5 @@
-import { strapi } from "@strapi/client";
-
-import { STRAPI_CONFIG } from "@shared/config";
-
-export const strapiClient = strapi({
-  baseURL: `${STRAPI_CONFIG.strapiNetworkUrl}/api`,
-  auth: STRAPI_CONFIG.strapiApiToken,
-});
+/**
+ * DEPLOY (static Vercel): Strapi client отключён.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const strapiClient = null as any;

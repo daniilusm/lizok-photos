@@ -1,3 +1,7 @@
+/**
+ * DEPLOY (static Vercel): imgproxy/Strapi URL normalization не используется.
+ * Изображения из /public отдаются напрямую. Раскомментировать логику при подключении CMS.
+ */
 import { STRAPI_CONFIG } from "@shared/config";
 
 /**

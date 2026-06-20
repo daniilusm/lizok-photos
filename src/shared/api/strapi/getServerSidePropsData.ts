@@ -1,6 +1,12 @@
-import rebuild from "./rebuild";
+import type { GetServerSidePropsContext } from "next";
 
-type RequestFunction = (options?: { status?: "draft" | "published" }) => Promise<unknown>;
+/**
+ * DEPLOY (static Vercel): не используется — страницы без getServerSideProps.
+ * Оставлено для будущего подключения Strapi CMS.
+ */
+type RequestFunction = (options?: {
+  status?: "draft" | "published";
+}) => Promise<unknown>;
 
 export const getServerSidePropsData = async <
   T extends Record<string, RequestFunction>,
@@ -8,54 +14,22 @@ export const getServerSidePropsData = async <
   additionalRequests?: T,
   options?: { isDraftMode?: boolean },
 ) => {
-  try {
-    // Получаем общие данные
-    // const commonData = await getCommonData();
-    // const projectsCount = await getProjectsCount();
-    // const servicesList = await getHomeServices();
+  // DEPLOY: Strapi fetch отключён для static export
+  console.warn(
+    "[getServerSidePropsData] Strapi disabled for static deploy. Returning empty data.",
+  );
 
-    // Определяем status для запросов к Strapi
-    const status = options?.isDraftMode ? ("draft" as const) : ("published" as const);
-
-    // Получаем дополнительные данные, если они переданы
-    const additionalData: Record<string, unknown> = {};
-
-    if (additionalRequests) {
-      const requests = Object.entries(additionalRequests).map(
-        async ([key, requestFn]) => {
-          // Передаем опции в функцию запроса
-          const data = await requestFn({ status });
-          return [key, data] as const;
+  return {
+    commonData: null,
+    ...(additionalRequests &&
+      Object.keys(additionalRequests).reduce(
+        (acc, key) => {
+          acc[key] = null;
+          return acc;
         },
-      );
-
-      const results = await Promise.all(requests);
-
-      results.forEach(([key, data]) => {
-        additionalData[key] = data;
-      });
-    }
-
-    return rebuild({
-      commonData: {
-        // ...commonData,
-        // projectsCount,
-        // servicesList,
-      },
-      ...additionalData,
-    });
-  } catch (error) {
-    console.error("Error fetching server-side props data:", error);
-    return {
-      commonData: null,
-      ...(additionalRequests &&
-        Object.keys(additionalRequests).reduce(
-          (acc, key) => {
-            acc[key] = null;
-            return acc;
-          },
-          {} as Record<string, unknown>,
-        )),
-    };
-  }
+        {} as Record<string, unknown>,
+      )),
+  };
 };
+
+export type { GetServerSidePropsContext };

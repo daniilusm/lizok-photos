@@ -3,7 +3,6 @@ import htmlReactParser from "html-react-parser";
 import {
   Children,
   cloneElement,
-  type ElementType,
   memo,
   type ReactElement,
   type ReactNode,
@@ -16,7 +15,6 @@ import s from "./split-text.module.scss";
 export type SplitTextProps = {
   children: ReactNode;
   type?: "char" | "word";
-  tag?: ElementType;
   debug?: boolean;
 };
 
@@ -27,7 +25,7 @@ type SplitChildProps = {
 };
 
 export const SplitText = memo(
-  ({ children, type = "word", tag: Tag = "span", debug }: SplitTextProps) => {
+  ({ children, type = "word", debug }: SplitTextProps) => {
     if (debug) {
       console.log(children);
     }
@@ -41,9 +39,7 @@ export const SplitText = memo(
 
       if (childIsHtml) {
         return (
-          <SplitText type={type} tag={Tag}>
-            {htmlReactParser(children)}
-          </SplitText>
+          <SplitText type={type}>{htmlReactParser(children)}</SplitText>
         );
       }
 
@@ -55,25 +51,25 @@ export const SplitText = memo(
         }
 
         return (
-          <Tag
+          <span
             className={clsx(s.word, "word")}
             // biome-ignore lint/suspicious/noArrayIndexKey: text split is stable, order doesn't change
             key={`word_${iWord}`}
           >
             {Array.isArray(el) ? (
               el.map((elInner, iEl) => (
-                <Tag
+                <span
                   // biome-ignore lint/suspicious/noArrayIndexKey: character split is stable
                   key={`char_${iEl}`}
                   className={clsx(s.char, "char char1")}
                 >
                   {elInner}
-                </Tag>
+                </span>
               ))
             ) : (
-              <Tag className={clsx(s.char, "char char2")}>{el}</Tag>
+              <span className={clsx(s.char, "char char2")}>{el}</span>
             )}
-          </Tag>
+          </span>
         );
       });
     }
@@ -82,11 +78,7 @@ export const SplitText = memo(
       if (!child) return null;
 
       if (typeof child === "string") {
-        return (
-          <SplitText type={type} tag={Tag}>
-            {child}
-          </SplitText>
-        );
+        return <SplitText type={type}>{child}</SplitText>;
       }
 
       const element = child as ReactElement<SplitChildProps>;
@@ -101,9 +93,7 @@ export const SplitText = memo(
           {
             className: clsx(element.props.className),
           },
-          <SplitText type={type} tag={Tag}>
-            {element.props.children}
-          </SplitText>,
+          <SplitText type={type}>{element.props.children}</SplitText>,
         );
       }
 
@@ -113,3 +103,5 @@ export const SplitText = memo(
     });
   },
 );
+
+SplitText.displayName = "SplitText";

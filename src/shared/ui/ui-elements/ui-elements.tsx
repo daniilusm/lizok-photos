@@ -22,7 +22,11 @@ export const UIElements = (props: UIElementsProps) => {
 
   const date = useMemo(() => {
     const today = new Date();
-    const options = { day: "2-digit", month: "2-digit", year: "numeric" };
+    const options: Intl.DateTimeFormatOptions = {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    };
     const formattedDate = today
       .toLocaleDateString("ru-RU", options)
       .split(".")
