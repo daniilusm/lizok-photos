@@ -55,6 +55,8 @@ export const UIElements = (props: UIElementsProps) => {
         <div className={s.corner} />
         <div className={s.corner} />
 
+        {/* <div className={s.grid} /> */}
+
         <div className={s.date}>
           <p>{date}</p>
           <p className={s.time}>{time}</p>

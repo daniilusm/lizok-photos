@@ -1,6 +1,5 @@
 import "@/shared/styles/globals.scss";
 
-import { FontsProvider } from "@/shared/fonts";
 import { DataStoreProvider } from "@app/model/data-store";
 import { useAppViewport } from "@app/model/viewport-store";
 import { AppHooks } from "@widgets/app-hooks/app-hooks";
@@ -15,6 +14,7 @@ import { Cursor } from "@widgets/сursor";
 import type { AppProps } from "next/app";
 
 import { PreviewBanner } from "@shared/ui/preview-banner";
+import { FontsProvider } from "@/shared/fonts";
 import { UIElements } from "@/shared/ui/ui-elements";
 
 export default function App({ Component, pageProps, router }: AppProps) {

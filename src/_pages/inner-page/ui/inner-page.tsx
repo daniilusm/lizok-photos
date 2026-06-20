@@ -71,6 +71,7 @@ export const InnerPage = (props: InnerPageProps) => {
               src={`/parallax-gallery/${currentIndex}.webp`}
               alt="alt image popup"
               height="100%"
+              objectFit="contain"
               className={s.popupImage}
             />
           )}

@@ -16,14 +16,14 @@
 
   @include transition((background-color));
 
-  @include mq(lg) {
-    padding: vw(14) var(--spacing-20);
-  }
+  // @include mq(lg) {
+  //   padding: vw(14) var(--spacing-20);
+  // }
 
-  @include mq(md) {
-    grid-template-columns: repeat(2, 1fr);
-    padding: vw(10) var(--spacing-16);
-  }
+  // @include mq(md) {
+  //   grid-template-columns: repeat(2, 1fr);
+  //   padding: vw(10) var(--spacing-16);
+  // }
 
   &.filled {
     background-color: var(--background-surface-page);
@@ -74,11 +74,21 @@
   z-index: 1;
   border: 1px solid white;
 
-  width: 50vw;
-  height: 30vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
-    background-color: #00000072;
-    backdrop-filter: blur(70px);
+  padding: var(--spacing-32);
+
+  width: 70vw;
+  height: 70vh;
+
+  background-color: #00000072;
+  backdrop-filter: blur(70px);
+
+  @include mq(md){
+    width: 80vw;
+  }
 }
 
 .contactPopup{
@@ -124,6 +134,13 @@
     backdrop-filter: blur(30px);
 }
 
+.canvas{
+    pointer-events: none !important;
+  canvas, div {
+    pointer-events: none !important;
+  }
+}
+
 .crossBtn, .wrapper, .overlay{
     opacity: 0;
 
@@ -133,7 +150,93 @@
 .openPopup {
     pointer-events: all;
 
+    .canvas{
+        pointer-events: all !important;
+      canvas, div {
+        pointer-events: all !important;
+      }
+    }
+
     .crossBtn, .wrapper, .overlay{
         opacity: 1;
     }
+}
+
+.top{
+  display: flex;
+  justify-content: space-between;
+
+  @include mq(lg){
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: var(--spacing-56);
+  }
+}
+
+.image{
+  width: 40vw;
+  height: 55vh;
+
+  @include mq(lg){
+    width: 100%;
+    height: 50dvh;
+  }
+
+  @include mq(sm){
+    height: 30dvh;
+  }
+}
+
+.social{
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-20);
+
+  text-transform: uppercase;
+
+  @include mq(lg){
+    flex-direction: row;    
+    justify-content: center;    
+    flex-wrap: wrap;
+  }
+}
+
+.link{
+  position: relative;
+  opacity: 0.75;
+
+  width: max-content;
+
+  @include transition((opacity));
+
+  &::before{
+    position: absolute;
+    bottom: vw(-2);
+    left: 0;
+    content: '';
+    width: 100%;
+    height: 2px;
+    background-color: var(--c-white);
+    transform: scaleX(0);
+    transform-origin: right;
+    @include transition((transform), 0.5s, steps(4, jump-end));
+  }
+
+  @include hover{
+    opacity: 1;
+
+    &::before{
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+  }
+}
+
+.alertText{
+  font-size: vw(8);
+  opacity: 0.5;
+
+  @include mq(md){
+    font-size: vw(10);
+  }
 }

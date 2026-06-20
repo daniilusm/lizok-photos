@@ -7,6 +7,10 @@
     
     padding: 0 vw(32);
 
+    @include mq(md){
+        grid-template-columns: 1fr;
+    }
+
 }
 
 .list{
@@ -16,10 +20,6 @@
     padding: vw(86) 0;
 
     @include mq(lg){
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    @include mq(md){
         grid-template-columns: repeat(2, 1fr);
     }
 
@@ -47,12 +47,24 @@
     img{
         transform: translateY(calc(20% * var(--parallax-scroll-progress))) scale(1.5);
     }
+
+    @include mq(lg){
+        height: vw(200);
+    }
+
+    @include mq(md){
+        height: vw(250);
+    }
 }
 
 .imageHover{
     position: sticky;
     top: 0;
     height: 100svh;
+
+    @include mq(md){
+        display: none;
+    }
 }
 
 .currentImage{

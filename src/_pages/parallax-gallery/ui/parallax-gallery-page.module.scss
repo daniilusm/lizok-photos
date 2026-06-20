@@ -71,6 +71,14 @@
   pointer-events: auto;
   cursor: pointer;
   border-radius: vw(30);
+
+  @include mq(lg){
+    height: 40vh;
+  }
+
+  @include mq(md){
+    height: 30vh;
+  }
 }
 
 .mediaImage {

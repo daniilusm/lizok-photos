@@ -14,6 +14,7 @@ $radius: #{vw(200)};
   overflow: hidden;
   backdrop-filter: blur(calc(150px - var(--close-progress) * 150px));
   opacity: calc(1 - var(--close-progress));
+  pointer-events: none;
 }
 
 .inner {
