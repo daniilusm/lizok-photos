@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef } from "react";
 import { useScroll } from "@widgets/scroll/hooks/use-scroll";
 
 import { clamp, lerp } from "@shared/utils/math";
+import type { ScrollEvent } from "@/widgets/scroll";
 
 import { SCROLL_EASE } from "../constants";
 import { applyDomParallax } from "../lib/apply-dom-parallax";
@@ -34,7 +35,7 @@ export const useParallaxGalleryScroll = ({
   }, []);
 
   useScroll(
-    useCallback((event) => {
+    useCallback((event: ScrollEvent) => {
       const delta = event.targetScroll - lastScrollYRef.current;
       lastScrollYRef.current = event.targetScroll;
 
