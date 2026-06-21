@@ -2,7 +2,7 @@ export const siteURL = new URL(process.env.NEXT_PUBLIC_SITE_URL || "");
 export const siteOrigin = siteURL.origin;
 
 export const APP_INFO = {
-  APP_DEFAULT_TITLE: "",
+  APP_DEFAULT_TITLE: "LIZOK PHOTOS",
   APP_TITLE_TEMPLATE: "%s",
   APP_DESCRIPTION: "",
   APP_KEYWORDS: "",
