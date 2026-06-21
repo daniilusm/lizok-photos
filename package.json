@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "packageManager": "pnpm@9.15.9",
   "private": true,
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -20,9 +23,7 @@
     "@types/lodash.isequal": "^4.5.8",
     "axios": "^1.13.6",
     "clsx": "^2.1.1",
-    "drei,": "link:@react-three/drei,",
     "eslint-config-next": "^16.0.7",
-    "fiber,": "link:@react-three/fiber,",
     "gsap": "^3.13.0",
     "html-react-parser": "^5.2.7",
     "imgproxy": "^1.4.1",
@@ -53,5 +54,15 @@
     "@types/react-dom": "^19",
     "@types/three": "^0.184.1",
     "typescript": "5.9.2"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@swc/core",
+      "@parcel/watcher",
+      "core-js-pure",
+      "esbuild",
+      "sharp",
+      "unrs-resolver"
+    ]
   }
 }
