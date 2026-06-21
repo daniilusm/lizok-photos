@@ -1,6 +1,8 @@
-import { type ComponentProps, useCallback, useState } from "react";
+import { type ComponentProps, useCallback, useMemo, useState } from "react";
 import clsx from "clsx";
+import { useRouter } from "next/router";
 
+import { projects } from "@/shared/stub/projects";
 import { Button } from "@/shared/ui/button";
 import { ImageSwitcher } from "@/shared/ui/Image-switcher";
 import { Icon } from "@/shared/ui/icon";
@@ -17,6 +19,12 @@ export type InnerPageProps = ComponentProps<"div"> & {
 export const InnerPage = (props: InnerPageProps) => {
   const { className } = props;
 
+  const { query } = useRouter();
+
+  const currentProject = useMemo(() => {
+    return projects.find((item) => item.slug === query.slug);
+  }, [query.slug]);
+
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
 
   const [currentIndexHover, setCurrentIndexHover] = useState<number>(0);
@@ -29,18 +37,18 @@ export const InnerPage = (props: InnerPageProps) => {
     <>
       <ParallaxScrollContainer className={clsx(s.root, className)}>
         <div className={s.list}>
-          {Array.from({ length: 10 }).map((_, idx) => (
+          {currentProject?.images.map((item, idx) => (
             <Button
               key={`image-${idx + 1}`}
-              onClick={() => setCurrentIndex(idx + 1)}
-              onMouseEnter={() => setCurrentIndexHover(idx + 1)}
+              onClick={() => setCurrentIndex(idx)}
+              onMouseEnter={() => setCurrentIndexHover(idx)}
               className={clsx(s.imageGridWrapper, {
-                [s.activeHover]: currentIndexHover === idx + 1,
+                [s.activeHover]: currentIndexHover === idx,
               })}
             >
               <Image
                 className={s.image}
-                src={`/parallax-gallery/${idx + 1}.webp`}
+                src={item.url}
                 alt="image"
                 height="100%"
               />
@@ -49,8 +57,8 @@ export const InnerPage = (props: InnerPageProps) => {
         </div>
         <div className={s.imageHover}>
           <Image
-            src={`/parallax-gallery/${currentIndexHover}.webp`}
-            alt="alt image popup"
+            src={currentProject?.images[currentIndexHover]?.url!}
+            alt={`${query.slug} image`}
             height="100%"
             objectFit="contain"
             className={s.currentImage}
@@ -68,8 +76,8 @@ export const InnerPage = (props: InnerPageProps) => {
           <div className={s.overlay} onClick={handleClose} />
           {currentIndex !== null && (
             <Image
-              src={`/parallax-gallery/${currentIndex}.webp`}
-              alt="alt image popup"
+              src={currentProject?.images[currentIndex]?.url!}
+              alt={`${query.slug} image`}
               height="100%"
               objectFit="contain"
               className={s.popupImage}

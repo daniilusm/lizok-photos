@@ -1,7 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
+
+import { projects } from "@/shared/stub/projects";
 
 import { useGalleryPointer } from "../hooks/use-gallery-pointer";
 import { useParallaxGallery } from "../hooks/use-parallax-gallery";
@@ -12,6 +14,11 @@ import s from "./parallax-gallery-page.module.scss";
 
 export const ParallaxGalleryPage = () => {
   const [isMounted, setIsMounted] = useState(false);
+
+  const projectsImages = useMemo(() => {
+    return projects.map((item) => item.mainImage);
+  }, []);
+
   const {
     wrapperRef,
     containerRef,
@@ -21,7 +28,7 @@ export const ParallaxGalleryPage = () => {
     isReady,
     viewport,
     images,
-  } = useParallaxGallery();
+  } = useParallaxGallery(projectsImages);
 
   const pointersRef = useGalleryPointer(mediaRefs, images.length);
 

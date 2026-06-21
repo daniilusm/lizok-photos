@@ -3,6 +3,7 @@
 import type { RefObject } from "react";
 import Link from "next/link";
 
+import { projects } from "@/shared/stub/projects";
 import { Image } from "@/shared/ui/image";
 
 import s from "./parallax-gallery-page.module.scss";
@@ -35,7 +36,7 @@ export const GalleryTrack = ({
             alt="project image"
             draggable={false}
           />
-          <Link className={s.link} href={`/project/${index}`} />
+          <Link className={s.link} href={`/project/${projects[index].slug}`} />
         </div>
       ))}
     </div>

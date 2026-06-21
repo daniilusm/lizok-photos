@@ -29,9 +29,11 @@
 }
 
 .imageGridWrapper{
-    border: 1px solid transparent;
+    border: 1px solid black;
     border-radius: vw(8);
     overflow: hidden;
+
+    background-color: gray;
 
     @include transition((border));
 }
@@ -41,6 +43,7 @@
 }
 
 .image {
+
 
     height: vw(150);
 
