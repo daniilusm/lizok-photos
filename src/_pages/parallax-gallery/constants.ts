@@ -4,6 +4,7 @@ export const GALLERY_IMAGES = Array.from(
 );
 
 export const SCROLL_EASE = 0.07;
+export const TOUCH_DRAG_THRESHOLD = 6;
 export const PARALLAX_INTENSITY = 0.4;
 export const COLOR_MASK_RADIUS = 0.8;
 export const CURSOR_DISTORT_INTENSITY = 0.01;

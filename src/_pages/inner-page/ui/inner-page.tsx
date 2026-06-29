@@ -1,14 +1,15 @@
-import { type ComponentProps, useCallback, useMemo, useState } from "react";
+import { type ComponentProps, useMemo, useState } from "react";
 import clsx from "clsx";
 import { useRouter } from "next/router";
 
 import { projects } from "@/shared/stub/projects";
 import { Button } from "@/shared/ui/button";
-import { ImageSwitcher } from "@/shared/ui/Image-switcher";
-import { Icon } from "@/shared/ui/icon";
+// import { ImageSwitcher } from "@/shared/ui/Image-switcher";
+// import { Icon } from "@/shared/ui/icon";
 import { Image } from "@/shared/ui/image";
 import { ParallaxScrollContainer } from "@/shared/ui/parallax-scroll-container";
-import { Portal } from "@/shared/ui/portal";
+
+// import { Portal } from "@/shared/ui/portal";
 
 import s from "./inner-page.module.scss";
 
@@ -25,13 +26,13 @@ export const InnerPage = (props: InnerPageProps) => {
     return projects.find((item) => item.slug === query.slug);
   }, [query.slug]);
 
-  const [currentIndex, setCurrentIndex] = useState<number | null>(null);
+  // const [currentIndex, setCurrentIndex] = useState<number | null>(null);
 
   const [currentIndexHover, setCurrentIndexHover] = useState<number>(0);
 
-  const handleClose = useCallback(() => {
-    setCurrentIndex(null);
-  }, []);
+  // const handleClose = useCallback(() => {
+  //   setCurrentIndex(null);
+  // }, []);
 
   return (
     <>
@@ -40,7 +41,7 @@ export const InnerPage = (props: InnerPageProps) => {
           {currentProject?.images.map((item, idx) => (
             <Button
               key={`image-${idx + 1}`}
-              onClick={() => setCurrentIndex(idx)}
+              onClick={() => setCurrentIndexHover(idx)}
               onMouseEnter={() => setCurrentIndexHover(idx)}
               className={clsx(s.imageGridWrapper, {
                 [s.activeHover]: currentIndexHover === idx,
@@ -63,9 +64,12 @@ export const InnerPage = (props: InnerPageProps) => {
             objectFit="contain"
             className={s.currentImage}
           />
+          <div className={s.counter}>
+            {currentIndexHover + 1} / {currentProject?.images?.length}
+          </div>
         </div>
       </ParallaxScrollContainer>
-      <Portal
+      {/* <Portal
         id="image-popup"
         className={clsx(s.imagePopup, { [s.openPopup]: currentIndex !== null })}
       >
@@ -84,7 +88,7 @@ export const InnerPage = (props: InnerPageProps) => {
             />
           )}
         </div>
-      </Portal>
+      </Portal> */}
     </>
   );
 };

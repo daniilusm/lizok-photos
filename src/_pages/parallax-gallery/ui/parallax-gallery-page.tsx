@@ -37,7 +37,7 @@ export const ParallaxGalleryPage = () => {
   }, []);
 
   return (
-    <section id="gl" className={s.root}>
+    <section id="gl" className={s.root} data-lenis-prevent>
       <div ref={wrapperRef} className={s.wrapper}>
         {isMounted &&
           isReady &&

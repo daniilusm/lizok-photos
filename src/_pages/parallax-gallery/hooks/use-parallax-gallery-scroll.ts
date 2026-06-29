@@ -7,7 +7,7 @@ import { useScroll } from "@widgets/scroll/hooks/use-scroll";
 import { clamp, lerp } from "@shared/utils/math";
 import type { ScrollEvent } from "@/widgets/scroll";
 
-import { SCROLL_EASE } from "../constants";
+import { SCROLL_EASE, TOUCH_DRAG_THRESHOLD } from "../constants";
 import { applyDomParallax } from "../lib/apply-dom-parallax";
 import type { GalleryScrollState } from "../lib/types";
 
@@ -90,10 +90,84 @@ export const useParallaxGalleryScroll = ({
       );
     };
 
+    const touchState = {
+      isActive: false,
+      hasDragged: false,
+      lastX: 0,
+      lastY: 0,
+      startX: 0,
+      startY: 0,
+    };
+
+    const applyScrollDelta = (deltaX: number, deltaY: number) => {
+      if (scrollRef.current.limit <= 0) return;
+
+      const delta =
+        Math.abs(deltaX) > Math.abs(deltaY) ? -deltaX : deltaY;
+
+      scrollRef.current.target = clamp(
+        scrollRef.current.target + delta,
+        0,
+        scrollRef.current.limit,
+      );
+      scrollRef.current.current = scrollRef.current.target;
+    };
+
+    const onTouchStart = (event: TouchEvent) => {
+      if (event.touches.length !== 1) return;
+
+      const touch = event.touches[0];
+      touchState.isActive = true;
+      touchState.hasDragged = false;
+      touchState.lastX = touch.clientX;
+      touchState.lastY = touch.clientY;
+      touchState.startX = touch.clientX;
+      touchState.startY = touch.clientY;
+    };
+
+    const onTouchMove = (event: TouchEvent) => {
+      if (!touchState.isActive || event.touches.length !== 1) return;
+
+      const touch = event.touches[0];
+      const deltaX = touch.clientX - touchState.lastX;
+      const deltaY = touch.clientY - touchState.lastY;
+
+      if (!touchState.hasDragged) {
+        const totalDeltaX = touch.clientX - touchState.startX;
+        const totalDeltaY = touch.clientY - touchState.startY;
+
+        if (
+          Math.hypot(totalDeltaX, totalDeltaY) < TOUCH_DRAG_THRESHOLD
+        ) {
+          return;
+        }
+
+        touchState.hasDragged = true;
+      }
+
+      touchState.lastX = touch.clientX;
+      touchState.lastY = touch.clientY;
+
+      applyScrollDelta(deltaX, deltaY);
+    };
+
+    const onTouchEnd = () => {
+      touchState.isActive = false;
+      touchState.hasDragged = false;
+    };
+
     wrapper.addEventListener("wheel", onWheel, { passive: true });
+    wrapper.addEventListener("touchstart", onTouchStart, { passive: true });
+    wrapper.addEventListener("touchmove", onTouchMove, { passive: true });
+    wrapper.addEventListener("touchend", onTouchEnd, { passive: true });
+    wrapper.addEventListener("touchcancel", onTouchEnd, { passive: true });
 
     return () => {
       wrapper.removeEventListener("wheel", onWheel);
+      wrapper.removeEventListener("touchstart", onTouchStart);
+      wrapper.removeEventListener("touchmove", onTouchMove);
+      wrapper.removeEventListener("touchend", onTouchEnd);
+      wrapper.removeEventListener("touchcancel", onTouchEnd);
     };
   }, [wrapperRef]);
 
