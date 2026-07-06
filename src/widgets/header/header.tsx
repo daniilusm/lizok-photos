@@ -56,7 +56,7 @@ export const Header = (props: HeaderProps) => {
             <div className={s.top}>
               <div className={s.social}>
                 <Button
-                  href="https://www.instagram.com/murlsli"
+                  href="https://www.instagram.com/lizok.a.ph"
                   target="_blank"
                   className={s.link}
                 >
@@ -70,7 +70,7 @@ export const Header = (props: HeaderProps) => {
                   telegram
                 </Button>
                 <Button
-                  href="https://vk.ru/murr_ls"
+                  href="https://vk.ru/lizok.a.phtver"
                   target="_blank"
                   className={s.link}
                 >
