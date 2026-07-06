@@ -1,44 +1,29 @@
+const imageLink = `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_PROJECTS_ID}/image/upload`;
+
 export const projects = [
   {
-    mainImage: "/projects/yoga-day/05.webp",
-    date: "01.01.2020",
-    slug: "yoga-day",
-    images: [
-      { url: "/projects/yoga-day/01.webp" },
-      { url: "/projects/yoga-day/02.webp" },
-      { url: "/projects/yoga-day/03.webp" },
-      { url: "/projects/yoga-day/04.webp" },
-      { url: "/projects/yoga-day/05.webp" },
-      { url: "/projects/yoga-day/06.webp" },
-      { url: "/projects/yoga-day/07.webp" },
-    ],
-  },
-  {
-    mainImage: "/projects/danya/05.webp",
-    date: "01.01.2020",
-    slug: "danya",
-    images: [
-      { url: "/projects/danya/01.webp" },
-      { url: "/projects/danya/02.webp" },
-      { url: "/projects/danya/03.webp" },
-      { url: "/projects/danya/04.webp" },
-      { url: "/projects/danya/05.webp" },
-      { url: "/projects/danya/06.webp" },
-      { url: "/projects/danya/07.webp" },
-    ],
-  },
-  {
-    mainImage: "/projects/maksim/01.webp",
+    mainImage: `${imageLink}/v1783324877/05_lcph2l.webp`,
     date: "01.01.2020",
     slug: "maksim",
     images: [
-      { url: "/projects/maksim/01.webp" },
-      { url: "/projects/maksim/02.webp" },
-      { url: "/projects/maksim/03.webp" },
-      { url: "/projects/maksim/04.webp" },
-      { url: "/projects/maksim/05.webp" },
-      { url: "/projects/maksim/06.webp" },
-      { url: "/projects/maksim/05.webp" },
+      {
+        url: `${imageLink}/v1783324877/05_lcph2l.webp`,
+      },
+      {
+        url: `${imageLink}/v1783324876/04_r33taa.webp`,
+      },
+      {
+        url: `${imageLink}/v1783324876/03_ys1h8m.webp`,
+      },
+      {
+        url: `${imageLink}/v1783324876/06_x8uehw.webp`,
+      },
+      {
+        url: `${imageLink}/v1783324876/02_z0zncf.webp`,
+      },
+      {
+        url: `${imageLink}/v1783324876/01_tmovah.webp`,
+      },
     ],
   },
 ];

@@ -20,6 +20,18 @@ const nextConfig: NextConfig = {
   images: {
     // Обязательно для static export — Next Image Optimization требует сервер
     unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "1337",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        port: "",
+      },
+    ],
   },
   sassOptions: {
     includePaths: [
