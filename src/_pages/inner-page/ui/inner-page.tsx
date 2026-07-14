@@ -1,15 +1,19 @@
-import { type ComponentProps, useMemo, useState } from "react";
+import {
+  type ComponentProps,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import clsx from "clsx";
 import { useRouter } from "next/router";
 
 import { projects } from "@/shared/stub/projects";
-import { Button } from "@/shared/ui/button";
-// import { ImageSwitcher } from "@/shared/ui/Image-switcher";
-// import { Icon } from "@/shared/ui/icon";
-import { Image } from "@/shared/ui/image";
 import { ParallaxScrollContainer } from "@/shared/ui/parallax-scroll-container";
 
-// import { Portal } from "@/shared/ui/portal";
+import { getCloudinaryPreviewUrl } from "../lib/get-cloudinary-image-url";
+import { InnerPageGridItem } from "./inner-page-grid-item";
+import { InnerPagePreview } from "./inner-page-preview";
 
 import s from "./inner-page.module.scss";
 
@@ -26,70 +30,56 @@ export const InnerPage = (props: InnerPageProps) => {
     return projects.find((item) => item.slug === query.slug);
   }, [query.slug]);
 
-  // const [currentIndex, setCurrentIndex] = useState<number | null>(null);
+  const [currentIndexHover, setCurrentIndexHover] = useState(0);
 
-  const [currentIndexHover, setCurrentIndexHover] = useState<number>(0);
+  const handleSelect = useCallback((index: number) => {
+    setCurrentIndexHover(index);
+  }, []);
 
-  // const handleClose = useCallback(() => {
-  //   setCurrentIndex(null);
-  // }, []);
+  const images = currentProject?.images ?? [];
+
+  useEffect(() => {
+    setCurrentIndexHover(0);
+  }, [query.slug]);
+
+  useEffect(() => {
+    if (!images.length) return;
+
+    for (const index of [currentIndexHover - 1, currentIndexHover + 1]) {
+      const image = images[index];
+
+      if (!image) continue;
+
+      const preloader = new window.Image();
+      preloader.decoding = "async";
+      preloader.src = getCloudinaryPreviewUrl(image.url);
+    }
+  }, [currentIndexHover, images]);
+
+  if (!currentProject) {
+    return null;
+  }
 
   return (
-    <>
-      <ParallaxScrollContainer className={clsx(s.root, className)}>
-        <div className={s.list}>
-          {currentProject?.images.map((item, idx) => (
-            <Button
-              key={`image-${idx + 1}`}
-              onClick={() => setCurrentIndexHover(idx)}
-              onMouseEnter={() => setCurrentIndexHover(idx)}
-              className={clsx(s.imageGridWrapper, {
-                [s.activeHover]: currentIndexHover === idx,
-              })}
-            >
-              <Image
-                className={s.image}
-                src={item.url}
-                alt="image"
-                height="100%"
-              />
-            </Button>
-          ))}
-        </div>
-        <div className={s.imageHover}>
-          <Image
-            src={currentProject?.images[currentIndexHover]?.url!}
-            alt={`${query.slug} image`}
-            height="100%"
-            objectFit="contain"
-            className={s.currentImage}
+    <ParallaxScrollContainer className={clsx(s.root, className)}>
+      <div className={s.list}>
+        {images.map((item, index) => (
+          <InnerPageGridItem
+            key={item.url}
+            url={item.url}
+            index={index}
+            isActive={currentIndexHover === index}
+            onSelect={handleSelect}
           />
-          <div className={s.counter}>
-            {currentIndexHover + 1} / {currentProject?.images?.length}
-          </div>
-        </div>
-      </ParallaxScrollContainer>
-      {/* <Portal
-        id="image-popup"
-        className={clsx(s.imagePopup, { [s.openPopup]: currentIndex !== null })}
-      >
-        <div>
-          <Button onClick={handleClose} className={s.crossBtn}>
-            <Icon name="close" size="s" />
-          </Button>
-          <div className={s.overlay} onClick={handleClose} />
-          {currentIndex !== null && (
-            <Image
-              src={currentProject?.images[currentIndex]?.url!}
-              alt={`${query.slug} image`}
-              height="100%"
-              objectFit="contain"
-              className={s.popupImage}
-            />
-          )}
-        </div>
-      </Portal> */}
-    </>
+        ))}
+      </div>
+
+      <InnerPagePreview
+        images={images}
+        activeIndex={currentIndexHover}
+        slug={query.slug}
+      />
+    </ParallaxScrollContainer>
   );
 };
 

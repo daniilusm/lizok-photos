@@ -44,6 +44,8 @@ export const ParallaxScrollContainer = (
   useEffect(() => {
     if (!rootRef.current) return;
 
+    let lastProgress = -1;
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: rootRef.current,
@@ -53,8 +55,14 @@ export const ParallaxScrollContainer = (
         onUpdate: (self) => {
           if (!rootRef.current) return;
 
+          if (Math.abs(self.progress - lastProgress) < 0.002) {
+            return;
+          }
+
+          lastProgress = self.progress;
+
           if (!edgeOnlyProgress) {
-            rootRef.current?.style.setProperty(
+            rootRef.current.style.setProperty(
               "--parallax-scroll-progress",
               self.progress.toFixed(3),
             );
@@ -62,15 +70,15 @@ export const ParallaxScrollContainer = (
             return;
           }
 
-          const rect = rootRef.current?.getBoundingClientRect();
+          const rect = rootRef.current.getBoundingClientRect();
           const viewportHeight =
             window.innerHeight || document.documentElement.clientHeight;
 
-          const isStart = rect?.top >= 0;
-          const isEnd = rect?.bottom <= viewportHeight;
+          const isStart = rect.top >= 0;
+          const isEnd = rect.bottom <= viewportHeight;
 
           if (isStart) {
-            rootRef.current?.style.setProperty(
+            rootRef.current.style.setProperty(
               "--parallax-scroll-progress",
               (self.progress * 2).toFixed(3),
             );
@@ -80,11 +88,10 @@ export const ParallaxScrollContainer = (
           if (isEnd) {
             const clampedProgress = Math.max(0, self.progress - 0.5) * 2;
 
-            rootRef.current?.style.setProperty(
+            rootRef.current.style.setProperty(
               "--parallax-scroll-progress",
               clampedProgress.toFixed(3),
             );
-            return;
           }
         },
       },
