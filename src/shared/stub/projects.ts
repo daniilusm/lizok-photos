@@ -1,6 +1,17 @@
 const imageLink = `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_PROJECTS_ID}/image/upload`;
 
-export const projects = [
+export type ProjectImage = {
+  url: string;
+};
+
+export type Project = {
+  mainImage: string;
+  date: string;
+  slug: string;
+  images: ProjectImage[];
+};
+
+export const projects: Project[] = [
   {
     mainImage: `${imageLink}/v1783330387/03_ffz5qb.webp`,
     date: "01.01.2020",

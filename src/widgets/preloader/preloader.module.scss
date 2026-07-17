@@ -9,11 +9,11 @@ $radius: #{vw(200)};
   position: fixed;
   inset: 0;
   z-index: var(--z-preloader);
-  // background-color: var(--c-graphite);
+  background-color: black;
   color: var(--c-white);
-  overflow: hidden;
-  backdrop-filter: blur(calc(150px - var(--close-progress) * 150px));
-  opacity: calc(1 - var(--close-progress));
+  overflow: hidden;;
+
+  clip-path: inset(0% 0% calc(var(--close-progress) * 100%) 0%);
   pointer-events: none;
 }
 

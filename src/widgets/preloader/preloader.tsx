@@ -35,13 +35,13 @@ export const Preloader = (props: PreloaderProps) => {
   useEffect(() => {
     gsap.to($root.current, {
       "--preloader-progress": 1,
-      duration: 3,
+      duration: 2,
       ease: "power2.inOut",
       onComplete: () => {
         setStartEndAnimation();
         gsap.to($root.current, {
           "--close-progress": 1,
-          ease: "power4.out",
+          ease: "power4.inOut",
           onComplete: () => {
             setFinishEndAnimation(true);
           },
@@ -49,10 +49,6 @@ export const Preloader = (props: PreloaderProps) => {
       },
     });
   }, []);
-
-  console.log(isFinishEndAnimation);
-
-  console.info(formattedPercents);
 
   // if (isFinishEndAnimation) return;
 

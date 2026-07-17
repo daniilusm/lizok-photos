@@ -39,10 +39,10 @@ export const TransitionLayout = memo(
       );
 
       const tween = gsap.to($block.current, {
-        "--transition-blur": "0px",
+        "--transition-progress": 0,
         pointerEvents: "none",
         duration: TRANSITION_DURATION,
-        ease: "power2.inOut",
+        ease: "power4.inOut",
         onComplete: () => {
           activeTweensRef.current.delete(tween);
           transitionLayoutEmitter.send(EVENTS_TRANSITION_LAYOUT.pageInComplete);
@@ -56,10 +56,10 @@ export const TransitionLayout = memo(
       setTransitionStarted(true);
 
       const tween = gsap.to($block.current, {
-        "--transition-blur": `${TRANSITION_BLUR}px`,
+        "--transition-progress": 1,
         pointerEvents: "auto",
         duration: TRANSITION_DURATION,
-        ease: "power2.inOut",
+        ease: "power4.inOut",
         onComplete: () => {
           activeTweensRef.current.delete(tween);
           transitionLayoutEmitter.send(

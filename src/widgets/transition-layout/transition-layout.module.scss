@@ -3,16 +3,15 @@
 }
 
 .block {
+  --transition-progress:0;
   position: fixed;
   z-index: var(--z-transition-layout);
   top: 0;
   left: 0;
   width: 100%;
   height: 100svh;
-  --transition-blur: 0px;
-  background: transparent;
-  backdrop-filter: blur(var(--transition-blur));
-  -webkit-backdrop-filter: blur(var(--transition-blur));
+  background: black;
   pointer-events: none;
-  will-change: backdrop-filter;
+  transform: scaleY(var(--transition-progress));
+  transform-origin: top;
 }

@@ -2,13 +2,11 @@ import {
   type ComponentProps,
   useCallback,
   useEffect,
-  useMemo,
   useState,
 } from "react";
 import clsx from "clsx";
-import { useRouter } from "next/router";
 
-import { projects } from "@/shared/stub/projects";
+import type { Project } from "@/shared/stub/projects";
 import { ParallaxScrollContainer } from "@/shared/ui/parallax-scroll-container";
 
 import { getCloudinaryPreviewUrl } from "../lib/get-cloudinary-image-url";
@@ -19,16 +17,11 @@ import s from "./inner-page.module.scss";
 
 export type InnerPageProps = ComponentProps<"div"> & {
   className?: string;
+  project: Project;
 };
 
 export const InnerPage = (props: InnerPageProps) => {
-  const { className } = props;
-
-  const { query } = useRouter();
-
-  const currentProject = useMemo(() => {
-    return projects.find((item) => item.slug === query.slug);
-  }, [query.slug]);
+  const { className, project } = props;
 
   const [currentIndexHover, setCurrentIndexHover] = useState(0);
 
@@ -36,11 +29,11 @@ export const InnerPage = (props: InnerPageProps) => {
     setCurrentIndexHover(index);
   }, []);
 
-  const images = currentProject?.images ?? [];
+  const images = project.images;
 
   useEffect(() => {
     setCurrentIndexHover(0);
-  }, [query.slug]);
+  }, [project.slug]);
 
   useEffect(() => {
     if (!images.length) return;
@@ -55,10 +48,6 @@ export const InnerPage = (props: InnerPageProps) => {
       preloader.src = getCloudinaryPreviewUrl(image.url);
     }
   }, [currentIndexHover, images]);
-
-  if (!currentProject) {
-    return null;
-  }
 
   return (
     <ParallaxScrollContainer className={clsx(s.root, className)}>
@@ -77,7 +66,7 @@ export const InnerPage = (props: InnerPageProps) => {
       <InnerPagePreview
         images={images}
         activeIndex={currentIndexHover}
-        slug={query.slug}
+        slug={project.slug}
       />
     </ParallaxScrollContainer>
   );

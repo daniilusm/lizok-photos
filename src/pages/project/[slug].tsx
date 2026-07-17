@@ -1,25 +1,44 @@
-import type { GetStaticPaths, GetStaticProps } from "next";
+import type {
+  GetStaticPaths,
+  GetStaticProps,
+  InferGetStaticPropsType,
+} from "next";
 
 import { InnerPage } from "@/_pages/inner-page/ui";
+import { type Project, projects } from "@/shared/stub/projects";
 
-/**
- * DEPLOY: динамический роут без CMS.
- * Для static export нужен явный список slug — иначе страница не попадёт в сборку.
- * Добавьте slug сюда или подключите getStaticPaths из Strapi.
- */
-// export const getStaticPaths: GetStaticPaths = async () => {
-//   return {
-//     paths: [{ params: { slug: "demo" } }],
-//     fallback: false,
-//   };
-// };
+type ProjectPageProps = {
+  currentProject: Project;
+};
 
-// export const getStaticProps: GetStaticProps = async () => {
-//   return { props: {} };
-// };
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: projects.map((project) => ({
+      params: { slug: project.slug },
+    })),
+    fallback: false,
+  };
+};
 
-const Page = () => {
-  return <InnerPage />;
+export const getStaticProps: GetStaticProps<ProjectPageProps> = async (
+  context,
+) => {
+  const slug = String(context.params?.slug ?? "");
+  const currentProject = projects.find((item) => item.slug === slug);
+
+  if (!currentProject) {
+    return { notFound: true };
+  }
+
+  return {
+    props: { currentProject },
+  };
+};
+
+const Page = ({
+  currentProject,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
+  return <InnerPage project={currentProject} />;
 };
 
 export default Page;
