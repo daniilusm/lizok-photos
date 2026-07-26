@@ -4,7 +4,6 @@ import type { ComponentProps } from "react";
 import clsx from "clsx";
 
 import { HOME_CONTENT, SOCIAL_LINKS } from "@/shared/stub/home";
-import { SplitTextAnimateInView } from "@/shared/ui/animate";
 import { Button } from "@/shared/ui/button";
 import { Image } from "@/shared/ui/image";
 import { Body } from "@/shared/ui/typography/body";
@@ -17,6 +16,7 @@ export type ContactsSectionProps = ComponentProps<"section"> & {
   title?: string;
   text?: string;
   imageSrc?: string;
+  isPage?: boolean;
 };
 
 export const ContactsSection = (props: ContactsSectionProps) => {
@@ -25,6 +25,7 @@ export const ContactsSection = (props: ContactsSectionProps) => {
     title = HOME_CONTENT.contacts.title,
     text = HOME_CONTENT.contacts.text,
     imageSrc = HOME_CONTENT.contacts.image ?? "",
+    isPage,
     ...restProps
   } = props;
 
@@ -45,16 +46,12 @@ export const ContactsSection = (props: ContactsSectionProps) => {
       </div>
 
       <div className={s.content}>
-        <SplitTextAnimateInView>
-          <Heading level="2" tag="h2" className={s.title}>
-            {title}
-          </Heading>
-        </SplitTextAnimateInView>
-        <SplitTextAnimateInView>
-          <Body size="primary" tag="p" className={s.text}>
-            {text}
-          </Body>
-        </SplitTextAnimateInView>
+        <Heading level="2" tag={isPage ? "h1" : "h2"} className={s.title}>
+          {title}
+        </Heading>
+        <Body size="primary" tag="p" className={s.text}>
+          {text}
+        </Body>
 
         <nav className={s.social} aria-label="Соцсети">
           {SOCIAL_LINKS.map((link) => (
@@ -65,7 +62,7 @@ export const ContactsSection = (props: ContactsSectionProps) => {
               rel="noopener noreferrer"
               className={s.link}
             >
-              <SplitTextAnimateInView>{link.label}</SplitTextAnimateInView>
+              {link.label}
             </Button>
           ))}
         </nav>

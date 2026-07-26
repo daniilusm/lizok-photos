@@ -4,7 +4,6 @@ import type { ComponentProps } from "react";
 import clsx from "clsx";
 
 import { type ProjectType, projectTypes } from "@/shared/stub/projects";
-import { SplitTextAnimateInView } from "@/shared/ui/animate";
 import { ParallaxScrollContainer } from "@/shared/ui/parallax-scroll-container";
 import { Heading } from "@/shared/ui/typography/heading";
 
@@ -16,6 +15,7 @@ export type ProjectTypesSectionProps = ComponentProps<"section"> & {
   className?: string;
   items?: ProjectType[];
   title?: string;
+  isPage?: boolean;
 };
 
 export const ProjectTypesSection = (props: ProjectTypesSectionProps) => {
@@ -23,16 +23,15 @@ export const ProjectTypesSection = (props: ProjectTypesSectionProps) => {
     className,
     items = projectTypes,
     title = "Фотосессии",
+    isPage,
     ...restProps
   } = props;
 
   return (
     <section className={clsx(s.root, className)} {...restProps}>
-      <SplitTextAnimateInView>
-        <Heading level="2" tag="h2" className={s.heading}>
-          {title}
-        </Heading>
-      </SplitTextAnimateInView>
+      <Heading level="2" tag={isPage ? "h1" : "h2"} className={s.heading}>
+        {title}
+      </Heading>
       <ParallaxScrollContainer
         start="top bottom"
         end="bottom top"

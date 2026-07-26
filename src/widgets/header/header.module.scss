@@ -16,7 +16,9 @@
   background-color: #ffffff29; 
   backdrop-filter: blur(10px);
 
-  @include transition((background-color));
+  transform: translateY(-100%);
+
+  @include transition((background-color,transform));
 
   &.filled {
     background-color: var(--background-surface-page);
@@ -208,4 +210,8 @@
   @include mq(md){
     font-size: vw(10);
   }
+}
+
+.viewHeader{
+  transform: translateY(0%);
 }

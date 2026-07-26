@@ -7,7 +7,7 @@ import s from "./portfolio-page.module.scss";
 export const PortfolioPage = () => {
   return (
     <main className={s.root}>
-      <ProjectTypesSection title="Портфолио" />
+      <ProjectTypesSection title="Портфолио" isPage />
     </main>
   );
 };

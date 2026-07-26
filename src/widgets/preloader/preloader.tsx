@@ -9,28 +9,34 @@ import {
 import clsx from "clsx";
 import gsap from "gsap";
 
+import { HOME_CONTENT } from "@/shared/stub/home";
+import { Image } from "@/shared/ui/image";
+
 import s from "./preloader.module.scss";
 
 export type PreloaderProps = ComponentProps<"div"> & {
   className?: string;
   additionalResources?: string[];
+  imageSrc?: string;
 };
 
 export const Preloader = (props: PreloaderProps) => {
-  const { className, additionalResources } = props;
+  const {
+    className,
+    additionalResources,
+    imageSrc = HOME_CONTENT.hero.image,
+  } = props;
 
   const $root = useRef<HTMLDivElement>(null);
-  const { isFinishSequenceAnimation, isFinishEndAnimation, formattedPercents } =
-    usePreloaderStore();
+  const { formattedPercents } = usePreloaderStore();
   const { setFinishEndAnimation, setStartEndAnimation } = usePreloaderActions();
 
-  /* TODO: Подумать как лучше прокидывать, дополнительные файлы глобально из приложения */
+  const resources = [
+    ...(imageSrc ? [imageSrc] : []),
+    ...(additionalResources || []),
+  ];
 
-  // useEffect(() => {
-  //   if (additionalResources) setAdditionalData(additionalResources);
-  // }, [additionalResources]);
-
-  usePreloader(10, additionalResources || []);
+  usePreloader(10, resources);
 
   useEffect(() => {
     gsap.to($root.current, {
@@ -48,15 +54,27 @@ export const Preloader = (props: PreloaderProps) => {
         });
       },
     });
-  }, []);
-
-  // if (isFinishEndAnimation) return;
+  }, [setFinishEndAnimation, setStartEndAnimation]);
 
   return (
     <div ref={$root} className={clsx(s.root, className)}>
+      {imageSrc && (
+        <div className={s.media} aria-hidden>
+          <Image
+            className={s.image}
+            src={imageSrc}
+            alt=""
+            height="100%"
+            objectFit="cover"
+            loading="eager"
+            sizes="100vw"
+          />
+        </div>
+      )}
+
       <div className={s.inner}>
         <div className={s.icon}>
-          <div className={s.inner}>{formattedPercents}</div>
+          <div className={s.percents}>{formattedPercents}</div>
         </div>
       </div>
     </div>

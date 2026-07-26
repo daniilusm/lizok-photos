@@ -8,6 +8,7 @@ import { Icon } from "@/shared/ui/icon";
 import { Portal } from "@/shared/ui/portal";
 
 import s from "./header.module.scss";
+import { usePreloaderStore } from "../preloader/model/preloaderStore";
 
 export type HeaderProps = ComponentProps<"div"> & {
   className?: string;
@@ -26,9 +27,15 @@ export const Header = (props: HeaderProps) => {
     setOpen(false);
   }, []);
 
+  const { isFinishEndAnimation } = usePreloaderStore();
+
   return (
     <>
-      <div className={clsx(s.root, className)}>
+      <div
+        className={clsx(s.root, className, {
+          [s.viewHeader]: isFinishEndAnimation,
+        })}
+      >
         <Button className={s.link} href="/">
           главная
         </Button>

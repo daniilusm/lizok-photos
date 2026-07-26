@@ -84,7 +84,7 @@ export const SplitTextAnimateInView = ({
   children,
   ...props
 }: SplitTextAnimateInViewProps) => {
-  const [ref, inView] = useIntersectionObserver();
+  const [ref, inView] = useIntersectionObserver({ triggerOnce: true });
 
   return (
     <SplitTextAnimate isVisible={inView} ref={ref} {...props}>
