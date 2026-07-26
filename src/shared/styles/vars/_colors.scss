@@ -1,13 +1,11 @@
 @mixin colors {
   /* Colors */
-  --c-white: #fff;
-  --c-graphite: #222;
-  --c-light-graphite: #454545;
-  --c-dark-grey: #d4d4d4;
-  --c-light-grey: #f1f1f1;
-  --c-grey: #e8e8e8;
+  --c-white: #FAF0E6;
+  --c-sand: #B3A696;
+  --c-namibia: #7B6B5E;
+  --c-lacri: #2A2E1F;
 
   /* Theme colors */
-  --main-background-color: var(--c-graphite);
-  --main-text-color: var(--c-white);
+  --main-background-color: var(--c-white);
+  --main-text-color: var(--c-lacri);
 }

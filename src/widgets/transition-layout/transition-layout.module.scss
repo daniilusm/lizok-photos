@@ -3,15 +3,18 @@
 }
 
 .block {
-  --transition-progress:0;
+  --transition-progress: 0;
+  --transition-origin: right center;
+
   position: fixed;
   z-index: var(--z-transition-layout);
   top: 0;
   left: 0;
   width: 100%;
   height: 100svh;
-  background: black;
+  background: var(--c-sand);
   pointer-events: none;
-  transform: scaleY(var(--transition-progress));
-  transform-origin: top;
+  transform: scaleX(var(--transition-progress));
+  transform-origin: var(--transition-origin);
+  will-change: transform;
 }

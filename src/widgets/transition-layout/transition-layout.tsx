@@ -1,19 +1,28 @@
-import { memo, useCallback, useRef, useState } from "react";
+import { memo, type ReactNode, useCallback, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import { gsap } from "gsap";
 import type { NextRouter } from "next/router";
 
 import { DelayDelete, SwitchElement } from "@shared/ui/animate-presence";
 
-import { TRANSITION_BLUR, TRANSITION_DURATION } from "./constants";
+import { TRANSITION_DURATION } from "./constants";
 import { TransitionLayoutContext } from "./context/transition-layout-context";
 import { EVENTS_TRANSITION_LAYOUT, transitionLayoutEmitter } from "./emmiter";
 
 import s from "./transition-layout.module.scss";
 
 export type TransitionLayoutProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   router: NextRouter;
+};
+
+const setTransitionOrigin = (
+  node: HTMLDivElement | null,
+  origin: "left center" | "right center",
+) => {
+  if (!node) return;
+  // Не через gsap transformOrigin — иначе GSAP перезапишет CSS transform
+  node.style.setProperty("--transition-origin", origin);
 };
 
 export const TransitionLayout = memo(
@@ -38,6 +47,8 @@ export const TransitionLayout = memo(
         EVENTS_TRANSITION_LAYOUT.pageInCompleteStart,
       );
 
+      setTransitionOrigin($block.current, "right center");
+
       const tween = gsap.to($block.current, {
         "--transition-progress": 0,
         pointerEvents: "none",
@@ -54,6 +65,8 @@ export const TransitionLayout = memo(
     const onLeave = useCallback((_node: HTMLElement | null) => {
       transitionLayoutEmitter.send(EVENTS_TRANSITION_LAYOUT.pageOutStart);
       setTransitionStarted(true);
+
+      setTransitionOrigin($block.current, "left center");
 
       const tween = gsap.to($block.current, {
         "--transition-progress": 1,

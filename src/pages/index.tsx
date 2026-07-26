@@ -5,10 +5,10 @@
 // import { getHomePage } from "@/_pages/home/api";
 // import type { HomePageProps } from "@/_pages/home/model/schemas";
 // import { HomePage } from "@/_pages/home/ui";
-import { ParallaxGalleryPage } from "@/_pages/parallax-gallery/ui";
+import { HomePage } from "@/_pages/home/ui";
 
 const Page = () => {
-  return <ParallaxGalleryPage />;
+  return <HomePage />;
 };
 
 // export async function getServerSideProps(context: GetServerSidePropsContext) {

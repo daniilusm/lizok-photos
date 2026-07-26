@@ -1,9 +1,4 @@
-import {
-  type ComponentProps,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { type ComponentProps, useCallback, useEffect, useState } from "react";
 import clsx from "clsx";
 
 import type { Project } from "@/shared/stub/projects";
@@ -29,7 +24,7 @@ export const InnerPage = (props: InnerPageProps) => {
     setCurrentIndexHover(index);
   }, []);
 
-  const images = project.images;
+  const images = project.images ?? [];
 
   useEffect(() => {
     setCurrentIndexHover(0);

@@ -17,7 +17,6 @@ import type { AppProps } from "next/app";
 // Не используется при static export на Vercel.
 // import { PreviewBanner } from "@shared/ui/preview-banner";
 import { FontsProvider } from "@/shared/fonts";
-import { UIElements } from "@/shared/ui/ui-elements";
 
 export default function App({ Component, pageProps, router }: AppProps) {
   useAppViewport();
@@ -38,7 +37,6 @@ export default function App({ Component, pageProps, router }: AppProps) {
             <Header />
             <Cursor />
             <Preloader />
-            <UIElements />
             <Scroll root wrapper>
               <TransitionLayout router={router}>
                 <DataStoreProvider data={pageProps.cms ?? {}}>

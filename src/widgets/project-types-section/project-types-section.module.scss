@@ -1,0 +1,75 @@
+.root {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--spacing-32);
+  min-height: 100svh;
+  padding: var(--spacing-48) var(--spacing-gap) var(--spacing-48);
+
+  @include mq(md) {
+    padding: var(--spacing-32) var(--spacing-gap);
+  }
+}
+
+.heading {
+  text-transform: uppercase;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-gap);
+  width: 100%;
+
+  @include mq(md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  text-align: left;
+  color: inherit;
+
+  @include transition((transform, transform));
+
+  // @include hover {
+  //   transform: scale(1.1);
+  // }
+}
+
+.image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+
+
+  img {
+    transform: translate3d(
+        0,
+        calc(20% * var(--parallax-scroll-progress, 0)),
+        0
+      )
+      scale(1.4);
+    will-change: transform;
+  }
+}
+
+.caption {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  padding: var(--spacing-20);
+  text-transform: uppercase;
+  color: var(--c-white);
+  font-size: vw(24);
+  letter-spacing: 0.04em;
+  background: linear-gradient(to top, rgb(0 0 0 / 70%), transparent);
+}

@@ -1,0 +1,21 @@
+.root {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-24);
+  padding: var(--spacing-120) var(--spacing-gap);
+
+  @include mq(md) {
+    padding: var(--spacing-80) var(--spacing-gap);
+  }
+}
+
+.title {
+  text-transform: uppercase;
+  max-width: vw(640);
+}
+
+.text {
+  max-width: vw(520);
+  opacity: 0.8;
+}

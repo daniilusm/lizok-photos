@@ -5,7 +5,7 @@
     grid-template-columns: repeat(2, 1fr);
     gap: vw(32);
     
-    padding: 0 vw(32);
+    padding: 0 var(--spacing-gap);
 
     min-height: 100svh;
 

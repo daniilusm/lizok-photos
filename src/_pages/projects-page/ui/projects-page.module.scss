@@ -1,0 +1,97 @@
+.root {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-32);
+  min-height: 100svh;
+  padding: var(--spacing-80) var(--spacing-gap) var(--spacing-48);
+
+  @include mq(md) {
+    padding: var(--spacing-100) var(--spacing-gap) var(--spacing-32);
+  }
+}
+
+.title {
+  text-transform: uppercase;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-gap);
+  width: 100%;
+
+  @include mq(md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  color: inherit;
+  background-color: var(--c-light-graphite);
+}
+
+.image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+
+  img {
+    transform: translate3d(
+        0,
+        calc(12% * var(--parallax-scroll-progress, 0)),
+        0
+      )
+      scale(1.2);
+    will-change: transform;
+    @include transition((filter), 0.4s);
+  }
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-color: rgb(0 0 0 / 0%);
+  pointer-events: none;
+  @include transition((background-color), 0.4s);
+}
+
+.caption {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-20);
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--c-white);
+  font-size: vw(28);
+  letter-spacing: 0.04em;
+  opacity: 0;
+  @include transition((opacity), 0.4s);
+}
+
+.card {
+  @include hover {
+    .image img {
+      filter: brightness(0.45);
+    }
+
+    .overlay {
+      background-color: rgb(0 0 0 / 35%);
+    }
+
+    .caption {
+      opacity: 1;
+    }
+  }
+}

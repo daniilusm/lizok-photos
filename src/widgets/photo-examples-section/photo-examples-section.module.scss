@@ -1,0 +1,36 @@
+.root {
+  position: relative;
+  padding: var(--spacing-48) var(--spacing-gap);
+
+  @include mq(md) {
+    padding: var(--spacing-32) var(--spacing-gap);
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-gap);
+}
+
+.item {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  background-color: var(--c-light-graphite);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+
+  img {
+    transform: translate3d(
+        0,
+        calc(15% * var(--parallax-scroll-progress, 0)),
+        0
+      )
+      scale(1.4);
+    will-change: transform;
+  }
+}

@@ -1,50 +1,25 @@
 .root {
   position: fixed;
   z-index: var(--z-header);
-  top: vw(32);
+  top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: var(--spacing-20) var(--spacing-48);
+  padding: var(--spacing-20) var(--spacing-48);    
+  mix-blend-mode: difference;
+  color: var(--c-white);
 
   font-family: var(--font-family-base);
   text-transform: uppercase;
-  font-size: vw(10);
-
-    mix-blend-mode: difference;
+  font-size: vw(16);
+  background-color: #ffffff29; 
+  backdrop-filter: blur(10px);
 
   @include transition((background-color));
 
-  // @include mq(lg) {
-  //   padding: vw(14) var(--spacing-20);
-  // }
-
-  // @include mq(md) {
-  //   grid-template-columns: repeat(2, 1fr);
-  //   padding: vw(10) var(--spacing-16);
-  // }
-
   &.filled {
     background-color: var(--background-surface-page);
-  }
-}
-
-.logo {
-  position: relative;
-  width: vw(208);
-
-  svg {
-    width: 100%;
-    height: auto;
-  }
-
-  @include mq(lg) {
-    width: vw(192);
-  }
-
-  @include mq(md) {
-    width: vw(164);
   }
 }
 
@@ -72,7 +47,7 @@
 .wrapper{
   position: relative;
   z-index: 1;
-  border: 1px solid white;
+  border: 1px solid var(--c-white);
 
   display: flex;
   flex-direction: column;
@@ -150,12 +125,6 @@
 .openPopup {
     pointer-events: all;
 
-    .canvas{
-        pointer-events: all !important;
-      canvas, div {
-        pointer-events: all !important;
-      }
-    }
 
     .crossBtn, .wrapper, .overlay{
         opacity: 1;
@@ -219,7 +188,7 @@
     background-color: var(--c-white);
     transform: scaleX(0);
     transform-origin: right;
-    @include transition((transform), 0.5s, steps(4, jump-end));
+    @include transition((transform));
   }
 
   @include hover{

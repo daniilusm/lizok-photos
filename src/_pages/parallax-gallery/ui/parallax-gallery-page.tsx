@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 
-import { projects } from "@/shared/stub/projects";
+import type { Project } from "@/shared/stub/projects";
 
 import { useGalleryPointer } from "../hooks/use-gallery-pointer";
 import { useParallaxGallery } from "../hooks/use-parallax-gallery";
@@ -12,12 +12,20 @@ import { GalleryTrack } from "./gallery-track";
 
 import s from "./parallax-gallery-page.module.scss";
 
-export const ParallaxGalleryPage = () => {
+export type ParallaxGalleryPageProps = {
+  projectsType: string;
+  currentProjects: Project[];
+};
+
+export const ParallaxGalleryPage = ({
+  projectsType,
+  currentProjects,
+}: ParallaxGalleryPageProps) => {
   const [isMounted, setIsMounted] = useState(false);
 
   const projectsImages = useMemo(() => {
-    return projects.map((item) => item.mainImage);
-  }, []);
+    return currentProjects.map((item) => item.mainImage);
+  }, [currentProjects]);
 
   const {
     wrapperRef,
@@ -52,6 +60,8 @@ export const ParallaxGalleryPage = () => {
           )}
 
         <GalleryTrack
+          projectsType={projectsType}
+          projects={currentProjects}
           images={images}
           containerRef={containerRef}
           setMediaRef={setMediaRef}

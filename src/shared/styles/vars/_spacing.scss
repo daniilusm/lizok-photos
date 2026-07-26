@@ -34,4 +34,10 @@
   --spacing-120: #{vw(120)};
   --spacing-124: #{vw(124)};
   --spacing-140: #{vw(140)};
+
+  --spacing-gap: #{vw(16)};
+
+  @include mq(md){
+    --spacing-gap: #{vw(8)};
+  }
 }

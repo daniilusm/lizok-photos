@@ -15,6 +15,7 @@ import { composeRefs } from "@/shared/utils/compose-refs";
 export type ParallaxScrollContainerProps = ComponentProps<"div"> & {
   className?: string;
   start?: string;
+  end?: string;
   edgeOnlyProgress?: boolean;
 };
 
@@ -26,6 +27,7 @@ export const ParallaxScrollContainer = (
     children,
     style,
     start = "top top",
+    end = "bottom bottom",
     edgeOnlyProgress = false,
     ref,
     ...restProps
@@ -50,7 +52,7 @@ export const ParallaxScrollContainer = (
       scrollTrigger: {
         trigger: rootRef.current,
         start: start,
-        end: "bottom bottom",
+        end: end,
         scrub: true,
         onUpdate: (self) => {
           if (!rootRef.current) return;
@@ -100,7 +102,7 @@ export const ParallaxScrollContainer = (
     return () => {
       tl.kill();
     };
-  }, [edgeOnlyProgress, start]);
+  }, [edgeOnlyProgress, end, start]);
 
   return (
     <div
