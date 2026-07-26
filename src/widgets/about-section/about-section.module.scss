@@ -1,9 +1,11 @@
 .root {
   position: relative;
   display: flex;
-  flex-direction: column;
+  flex-direction: column;    
+  // align-items: center;
+
   gap: var(--spacing-24);
-  padding: var(--spacing-120) var(--spacing-gap);
+  padding: var(--spacing-120) var(--spacing-gap)  var(--spacing-80);
 
   @include mq(md) {
     padding: var(--spacing-80) var(--spacing-gap);
@@ -12,10 +14,11 @@
 
 .title {
   text-transform: uppercase;
-  max-width: vw(640);
+  max-width: 80vw;
 }
 
 .text {
-  max-width: vw(520);
+  max-width: 64%;
   opacity: 0.8;
+  font-size: vw(20);
 }

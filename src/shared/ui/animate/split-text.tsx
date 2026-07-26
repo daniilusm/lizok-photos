@@ -1,9 +1,10 @@
+import { createElement, type ElementType, useEffect, useRef } from "react";
+import clsx from "clsx";
+import { gsap } from "gsap";
+
 import { useIntersectionObserver } from "@shared/hooks/use-intersection-observer";
 import { SplitText } from "@shared/ui/split-text";
 import { composeRefs } from "@shared/utils/compose-refs";
-import clsx from "clsx";
-import { gsap } from "gsap";
-import { type ElementType, createElement, useEffect, useRef } from "react";
 
 import s from "./split-text.module.scss";
 
@@ -29,7 +30,7 @@ export const SplitTextAnimate = ({
   className,
   children,
   isVisible,
-  stagger = 0.02,
+  stagger = 0,
   duration = 1,
   delay = 0,
   as: As = "div",
@@ -46,8 +47,8 @@ export const SplitTextAnimate = ({
   }, []);
 
   useEffect(() => {
-    const yFrom = isVisible ? 101 : 0;
-    const yTo = isVisible ? 0 : -101;
+    const yFrom = isVisible ? 105 : 0;
+    const yTo = isVisible ? 0 : -105;
 
     const tween = gsap.fromTo(
       $letters.current,
@@ -56,7 +57,7 @@ export const SplitTextAnimate = ({
       },
       {
         yPercent: yTo,
-        ease: "quartInOut",
+        ease: "power4.inOut",
         stagger,
         duration,
         delay,

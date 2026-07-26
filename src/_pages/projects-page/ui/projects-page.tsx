@@ -2,15 +2,11 @@
 
 import clsx from "clsx";
 
-import {
-  getProjectHref,
-  type Project,
-  projectTypes,
-} from "@/shared/stub/projects";
-import { Button } from "@/shared/ui/button";
-import { Image } from "@/shared/ui/image";
+import { type Project, projectTypes } from "@/shared/stub/projects";
 import { ParallaxScrollContainer } from "@/shared/ui/parallax-scroll-container";
 import { Heading } from "@/shared/ui/typography/heading";
+
+import { ProjectCard } from "./project-card";
 
 import s from "./projects-page.module.scss";
 
@@ -39,23 +35,11 @@ export const ProjectsPage = (props: ProjectsPageProps) => {
         className={s.list}
       >
         {currentProjects.map((project) => (
-          <Button
+          <ProjectCard
             key={project.slug}
-            href={getProjectHref(projectsType, project.slug)}
-            className={s.card}
-          >
-            <Image
-              className={s.image}
-              src={project.mainImage}
-              alt={project.name}
-              height="100%"
-              objectFit="cover"
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              loading="lazy"
-            />
-            <span className={s.overlay} aria-hidden />
-            <span className={s.caption}>{project.name}</span>
-          </Button>
+            project={project}
+            projectsType={projectsType}
+          />
         ))}
       </ParallaxScrollContainer>
     </main>

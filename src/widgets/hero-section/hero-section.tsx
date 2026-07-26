@@ -4,11 +4,13 @@ import type { ComponentProps } from "react";
 import clsx from "clsx";
 
 import { HOME_CONTENT } from "@/shared/stub/home";
-import { projects } from "@/shared/stub/projects";
+import { SplitTextAnimate } from "@/shared/ui/animate";
 import { Image } from "@/shared/ui/image";
 import { ParallaxScrollContainer } from "@/shared/ui/parallax-scroll-container";
 import { Body } from "@/shared/ui/typography/body";
 import { Heading } from "@/shared/ui/typography/heading";
+
+import { usePreloaderStore } from "../preloader/model/preloaderStore";
 
 import s from "./hero-section.module.scss";
 
@@ -28,6 +30,8 @@ export const HeroSection = (props: HeroSectionProps) => {
     ...restProps
   } = props;
 
+  const { isFinishEndAnimation } = usePreloaderStore();
+
   return (
     <section className={clsx(s.root, className)} {...restProps}>
       <ParallaxScrollContainer className={s.parallax} end="bottom top">
@@ -46,12 +50,16 @@ export const HeroSection = (props: HeroSectionProps) => {
         </div>
 
         <div className={s.content}>
-          <Heading level="1" tag="h1" className={s.title}>
-            {title}
-          </Heading>
-          <Body size="primary" tag="p" className={s.text}>
-            {text}
-          </Body>
+          <SplitTextAnimate isVisible={isFinishEndAnimation}>
+            <Heading level="1" tag="h1" className={s.title}>
+              {title}
+            </Heading>
+          </SplitTextAnimate>
+          <SplitTextAnimate isVisible={isFinishEndAnimation}>
+            <Body size="primary" tag="p" className={s.text}>
+              {text}
+            </Body>
+          </SplitTextAnimate>
         </div>
       </ParallaxScrollContainer>
     </section>

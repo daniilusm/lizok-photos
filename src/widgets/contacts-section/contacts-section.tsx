@@ -4,6 +4,7 @@ import type { ComponentProps } from "react";
 import clsx from "clsx";
 
 import { HOME_CONTENT, SOCIAL_LINKS } from "@/shared/stub/home";
+import { SplitTextAnimateInView } from "@/shared/ui/animate";
 import { Button } from "@/shared/ui/button";
 import { Image } from "@/shared/ui/image";
 import { Body } from "@/shared/ui/typography/body";
@@ -44,12 +45,16 @@ export const ContactsSection = (props: ContactsSectionProps) => {
       </div>
 
       <div className={s.content}>
-        <Heading level="2" tag="h2" className={s.title}>
-          {title}
-        </Heading>
-        <Body size="primary" tag="p" className={s.text}>
-          {text}
-        </Body>
+        <SplitTextAnimateInView>
+          <Heading level="2" tag="h2" className={s.title}>
+            {title}
+          </Heading>
+        </SplitTextAnimateInView>
+        <SplitTextAnimateInView>
+          <Body size="primary" tag="p" className={s.text}>
+            {text}
+          </Body>
+        </SplitTextAnimateInView>
 
         <nav className={s.social} aria-label="Соцсети">
           {SOCIAL_LINKS.map((link) => (
@@ -60,7 +65,7 @@ export const ContactsSection = (props: ContactsSectionProps) => {
               rel="noopener noreferrer"
               className={s.link}
             >
-              {link.label}
+              <SplitTextAnimateInView>{link.label}</SplitTextAnimateInView>
             </Button>
           ))}
         </nav>
