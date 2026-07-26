@@ -1,18 +1,101 @@
 "use client";
 
+import { PRICE_CONTENT } from "@/shared/stub/price";
+import { Button } from "@/shared/ui/button";
+import { Image } from "@/shared/ui/image";
+import { Body } from "@/shared/ui/typography/body";
 import { Heading } from "@/shared/ui/typography/heading";
+import { ContactsSection } from "@/widgets/contacts-section";
+import { PageHero } from "@/widgets/page-hero";
 
 import s from "./price-page.module.scss";
 
 export const PricePage = () => {
+  const { hero, advantages, packages, note } = PRICE_CONTENT;
+
   return (
     <main className={s.root}>
-      <section>
-        <Heading level="1" tag="h1">
-          Стоимость
+      <PageHero title={hero.title} text={hero.text} imageSrc={hero.image} />
+
+      <section className={s.advantages} aria-labelledby="price-advantages">
+        <Heading
+          level="2"
+          tag="h2"
+          id="price-advantages"
+          className={s.sectionTitle}
+        >
+          {advantages.title}
         </Heading>
+        <ul className={s.advantagesList}>
+          {advantages.items.map((item) => (
+            <li key={item} className={s.advantagesItem}>
+              <Body size="primary" tag="span">
+                {item}
+              </Body>
+            </li>
+          ))}
+        </ul>
       </section>
-      <section>пакеты</section>
+
+      <section className={s.packages} aria-labelledby="price-packages">
+        <Heading
+          level="2"
+          tag="h2"
+          id="price-packages"
+          className={s.sectionTitle}
+        >
+          {packages.title}
+        </Heading>
+
+        <div className={s.packagesList}>
+          {packages.items.map((item, index) => (
+            <article
+              key={item.slug}
+              className={s.package}
+              data-reverse={index % 2 === 1 || undefined}
+            >
+              <div className={s.packageMedia}>
+                <Image
+                  className={s.packageImage}
+                  src={item.image}
+                  alt={item.name}
+                  height="100%"
+                  objectFit="cover"
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  loading="lazy"
+                />
+              </div>
+
+              <div className={s.packageContent}>
+                <div className={s.packageHead}>
+                  <Heading level="3" tag="h3" className={s.packageName}>
+                    {item.name}
+                  </Heading>
+                  <p className={s.packagePrice}>{item.price}</p>
+                </div>
+
+                <Body size="primary" tag="p" className={s.packageMeta}>
+                  {item.duration} · {item.photos}
+                </Body>
+
+                <ul className={s.packageIncludes}>
+                  {item.includes.map((line) => (
+                    <li key={line}>{line}</li>
+                  ))}
+                </ul>
+
+                <Button href="/contacts" className={s.packageCta}>
+                  Обсудить съёмку
+                </Button>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <Body size="primary" tag="p" className={s.note}>
+          {note}
+        </Body>
+      </section>
     </main>
   );
 };
