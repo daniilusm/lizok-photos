@@ -10,11 +10,25 @@
 
   @include hover {
     .image img {
-      filter: brightness(0.45);
+      filter: brightness(0.8);
     }
 
     .overlay {
       background-color: rgb(0 0 0 / 35%);
+    }
+
+    .caption {
+      opacity: 1;
+    }
+  }
+
+  @include mq(md){
+    .image img {
+      filter: brightness(0.8);
+    }
+
+    .overlay {
+      background-color: rgb(0 0 0 / 30%);
     }
 
     .caption {

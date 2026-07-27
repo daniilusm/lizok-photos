@@ -35,7 +35,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
           {/* DEPLOY: DataStoreProvider — данные из Strapi через getServerSideProps */}
           <DataStoreProvider data={pageProps.cms ?? {}}>
             <Header />
-            <Cursor />
+            {/* <Cursor /> */}
             <Preloader />
             <Scroll root wrapper>
               <TransitionLayout router={router}>

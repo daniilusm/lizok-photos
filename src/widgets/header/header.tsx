@@ -1,7 +1,8 @@
 "use client";
 
-import { type ComponentProps, useCallback, useState } from "react";
+import { type ComponentProps, useCallback, useEffect, useState } from "react";
 import clsx from "clsx";
+import { useRouter } from "next/router";
 
 import { Button } from "@shared/ui/button";
 import { HOME_CONTENT, SOCIAL_LINKS } from "@/shared/stub/home";
@@ -20,6 +21,7 @@ export type HeaderProps = ComponentProps<"div"> & {
 
 export const Header = (props: HeaderProps) => {
   const { className } = props;
+  const router = useRouter();
 
   const [isOpen, setOpen] = useState<boolean>(false);
 
@@ -30,6 +32,16 @@ export const Header = (props: HeaderProps) => {
   const handleClose = useCallback(() => {
     setOpen(false);
   }, []);
+
+  useEffect(() => {
+    const closeOnRouteChange = () => setOpen(false);
+
+    router.events.on("routeChangeStart", closeOnRouteChange);
+
+    return () => {
+      router.events.off("routeChangeStart", closeOnRouteChange);
+    };
+  }, [router.events]);
 
   const { isFinishEndAnimation } = usePreloaderStore();
 

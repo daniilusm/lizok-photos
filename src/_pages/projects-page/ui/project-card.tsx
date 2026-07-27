@@ -1,7 +1,7 @@
 "use client";
 
-import { getProjectHref, type Project } from "@/shared/stub/projects";
 import { usePointerParallax } from "@/shared/hooks/use-pointer-parallax";
+import { getProjectHref, type Project } from "@/shared/stub/projects";
 import { Button } from "@/shared/ui/button";
 import { Image } from "@/shared/ui/image";
 
