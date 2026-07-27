@@ -15,23 +15,18 @@ export type ProjectTypesSectionProps = ComponentProps<"section"> & {
   className?: string;
   items?: ProjectType[];
   title?: string;
-  isPage?: boolean;
 };
 
 export const ProjectTypesSection = (props: ProjectTypesSectionProps) => {
-  const {
-    className,
-    items = projectTypes,
-    title = "Фотосессии",
-    isPage,
-    ...restProps
-  } = props;
+  const { className, items = projectTypes, title, ...restProps } = props;
 
   return (
     <section className={clsx(s.root, className)} {...restProps}>
-      <Heading level="2" tag={isPage ? "h1" : "h2"} className={s.heading}>
-        {title}
-      </Heading>
+      {title && (
+        <Heading level="2" tag="h2" className={s.heading}>
+          {title}
+        </Heading>
+      )}
       <ParallaxScrollContainer
         start="top bottom"
         end="bottom top"

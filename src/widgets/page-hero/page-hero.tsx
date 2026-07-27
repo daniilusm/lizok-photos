@@ -4,12 +4,13 @@ import type { ComponentProps } from "react";
 import clsx from "clsx";
 
 import { Image } from "@/shared/ui/image";
+import { ParallaxScrollContainer } from "@/shared/ui/parallax-scroll-container";
 import { Body } from "@/shared/ui/typography/body";
 import { Heading } from "@/shared/ui/typography/heading";
 
 import s from "./page-hero.module.scss";
 
-export type PageHeroProps = ComponentProps<"section"> & {
+export type PageHeroProps = ComponentProps<"div"> & {
   className?: string;
   title: string;
   text?: string;
@@ -20,7 +21,11 @@ export const PageHero = (props: PageHeroProps) => {
   const { className, title, text, imageSrc, ...restProps } = props;
 
   return (
-    <section className={clsx(s.root, className)} {...restProps}>
+    <ParallaxScrollContainer
+      end="bottom top"
+      className={clsx(s.root, className)}
+      {...restProps}
+    >
       <div className={s.media} aria-hidden>
         <Image
           className={s.image}
@@ -42,7 +47,7 @@ export const PageHero = (props: PageHeroProps) => {
           </Body>
         )}
       </div>
-    </section>
+    </ParallaxScrollContainer>
   );
 };
 

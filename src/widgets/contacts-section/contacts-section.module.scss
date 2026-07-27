@@ -27,11 +27,13 @@
 }
 
 .content {
+  position: relative;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: var(--spacing-24);
-  padding: var(--spacing-48) var(--spacing-gap);
+  padding: var(--spacing-48) var(--spacing-gap) var(--spacing-24);
 
   @include mq(md) {
     padding: var(--spacing-40) var(--spacing-gap);
@@ -84,4 +86,14 @@
       transform-origin: left;
     }
   }
+}
+
+.alertText{
+  position: absolute;
+  bottom: var(--spacing-gap);
+  left: var(--spacing-gap);
+
+  opacity: 0.5;
+
+  font-size: vw(12);
 }

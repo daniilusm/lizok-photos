@@ -2,7 +2,7 @@ export const siteURL = new URL(process.env.NEXT_PUBLIC_SITE_URL || "");
 export const siteOrigin = siteURL.origin;
 
 export const APP_INFO = {
-  APP_DEFAULT_TITLE: "LIZOK PHOTOS",
+  APP_DEFAULT_TITLE: "Фотограф | Елизавета Акимова",
   APP_TITLE_TEMPLATE: "%s",
   APP_DESCRIPTION: "",
   APP_KEYWORDS: "",
@@ -10,7 +10,7 @@ export const APP_INFO = {
   APP_SITE_URL_ORIGIN: siteOrigin || "",
   APP_BASE_URL: siteURL,
   APP_DOMAIN: siteURL.hostname,
-  APP_DEFAULT_OG: "/og.png",
+  APP_DEFAULT_OG: "/og.webp",
 };
 
 export type AppInfoType = typeof APP_INFO;

@@ -66,6 +66,11 @@ export const ContactsSection = (props: ContactsSectionProps) => {
             </Button>
           ))}
         </nav>
+        <p className={s.alertText}>
+          *Компания Meta, продукты которой, включая социальные сети Facebook и
+          Instagram, признаны экстремистскими организациями и запрещены на
+          территории Рф
+        </p>
       </div>
     </section>
   );

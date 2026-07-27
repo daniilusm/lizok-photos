@@ -49,6 +49,72 @@
   }
 }
 
+.breakMedia {
+  position: relative;
+  height: 50svh;
+  overflow: hidden;
+  background-color: var(--c-namibia);
+}
+
+.breakImage {
+  width: 100%;
+  height: 100%;
+
+  img {
+    transform: translate3d(
+        0,
+        calc(20% * var(--parallax-scroll-progress, 0)),
+        0
+      )
+      scale(1.2);
+    will-change: transform;
+  }
+}
+
+.process {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-48);
+  padding: var(--spacing-120) var(--spacing-gap) var(--spacing-120);
+
+  @include mq(md) {
+    gap: var(--spacing-40);
+    padding-bottom: var(--spacing-80);
+  }
+}
+
+.processList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--spacing-48) var(--spacing-gap);
+
+  @include mq(md) {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-40);
+  }
+}
+
+.processBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-20);
+  max-width: vw(560);
+}
+
+.processBlockTitle {
+  text-transform: uppercase;
+}
+
+.processTexts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+}
+
+.processText {
+  opacity: 0.8;
+}
+
 .packages {
   display: flex;
   flex-direction: column;
@@ -64,17 +130,11 @@
 .packagesList {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-80);
-
-  @include mq(md) {
-    gap: var(--spacing-64);
-  }
 }
 
 .package {
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: var(--spacing-gap);
+  grid-template-columns: repeat(2, 1fr);
   align-items: stretch;
 
   &[data-reverse] {
@@ -101,18 +161,31 @@
 
 .packageMedia {
   position: relative;
-  min-height: vw(520);
+  height: 100svh;
   overflow: hidden;
   background-color: var(--c-namibia);
 
   @include mq(md) {
-    min-height: 55svh;
+    height: 55svh;
   }
 }
 
 .packageImage {
   width: 100%;
   height: 100%;
+
+  
+  img{
+    transform: translate3d(
+        0%,
+        calc(
+          20% * var(--parallax-scroll-progress, 0),
+        ),
+        0
+      )
+      scale(1.2);
+    will-change: transform;
+  }
 }
 
 .packageContent {

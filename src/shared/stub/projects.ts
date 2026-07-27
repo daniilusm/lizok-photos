@@ -70,7 +70,7 @@ export const projectTypes: ProjectType[] = [
         mainImage: `${imageLink}/v1785083025/01_kplwcp.webp`,
       },
       {
-        slug: "anina",
+        slug: "alina",
         name: "Алина",
         date: "01.01.2020",
         mainImage: `${imageLink}/v1785082992/05_gqvgzf.webp`,
@@ -104,7 +104,7 @@ export const projectTypes: ProjectType[] = [
   // },
   {
     slug: "events",
-    name: "Мороприятия",
+    name: "Мероприятия",
     mainImage: `${imageLink}/v1785084848/IMG_5381_ezysls.jpg`,
     projects: [
       {

@@ -3,15 +3,16 @@
 import { PRICE_CONTENT } from "@/shared/stub/price";
 import { Button } from "@/shared/ui/button";
 import { Image } from "@/shared/ui/image";
+import { ParallaxScrollContainer } from "@/shared/ui/parallax-scroll-container";
 import { Body } from "@/shared/ui/typography/body";
 import { Heading } from "@/shared/ui/typography/heading";
-import { ContactsSection } from "@/widgets/contacts-section";
 import { PageHero } from "@/widgets/page-hero";
 
 import s from "./price-page.module.scss";
 
 export const PricePage = () => {
-  const { hero, advantages, packages, note } = PRICE_CONTENT;
+  const { hero, advantages, breakImage, process, packages, note } =
+    PRICE_CONTENT;
 
   return (
     <main className={s.root}>
@@ -37,6 +38,56 @@ export const PricePage = () => {
         </ul>
       </section>
 
+      <ParallaxScrollContainer
+        className={s.breakMedia}
+        start="top bottom"
+        end="bottom top"
+        aria-hidden
+      >
+        <Image
+          className={s.breakImage}
+          src={breakImage}
+          alt=""
+          height="100%"
+          objectFit="cover"
+          sizes="100vw"
+          loading="lazy"
+        />
+      </ParallaxScrollContainer>
+
+      <section className={s.process} aria-labelledby="price-process">
+        <Heading
+          level="2"
+          tag="h2"
+          id="price-process"
+          className={s.sectionTitle}
+        >
+          {process.title}
+        </Heading>
+
+        <div className={s.processList}>
+          {process.blocks.map((block) => (
+            <article key={block.title} className={s.processBlock}>
+              <Heading level="3" tag="h3" className={s.processBlockTitle}>
+                {block.title}
+              </Heading>
+              <div className={s.processTexts}>
+                {block.paragraphs.map((paragraph) => (
+                  <Body
+                    key={paragraph}
+                    size="primary"
+                    tag="p"
+                    className={s.processText}
+                  >
+                    {paragraph}
+                  </Body>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section className={s.packages} aria-labelledby="price-packages">
         <Heading
           level="2"
@@ -54,7 +105,11 @@ export const PricePage = () => {
               className={s.package}
               data-reverse={index % 2 === 1 || undefined}
             >
-              <div className={s.packageMedia}>
+              <ParallaxScrollContainer
+                end="bottom top"
+                start="top bottom"
+                className={s.packageMedia}
+              >
                 <Image
                   className={s.packageImage}
                   src={item.image}
@@ -64,7 +119,7 @@ export const PricePage = () => {
                   sizes="(min-width: 768px) 50vw, 100vw"
                   loading="lazy"
                 />
-              </div>
+              </ParallaxScrollContainer>
 
               <div className={s.packageContent}>
                 <div className={s.packageHead}>

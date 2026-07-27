@@ -14,7 +14,7 @@ export const PortfolioPage = () => {
         text="Подборка съёмок: индивидуальные, семейные и мероприятия."
         imageSrc={HOME_CONTENT.favoriteImages[0]}
       />
-      <ProjectTypesSection title="Портфолио" isPage />
+      <ProjectTypesSection />
     </main>
   );
 };
