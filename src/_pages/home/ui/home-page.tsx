@@ -1,6 +1,7 @@
 "use client";
 
 import { AboutSection } from "@/widgets/about-section";
+import { ComparisonSection } from "@/widgets/comparison-section";
 import { ContactsSection } from "@/widgets/contacts-section";
 import { HeroSection } from "@/widgets/hero-section";
 import { PhotoExamplesSection } from "@/widgets/photo-examples-section";
@@ -14,6 +15,7 @@ export const HomePage = () => {
       <HeroSection />
       <AboutSection />
       <PhotoExamplesSection />
+      <ComparisonSection />
       <ProjectTypesSection title="Фотосессии" className={s.projects} />
       <ContactsSection />
     </main>

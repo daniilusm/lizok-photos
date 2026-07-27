@@ -1,5 +1,7 @@
 import { imageLink } from "./projects";
 
+import { after } from "node:test";
+
 export const SOCIAL_LINKS = [
   {
     label: "instagram",
@@ -20,6 +22,10 @@ export const HOME_CONTENT = {
     title: "Елизавета Акимова",
     text: "Фотограф. Снимаю людей, места и состояния.",
     image: `${imageLink}/v1785082070/photo_2026-07-26_19.06.32_endalg.webp`,
+  },
+  comparisonImages: {
+    before: `${imageLink}/v1785185506/IMG_9009-2_dps3lw.webp`,
+    after: `${imageLink}/v1785185506/IMG_9009_fqlbew.webp`,
   },
   about: {
     title: "Обо мне",

@@ -1,0 +1,95 @@
+.root {
+  --compare-progress: 0.5;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-32);
+  padding: var(--spacing-120) var(--spacing-gap);
+
+  @include mq(md) {
+    gap: var(--spacing-24);
+    padding: var(--spacing-80) var(--spacing-gap);
+  }
+}
+
+.title {
+  text-transform: uppercase;
+}
+
+.frame {
+  position: relative;
+  width: 100%;
+  height: vw(600);
+  overflow: hidden;
+  background-color: var(--c-namibia);
+  cursor: ew-resize;
+  touch-action: none;
+  user-select: none;
+
+  @include mq(md) {
+    height: 55svh;
+  }
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+}
+
+.after {
+  // Слева видно after, справа — before: clip от правого края
+  clip-path: inset(0 calc((1 - var(--compare-progress)) * 100%) 0 0);
+  will-change: clip-path;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+
+  img{
+    object-position: 100% 62%;
+  }
+}
+
+.label {
+  position: absolute;
+  bottom: var(--spacing-24);
+  z-index: 1;
+  padding: var(--spacing-8) var(--spacing-12);
+  background-color: rgba(42, 46, 31, 0.55);
+  color: var(--c-white);
+  font-size: vw(12);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.afterLabel{
+  right: var(--spacing-24);
+}
+
+.beforeLabel{
+  left: var(--spacing-24);
+}
+
+.handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--compare-progress) * 100%);
+  z-index: 2;
+  width: 0;
+  pointer-events: none;
+}
+
+.handleLine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  background-color: var(--c-white);
+  transform: translateX(-50%);
+  box-shadow: 0 0 0 1px rgba(42, 46, 31, 0.2);
+}
