@@ -4,8 +4,8 @@ import type { ComponentProps } from "react";
 import clsx from "clsx";
 
 import { HOME_CONTENT, SOCIAL_LINKS } from "@/shared/stub/home";
-import { Button } from "@/shared/ui/button";
 import { Image } from "@/shared/ui/image";
+import { Link } from "@/shared/ui/link";
 import { Body } from "@/shared/ui/typography/body";
 import { Heading } from "@/shared/ui/typography/heading";
 
@@ -55,15 +55,14 @@ export const ContactsSection = (props: ContactsSectionProps) => {
 
         <nav className={s.social} aria-label="Соцсети">
           {SOCIAL_LINKS.map((link) => (
-            <Button
+            <Link
               key={link.href}
               href={link.href}
               target="_blank"
-              rel="noopener noreferrer"
               className={s.link}
             >
               {link.label}
-            </Button>
+            </Link>
           ))}
         </nav>
         <p className={s.alertText}>

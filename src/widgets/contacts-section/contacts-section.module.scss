@@ -6,7 +6,11 @@
   overflow: hidden;
 
   @include mq(md) {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-40);
+    align-items: center;
+    height: auto;
   }
 }
 
@@ -17,13 +21,27 @@
   background-color: var(--c-light-graphite);
 
   @include mq(md) {
-    min-height: 50svh;
+    height: vw(400);
+    width: vw(400);
+    margin-top: 15svh;
+    flex-shrink: 0;
+  }
+
+  @include mq(sm) {
+    height: vw(330);
+    width: vw(330);
   }
 }
 
 .image {
   width: 100%;
   height: 100%;
+
+  @include mq(md){
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    overflow: hidden;
+  }
 }
 
 .content {
@@ -36,7 +54,15 @@
   padding: var(--spacing-48) var(--spacing-gap) var(--spacing-24);
 
   @include mq(md) {
-    padding: var(--spacing-40) var(--spacing-gap);
+    padding: 0 var(--spacing-gap);
+    height: 100%;
+    justify-content: flex-start; 
+    text-align: center;
+    width: 80%;
+  }
+
+  @include mq(sm){
+    width: 100%;
   }
 }
 
@@ -45,8 +71,12 @@
 }
 
 .text {
-  max-width: vw(360);
+  width: vw(360);
   opacity: 0.8;
+
+  @include mq(md){
+    width: 100%;
+  }
 }
 
 .social {
@@ -55,37 +85,21 @@
   gap: var(--spacing-16);
   margin-top: var(--spacing-16);
   text-transform: uppercase;
+
+  @include mq(md){
+    flex-direction: row;
+    justify-content: center;
+    gap: var(--spacing-40);
+    margin-bottom: vw(120);
+  }
+
+  @include mq(sm){
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .link {
-  position: relative;
-  width: max-content;
-  opacity: 0.75;
-  font-size: vw(12);
-
-  @include transition((opacity));
-
-  &::before {
-    position: absolute;
-    bottom: vw(-2);
-    left: 0;
-    content: "";
-    width: 100%;
-    height: 2px;
-    background-color: var(--c-white);
-    transform: scaleX(0);
-    transform-origin: right;
-    @include transition((transform), 0.5s, steps(4, jump-end));
-  }
-
-  @include hover {
-    opacity: 1;
-
-    &::before {
-      transform: scaleX(1);
-      transform-origin: left;
-    }
-  }
 }
 
 .alertText{

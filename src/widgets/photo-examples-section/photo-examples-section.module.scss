@@ -1,9 +1,9 @@
 .root {
   position: relative;
-  padding: var(--spacing-48) var(--spacing-gap);
+  padding: 0 var(--spacing-gap);
 
   @include mq(md) {
-    padding: var(--spacing-32) var(--spacing-gap);
+    padding: 0 var(--spacing-gap);
   }
 }
 
@@ -11,6 +11,10 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--spacing-gap);
+
+  @include mq(md){
+    grid-template-columns: 1fr;
+  }
 }
 
 .item {
@@ -18,6 +22,10 @@
   overflow: hidden;
   aspect-ratio: 1 / 1;
   background-color: var(--c-light-graphite);
+
+  @include mq(md){
+    aspect-ratio: 16/9;
+  }
 }
 
 .image {

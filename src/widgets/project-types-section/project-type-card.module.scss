@@ -6,6 +6,10 @@
   overflow: hidden;
   width: 100%;
   aspect-ratio: 3 / 4;
+
+  @include mq(lg){
+    aspect-ratio: 1 / 1;
+  }
 }
 
 .link {

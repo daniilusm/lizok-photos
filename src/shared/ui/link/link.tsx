@@ -24,7 +24,7 @@ export const Link = (props: LinkProps) => {
     className,
     href,
     children,
-    variant = "text",
+    variant = "underline",
     size = "s",
     disabled,
     target,

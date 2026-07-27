@@ -4,7 +4,6 @@
   flex-direction: column;
   justify-content: flex-start;
   gap: var(--spacing-32);
-  min-height: 100svh;
   padding: var(--spacing-48) var(--spacing-gap) var(--spacing-48);
 
   @include mq(md) {

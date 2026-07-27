@@ -1,4 +1,5 @@
 @use '../functions/vw' as *;
+@use "../mixins//breakpoints" as *;
 
 @mixin typography($font-size, $line-height, $letter-spacing: 0, $text-transform: "normal", $font-family: var(--font-family-base)) {
   font-size: $font-size;
@@ -22,6 +23,10 @@
   @include typography(vw(80), 0.88, -0.06em);
 }
 
+@mixin accentS {
+  @include typography(vw(60), 0.88, -0.06em);
+}
+
 @mixin h2 {
   @include typography(vw(48), 1, -0.05em);
 }
@@ -39,7 +44,7 @@
 }
 
 @mixin btnS {
-  @include typography(vw(12), 1, 0.02em, uppercase);
+  @include typography(vw(16), 1, 0.02em, uppercase);
   font-weight: 600;
 }
 

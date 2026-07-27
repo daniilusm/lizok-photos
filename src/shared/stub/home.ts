@@ -1,10 +1,10 @@
 import { imageLink } from "./projects";
 
 export const SOCIAL_LINKS = [
-  // {
-  //   label: "instagram",
-  //   href: "https://www.instagram.com/lizok.a.ph",
-  // },
+  {
+    label: "instagram",
+    href: "https://www.instagram.com/lizok.a.ph",
+  },
   {
     label: "telegram",
     href: "https://t.me/Mu_lS",

@@ -23,6 +23,10 @@
   &.filled {
     background-color: var(--background-surface-page);
   }
+
+  @include mq(md){
+    padding: var(--spacing-20); 
+  }
 }
 
 .item {
@@ -49,22 +53,27 @@
 .wrapper{
   position: relative;
   z-index: 1;
-  border: 1px solid var(--c-white);
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: var(--spacing-24);
 
-  padding: var(--spacing-32);
+  padding: var(--spacing-48) var(--spacing-16) var(--spacing-24);
 
-  width: 70vw;
-  height: 70vh;
+  width: 100%;
+  height: 100%;
+}
 
-  background-color: #00000072;
-  backdrop-filter: blur(70px);
+.links{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--spacing-24);
 
-  @include mq(md){
-    width: 80vw;
+  .link{
+    font-size: vw(28);
+    font-weight: 300;
   }
 }
 
@@ -77,60 +86,28 @@
     width: 100%;
     height: 100svh;
 
-    padding: var(--spacing-32);
-
     display: flex;
     align-items: center;
     justify-content: center;
 
-    pointer-events: none;
+    background-color: var(--c-white);
 
-    @include transition((opacity));
+    clip-path: inset(0% 100% 0% 0%);
+
+    @include transition((clip-path));
 }
 
 .crossBtn {
     position: absolute;
-    top: var(--spacing-32);
-    right: var(--spacing-32);
-    z-index: 1;
-    transform: scale(1);
-
-    @include hover{
-        transform: scale(1.5);
-    }
-}
-
-.overlay{
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 100svh;
-
-    backdrop-filter: blur(30px);
-}
-
-.canvas{
-    pointer-events: none !important;
-  canvas, div {
-    pointer-events: none !important;
-  }
-}
-
-.crossBtn, .wrapper, .overlay{
-    opacity: 0;
-
+    top: var(--spacing-20);
+    right: var(--spacing-20);
+    z-index: 2;
+    transform: scale(2);
     @include transition((opacity, transform));
 }
 
 .openPopup {
-    pointer-events: all;
-
-
-    .crossBtn, .wrapper, .overlay{
-        opacity: 1;
-    }
+    clip-path: inset(0% 0% 0% 0%);
 }
 
 .top{
@@ -141,20 +118,6 @@
     flex-direction: column-reverse;
     align-items: center;
     gap: var(--spacing-56);
-  }
-}
-
-.image{
-  width: 40vw;
-  height: 55vh;
-
-  @include mq(lg){
-    width: 100%;
-    height: 50dvh;
-  }
-
-  @include mq(sm){
-    height: 30dvh;
   }
 }
 
@@ -172,36 +135,7 @@
   }
 }
 
-.link{
-  position: relative;
-  opacity: 0.75;
-
-  width: max-content;
-
-  @include transition((opacity));
-
-  &::before{
-    position: absolute;
-    bottom: vw(-2);
-    left: 0;
-    content: '';
-    width: 100%;
-    height: 2px;
-    background-color: var(--c-white);
-    transform: scaleX(0);
-    transform-origin: right;
-    @include transition((transform));
-  }
-
-  @include hover{
-    opacity: 1;
-
-    &::before{
-      transform: scaleX(1);
-      transform-origin: left;
-    }
-  }
-}
+.link{}
 
 .alertText{
   font-size: vw(8);
@@ -214,4 +148,38 @@
 
 .viewHeader{
   transform: translateY(0%);
+}
+
+.hideM{
+  @include mq(sm){
+    display: none;
+  }
+}
+
+.menuButton{
+  display: none;
+
+  @include mq(sm){
+    display: block;
+
+    @include btnS();
+  }
+}
+
+.socialLinks{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.media{
+  height: vw(330);
+  width: vw(330);
+  align-self: center;
+
+  .image{
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    overflow: hidden;
+  }
 }

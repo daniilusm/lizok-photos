@@ -1,8 +1,8 @@
 "use client";
 
 import { PRICE_CONTENT } from "@/shared/stub/price";
-import { Button } from "@/shared/ui/button";
 import { Image } from "@/shared/ui/image";
+import { Link } from "@/shared/ui/link";
 import { ParallaxScrollContainer } from "@/shared/ui/parallax-scroll-container";
 import { Body } from "@/shared/ui/typography/body";
 import { Heading } from "@/shared/ui/typography/heading";
@@ -139,9 +139,9 @@ export const PricePage = () => {
                   ))}
                 </ul>
 
-                <Button href="/contacts" className={s.packageCta}>
+                <Link href="/contacts" className={s.packageCta}>
                   Обсудить съёмку
-                </Button>
+                </Link>
               </div>
             </article>
           ))}

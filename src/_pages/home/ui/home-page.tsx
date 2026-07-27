@@ -14,7 +14,7 @@ export const HomePage = () => {
       <HeroSection />
       <AboutSection />
       <PhotoExamplesSection />
-      <ProjectTypesSection title="Фотосессии" />
+      <ProjectTypesSection title="Фотосессии" className={s.projects} />
       <ContactsSection />
     </main>
   );

@@ -1,7 +1,7 @@
-import { mod } from "@shared/utils";
-import { clsx } from "clsx";
 import type { ComponentProps } from "react";
+import { clsx } from "clsx";
 
+import { mod } from "@shared/utils";
 import type { ComponentOrTag } from "@/shared/types";
 
 import type { TypographyProps } from "../typography";
@@ -31,7 +31,7 @@ export const Body = <Element extends ComponentOrTag<ComponentProps<Element>>>(
 
   return (
     <Typography
-      className={clsx(styles.root, size, className)}
+      className={clsx(styles.root, mods, size, className)}
       weight={weight}
       {...restProps}
     >

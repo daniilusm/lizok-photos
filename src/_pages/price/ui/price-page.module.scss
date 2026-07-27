@@ -12,11 +12,10 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-40);
-  padding: var(--spacing-120) var(--spacing-gap) var(--spacing-80);
+  padding: var(--spacing-section) var(--spacing-gap);
 
   @include mq(md) {
     gap: var(--spacing-32);
-    padding: var(--spacing-80) var(--spacing-gap) var(--spacing-48);
   }
 }
 
@@ -54,6 +53,10 @@
   height: 50svh;
   overflow: hidden;
   background-color: var(--c-namibia);
+
+  @include mq(lg){
+    height: 25svh;
+  }
 }
 
 .breakImage {
@@ -63,10 +66,10 @@
   img {
     transform: translate3d(
         0,
-        calc(20% * var(--parallax-scroll-progress, 0)),
+        calc(15% * var(--parallax-scroll-progress, 0)),
         0
       )
-      scale(1.2);
+      scale(1.4);
     will-change: transform;
   }
 }
@@ -75,11 +78,10 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-48);
-  padding: var(--spacing-120) var(--spacing-gap) var(--spacing-120);
+  padding: var(--spacing-section) var(--spacing-gap);
 
   @include mq(md) {
     gap: var(--spacing-40);
-    padding-bottom: var(--spacing-80);
   }
 }
 
@@ -98,7 +100,11 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-20);
-  max-width: vw(560);
+  width: vw(560);
+
+  @include mq(lg){
+    width: 100%;
+  }
 }
 
 .processBlockTitle {
@@ -119,17 +125,23 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-48);
-  padding: 0 var(--spacing-gap) var(--spacing-120);
+  padding: 0 var(--spacing-gap) var(--spacing-section);
 
   @include mq(md) {
-    gap: var(--spacing-40);
-    padding-bottom: var(--spacing-80);
   }
 }
 
 .packagesList {
   display: flex;
   flex-direction: column;
+
+  @include mq(md){
+    gap: var(--spacing-40);
+  }
+
+  @include mq(sm){
+    gap: var(--spacing-32);
+  }
 }
 
 .package {
@@ -147,8 +159,15 @@
     }
   }
 
+  @include mq(lg){
+    height: 50svh;
+  }
+
   @include mq(md) {
+    height: auto;
     grid-template-columns: 1fr;
+    border-bottom: 1px solid var(--c-namibia);
+    padding-bottom: var(--spacing-32);
 
     &[data-reverse] {
       .packageMedia,
@@ -165,8 +184,16 @@
   overflow: hidden;
   background-color: var(--c-namibia);
 
-  @include mq(md) {
-    height: 55svh;
+  @include mq(lg) {
+    height: 50svh;
+  }
+
+  @include mq(md){
+    height: vw(400);
+  }
+
+  @include mq(sm){
+    height: vw(300);
   }
 }
 
@@ -183,9 +210,10 @@
         ),
         0
       )
-      scale(1.2);
+      scale(1.4);
     will-change: transform;
   }
+
 }
 
 .packageContent {
@@ -206,6 +234,10 @@
   align-items: baseline;
   justify-content: space-between;
   gap: var(--spacing-12) var(--spacing-24);
+
+  @include mq(sm){
+    flex-direction: column;
+  }
 }
 
 .packageName {
