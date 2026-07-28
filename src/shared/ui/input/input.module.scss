@@ -48,6 +48,10 @@
       font-size: vw(13);
       line-height: 1.32;
       letter-spacing: -0.02em;
+
+      @include mq(sm) {
+        font-size: vw(11);
+      }
     }
 
     .control {

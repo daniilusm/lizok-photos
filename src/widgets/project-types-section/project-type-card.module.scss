@@ -51,5 +51,10 @@
   color: var(--c-white);
   font-size: vw(24);
   letter-spacing: 0.04em;
+
   background: linear-gradient(to top, rgb(0 0 0 / 70%), transparent);
+
+  @include mq(sm) {
+    font-size: vw(18);
+  }
 }

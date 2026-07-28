@@ -2,7 +2,7 @@
 @use "../mixins//breakpoints" as *;
 
 @mixin typography($font-size, $line-height, $letter-spacing: 0, $text-transform: "normal", $font-family: var(--font-family-base)) {
-  font-size: $font-size;
+  font-size: vw($font-size);
   line-height: $line-height;
   font-family: $font-family;
 
@@ -13,70 +13,74 @@
   @if $text-transform != "normal" {
     text-transform: $text-transform;
   }
+
+  @include mq(md) {
+    font-size: vw($font-size + 6);
+  }
+
+  @include mq(sm) {
+    font-size: vw($font-size - 2);
+  }
 }
 
 @mixin accentXXL {
-  @include typography(vw(132), 0.88, -0.06em);
+  @include typography(132, 0.88, -0.06em);
 }
 
 @mixin accentM {
-  @include typography(vw(80), 0.88, -0.06em);
+  @include typography(80, 0.88, -0.06em);
 }
 
 @mixin accentS {
-  @include typography(vw(60), 0.88, -0.06em);
+  @include typography(60, 0.88, -0.06em);
 }
 
 @mixin h2 {
-  @include typography(vw(48), 1, -0.05em);
+  @include typography(48, 1, -0.05em);
 }
 
 @mixin h3 {
-  @include typography(vw(36), 1.1, -0.04em);
+  @include typography(36, 1.1, -0.04em);
 }
 
 @mixin h4 {
-  @include typography(vw(24), 1.12, -0.04em);
+  @include typography(24, 1.12, -0.04em);
 }
 
 @mixin h5 {
-  @include typography(vw(24), 1.12, -0.04em);
+  @include typography(24, 1.12, -0.04em);
 }
 
 @mixin btnS {
-  @include typography(vw(16), 1, 0.02em, uppercase);
+  @include typography(16, 1, 0.02em, uppercase);
   font-weight: 600;
 }
 
 @mixin btnM {
-  @include typography(vw(14), 1, 0.02em, uppercase);
+  @include typography(14, 1, 0.02em, uppercase);
   font-weight: 600;
 }
 
 @mixin captionXL {
-  @include typography(vw(28), 1.08, -0.05em);
+  @include typography(28, 1.08, -0.05em);
 }
 
 @mixin captionM {
-  @include typography(vw(12), 1, 0.02em, uppercase);
+  @include typography(12, 1, 0.02em, uppercase);
 }
 
 @mixin captionXS {
-  @include typography(vw(10), 1.32, 0.02em, uppercase);
+  @include typography(10, 1.32, 0.02em, uppercase);
 }
 
 @mixin body-paragraph {
-  @include typography(vw(18), 1.32, -0.02em);
-}
-
-@mixin body-paragraph {
-  @include typography(vw(18), 1.32, -0.02em);
+  @include typography(18, 1.32, -0.02em);
 }
 
 @mixin body-paragraph-accent {
-  @include typography(vw(18), 1.32, -0.02em);
+  @include typography(18, 1.32, -0.02em);
 }
 
 @mixin body-paragraph-secondary {
-  @include typography(vw(16), 1.3, -0.02em);
+  @include typography(16, 1.3, -0.02em);
 }

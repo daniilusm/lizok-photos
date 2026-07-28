@@ -22,5 +22,9 @@
   font-family: var(--font-family-base);
   font-size: vw(11);
   text-transform: uppercase;
+
+  @include mq(sm) {
+    font-size: vw(9);
+  }
   pointer-events: none;
 }

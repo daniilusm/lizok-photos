@@ -21,4 +21,8 @@
   @include mq(md){
     max-width: 100%;
   }
+
+  @include mq(sm) {
+    font-size: vw(18);
+  }
 }

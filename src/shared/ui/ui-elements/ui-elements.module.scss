@@ -14,6 +14,10 @@
     text-transform: uppercase;
     font-size: vw(10);
 
+    @include mq(sm) {
+      font-size: vw(8);
+    }
+
     mix-blend-mode: difference;
 }
 

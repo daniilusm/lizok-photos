@@ -6,6 +6,10 @@
   margin-bottom: 1rem;
   font-size: 1.25rem;
   font-weight: 600;
+
+  @include mq(sm) {
+    font-size: calc(1.25rem - 2px);
+  }
 }
 
 .grid {

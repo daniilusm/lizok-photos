@@ -88,6 +88,10 @@
   color: var(--c-white);
   font-size: vw(28);
   letter-spacing: 0.04em;
+
+  @include mq(sm) {
+    font-size: vw(26);
+  }
   opacity: 0;
   @include transition((opacity), 0.4s);
 }

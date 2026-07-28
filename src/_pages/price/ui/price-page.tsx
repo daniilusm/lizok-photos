@@ -6,6 +6,7 @@ import { Link } from "@/shared/ui/link";
 import { ParallaxScrollContainer } from "@/shared/ui/parallax-scroll-container";
 import { Body } from "@/shared/ui/typography/body";
 import { Heading } from "@/shared/ui/typography/heading";
+import { ComparisonSection } from "@/widgets/comparison-section";
 import { PageHero } from "@/widgets/page-hero";
 
 import s from "./price-page.module.scss";
@@ -87,6 +88,8 @@ export const PricePage = () => {
           ))}
         </div>
       </section>
+
+      <ComparisonSection />
 
       <section className={s.packages} aria-labelledby="price-packages">
         <Heading

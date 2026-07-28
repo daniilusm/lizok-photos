@@ -61,6 +61,10 @@
   color: var(--c-white);
   font-size: vw(12);
   letter-spacing: 0.06em;
+
+  @include mq(sm) {
+    font-size: vw(10);
+  }
   text-transform: uppercase;
   pointer-events: none;
 }

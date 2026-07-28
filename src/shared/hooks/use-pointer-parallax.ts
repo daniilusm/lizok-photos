@@ -1,7 +1,10 @@
 "use client";
 
-import { useEffect, useRef, type MouseEvent, type RefObject } from "react";
+import { type MouseEvent, type RefObject, useEffect, useRef } from "react";
 import gsap from "gsap";
+
+import { BREAKPOINTS } from "@/shared/config";
+import { useMedia } from "@/shared/hooks/use-media";
 
 type UsePointerParallaxOptions = {
   strength?: number;
@@ -12,6 +15,7 @@ type UsePointerParallaxResult = {
   rootRef: RefObject<HTMLDivElement | null>;
   onMouseMove: (event: MouseEvent<HTMLDivElement>) => void;
   onMouseLeave: () => void;
+  enabled: boolean;
 };
 
 export const usePointerParallax = (
@@ -22,12 +26,26 @@ export const usePointerParallax = (
   const rootRef = useRef<HTMLDivElement>(null);
   const xToRef = useRef<gsap.QuickToFunc | null>(null);
   const yToRef = useRef<gsap.QuickToFunc | null>(null);
+  const enabledRef = useRef(true);
+
+  const isCoarsePointer = useMedia("(pointer: coarse)", false);
+  const isNoHover = useMedia("(hover: none)", false);
+  const isMobileWidth = useMedia(`(max-width: ${BREAKPOINTS.md}px)`, false);
+
+  const enabled = !isCoarsePointer && !isNoHover && !isMobileWidth;
+  enabledRef.current = enabled;
 
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
 
     gsap.set(root, { "--pointer-x": 0, "--pointer-y": 0 });
+
+    if (!enabled) {
+      xToRef.current = null;
+      yToRef.current = null;
+      return;
+    }
 
     xToRef.current = gsap.quickTo(root, "--pointer-x", {
       duration,
@@ -42,9 +60,11 @@ export const usePointerParallax = (
       xToRef.current = null;
       yToRef.current = null;
     };
-  }, [duration]);
+  }, [duration, enabled]);
 
   const onMouseMove = (event: MouseEvent<HTMLDivElement>) => {
+    if (!enabledRef.current) return;
+
     const root = rootRef.current;
     if (!root || !xToRef.current || !yToRef.current) return;
 
@@ -57,9 +77,11 @@ export const usePointerParallax = (
   };
 
   const onMouseLeave = () => {
+    if (!enabledRef.current) return;
+
     xToRef.current?.(0);
     yToRef.current?.(0);
   };
 
-  return { rootRef, onMouseMove, onMouseLeave };
+  return { rootRef, onMouseMove, onMouseLeave, enabled };
 };
