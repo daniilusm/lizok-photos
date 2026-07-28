@@ -9,11 +9,11 @@ import s from "./inner-page.module.scss";
 type InnerPagePreviewProps = {
   images: { url: string }[];
   activeIndex: number;
-  slug?: string | string[];
+  projectName: string;
 };
 
 export const InnerPagePreview = memo(
-  ({ images, activeIndex, slug }: InnerPagePreviewProps) => {
+  ({ images, activeIndex, projectName }: InnerPagePreviewProps) => {
     const activeImage = images[activeIndex];
 
     if (!activeImage) {
@@ -24,12 +24,13 @@ export const InnerPagePreview = memo(
       <div className={s.imageHover}>
         <Image
           src={getCloudinaryPreviewUrl(activeImage.url)}
-          alt={`${slug ?? "project"} image ${activeIndex + 1}`}
+          alt={`${projectName} — фото ${activeIndex + 1}`}
           height="100%"
           objectFit="contain"
           className={s.currentImage}
           loading="eager"
           sizes="50vw"
+          preloaded={false}
         />
         <div className={s.counter}>
           {activeIndex + 1} / {images.length}

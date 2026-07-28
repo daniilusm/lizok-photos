@@ -1,7 +1,5 @@
 import { imageLink } from "./projects";
 
-import { after } from "node:test";
-
 export const SOCIAL_LINKS = [
   {
     label: "instagram",

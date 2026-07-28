@@ -30,16 +30,18 @@ export const HeroSection = (props: HeroSectionProps) => {
   return (
     <section className={clsx(s.root, className)} {...restProps}>
       <ParallaxScrollContainer className={s.parallax} end="bottom top">
-        <div className={s.media} aria-hidden>
+        <div className={s.media}>
           {imageSrc && (
             <Image
               className={s.image}
               src={imageSrc}
-              alt=""
+              alt={`${title} — фотограф в Твери`}
               height="100%"
               objectFit="cover"
               loading="eager"
               sizes="100vw"
+              fetchPriority="high"
+              preloaded
             />
           )}
         </div>

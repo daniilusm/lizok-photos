@@ -8,12 +8,18 @@ import { InnerPage } from "@/_pages/inner-page/ui";
 import { ProjectsPage } from "@/_pages/projects-page/ui";
 import { getInnerProjectImages } from "@/shared/api/cloudinary";
 import {
+  getProjectSeo,
+  getProjectTypeSeo,
+  withCmsSeo,
+} from "@/shared/seo";
+import {
   findProject,
   getProjectsByType,
   type Project,
   type ProjectWithType,
   projectTypes,
 } from "@/shared/stub/projects";
+import type { Seo } from "@/shared/types/strapi-components/widgets";
 
 type PortfolioTypeRouteProps = {
   mode: "type";
@@ -32,6 +38,13 @@ type PortfolioProjectRouteProps = {
 export type PortfolioNestedPageProps =
   | PortfolioTypeRouteProps
   | PortfolioProjectRouteProps;
+
+type PortfolioPageProps = PortfolioNestedPageProps & {
+  cms: {
+    commonData: { seo: Seo };
+    pageSeoData: Seo;
+  };
+};
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const typePaths = projectTypes.map((projectType) => ({
@@ -56,7 +69,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps<PortfolioNestedPageProps> = async (
+export const getStaticProps: GetStaticProps<PortfolioPageProps> = async (
   context,
 ) => {
   const projectsType = String(context.params?.projectsType ?? "");
@@ -73,7 +86,6 @@ export const getStaticProps: GetStaticProps<PortfolioNestedPageProps> = async (
     return { notFound: true };
   }
 
-  // /portfolio/[projectsType]
   if (slugParts.length === 0) {
     return {
       props: {
@@ -81,11 +93,11 @@ export const getStaticProps: GetStaticProps<PortfolioNestedPageProps> = async (
         projectsType,
         currentProjects: getProjectsByType(projectsType),
         currentProject: null,
+        ...withCmsSeo(getProjectTypeSeo(projectType)),
       },
     };
   }
 
-  // /portfolio/[projectsType]/[slug] — inner project
   if (slugParts.length === 1) {
     const slug = slugParts[0];
     const stubProject = findProject(projectsType, slug);
@@ -94,7 +106,6 @@ export const getStaticProps: GetStaticProps<PortfolioNestedPageProps> = async (
       return { notFound: true };
     }
 
-    // Cloudinary Media Library: individual/danya (Home — только корень UI)
     const cloudinaryImages = await getInnerProjectImages(projectsType, slug);
 
     const currentProject: ProjectWithType = {
@@ -109,6 +120,9 @@ export const getStaticProps: GetStaticProps<PortfolioNestedPageProps> = async (
         projectsType,
         currentProjects: null,
         currentProject,
+        ...withCmsSeo(
+          getProjectSeo(currentProject, projectsType, projectType.name),
+        ),
       },
     };
   }

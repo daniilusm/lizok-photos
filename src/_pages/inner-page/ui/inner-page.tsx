@@ -52,6 +52,7 @@ export const InnerPage = (props: InnerPageProps) => {
             key={item.url}
             url={item.url}
             index={index}
+            projectName={project.name}
             isActive={currentIndexHover === index}
             onSelect={handleSelect}
           />
@@ -61,7 +62,7 @@ export const InnerPage = (props: InnerPageProps) => {
       <InnerPagePreview
         images={images}
         activeIndex={currentIndexHover}
-        slug={project.slug}
+        projectName={project.name}
       />
     </ParallaxScrollContainer>
   );

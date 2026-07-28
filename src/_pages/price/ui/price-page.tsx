@@ -12,7 +12,7 @@ import { PageHero } from "@/widgets/page-hero";
 import s from "./price-page.module.scss";
 
 export const PricePage = () => {
-  const { hero, advantages, breakImage, process, packages, note } =
+  const { hero, advantages, breakImage, process, packages, note, faq } =
     PRICE_CONTENT;
 
   return (
@@ -153,6 +153,22 @@ export const PricePage = () => {
         <Body size="primary" tag="p" className={s.note}>
           {note}
         </Body>
+      </section>
+
+      <section className={s.faq} aria-labelledby="price-faq">
+        <Heading level="2" tag="h2" id="price-faq" className={s.sectionTitle}>
+          {faq.title}
+        </Heading>
+        <div className={s.faqList}>
+          {faq.items.map((item) => (
+            <details key={item.question} className={s.faqItem}>
+              <summary className={s.faqQuestion}>{item.question}</summary>
+              <Body size="primary" tag="p" className={s.faqAnswer}>
+                {item.answer}
+              </Body>
+            </details>
+          ))}
+        </div>
       </section>
     </main>
   );

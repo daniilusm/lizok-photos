@@ -25,18 +25,24 @@ const serializeStructuredData = (data: string | undefined) => {
 };
 
 export const LdJson = ({ pageSeoData, commonSeoData }: SeoLayoutDataType) => {
-  const data = pageSeoData?.structuredData || commonSeoData?.structuredData;
-  const structuredData = serializeStructuredData(data);
+  const blocks = [
+    serializeStructuredData(commonSeoData?.structuredData),
+    serializeStructuredData(pageSeoData?.structuredData),
+  ].filter(Boolean);
 
-  if (!structuredData) return null;
+  if (!blocks.length) return null;
 
   return (
     <Head>
-      <script
-        type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{ __html: structuredData }}
-      />
+      {blocks.map((structuredData, index) => (
+        <script
+          // eslint-disable-next-line react/no-array-index-key
+          key={`ld-json-${index}`}
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: structuredData as string }}
+        />
+      ))}
     </Head>
   );
 };

@@ -11,12 +11,19 @@ import s from "./inner-page.module.scss";
 type InnerPageGridItemProps = {
   url: string;
   index: number;
+  projectName: string;
   isActive: boolean;
   onSelect: (index: number) => void;
 };
 
 export const InnerPageGridItem = memo(
-  ({ url, index, isActive, onSelect }: InnerPageGridItemProps) => {
+  ({
+    url,
+    index,
+    projectName,
+    isActive,
+    onSelect,
+  }: InnerPageGridItemProps) => {
     const handleClick = useCallback(() => {
       onSelect(index);
     }, [index, onSelect]);
@@ -32,14 +39,16 @@ export const InnerPageGridItem = memo(
         className={clsx(s.imageGridWrapper, {
           [s.activeHover]: isActive,
         })}
+        aria-label={`${projectName}: фото ${index + 1}`}
       >
         <Image
           className={s.image}
           src={getCloudinaryThumbnailUrl(url)}
-          alt=""
+          alt={`${projectName} — фото ${index + 1}`}
           height="100%"
           sizes="(min-width: 1024px) 20vw, (min-width: 768px) 30vw, 45vw"
           loading="lazy"
+          preloaded={false}
         />
       </Button>
     );

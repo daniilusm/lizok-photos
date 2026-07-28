@@ -22,7 +22,7 @@
 ## Env на Vercel (минимум)
 
 ```env
-NEXT_PUBLIC_SITE_URL=https://your-domain.vercel.app
+NEXT_PUBLIC_SITE_URL=https://lizok-a-ph.ru
 NEXT_PUBLIC_APP_ENV=production
 ```
 
@@ -53,9 +53,9 @@ NEXT_PUBLIC_YANDEX_TRACKING_ID=
 
 ## Перед продакшеном
 
-1. Замените `https://example.com` в `public/robots.txt` и `public/sitemap.xml` на ваш домен
-2. Задайте `NEXT_PUBLIC_SITE_URL` в Vercel Environment Variables
-3. Добавьте `public/og.png` если используете OG-теги
+1. Убедитесь, что в `public/robots.txt` и `public/sitemap.xml` указан `https://lizok-a-ph.ru`
+2. Задайте `NEXT_PUBLIC_SITE_URL=https://lizok-a-ph.ru` в Vercel Environment Variables
+3. Добавьте `public/og.webp` если используете OG-теги
 
 ## Включение CMS обратно
 

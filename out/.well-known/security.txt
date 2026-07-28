@@ -1,0 +1,4 @@
+Contact: https://lizok-a-ph.ru/contacts/
+Preferred-Languages: ru
+Canonical: https://lizok-a-ph.ru/
+Expires: 2027-07-28T00:00:00.000Z

@@ -1,4 +1,5 @@
 import { APP_INFO } from "@shared/config";
+import { toAbsoluteUrl } from "@/shared/seo";
 
 import type { SeoLayoutDataType } from "../type";
 
@@ -21,7 +22,8 @@ export const mergeSeoData = ({
     if (pageSeoData.title === baseTitle) {
       mergedTitle = pageSeoData.title || "";
     } else {
-      mergedTitle = `${pageSeoData.title}${baseTitle ? ` | ${baseTitle}` : ""}`;
+      // Page title is already self-contained for search; don't append brand twice
+      mergedTitle = pageSeoData.title || "";
     }
   } else {
     mergedTitle = baseTitle || "";
@@ -41,8 +43,9 @@ export const mergeSeoData = ({
       ? pageSeoData.keywords
       : baseKeywords) || APP_INFO.APP_KEYWORDS;
 
-  const mergedOgImage =
-    pageSeoData?.ogImage?.url || baseOgImage?.url || APP_INFO.APP_DEFAULT_OG;
+  const mergedOgImage = toAbsoluteUrl(
+    pageSeoData?.ogImage?.url || baseOgImage?.url || APP_INFO.APP_DEFAULT_OG,
+  );
 
   const mergedTheme =
     pageSeoData && !isEmpty(pageSeoData.theme)

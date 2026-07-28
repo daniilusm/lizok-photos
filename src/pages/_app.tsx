@@ -10,13 +10,11 @@ import { ResizeProvider } from "@widgets/resize";
 import { Scroll } from "@widgets/scroll";
 import { SeoLayout } from "@widgets/seo-layout";
 import { TransitionLayout } from "@widgets/transition-layout";
-import { Cursor } from "@widgets/сursor";
 import type { AppProps } from "next/app";
 
-// DEPLOY: Strapi preview banner — только для draft mode через API routes.
-// Не используется при static export на Vercel.
-// import { PreviewBanner } from "@shared/ui/preview-banner";
 import { FontsProvider } from "@/shared/fonts";
+import { commonSeo } from "@/shared/seo";
+import { Footer } from "@/widgets/footer";
 
 export default function App({ Component, pageProps, router }: AppProps) {
   useAppViewport();
@@ -25,22 +23,18 @@ export default function App({ Component, pageProps, router }: AppProps) {
     <FontsProvider>
       <Gsap />
       <SeoLayout
-        // DEPLOY: SEO из Strapi CMS — раскомментировать после подключения CMS + SSR/ISR
-        commonSeoData={pageProps?.cms?.commonData?.seo}
+        commonSeoData={pageProps?.cms?.commonData?.seo ?? commonSeo}
         pageSeoData={pageProps?.cms?.pageSeoData}
       >
-        {/* DEPLOY: PreviewBanner требует /api/preview и Strapi PREVIEW_SECRET */}
-        {/* <PreviewBanner isDraftMode={pageProps.isDraftMode} /> */}
         <ResizeProvider>
-          {/* DEPLOY: DataStoreProvider — данные из Strapi через getServerSideProps */}
           <DataStoreProvider data={pageProps.cms ?? {}}>
             <Header />
-            {/* <Cursor /> */}
             <Preloader />
             <Scroll root wrapper>
               <TransitionLayout router={router}>
                 <DataStoreProvider data={pageProps.cms ?? {}}>
                   <Component {...pageProps} />
+                  <Footer />
                 </DataStoreProvider>
               </TransitionLayout>
             </Scroll>

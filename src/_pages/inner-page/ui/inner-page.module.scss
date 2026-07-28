@@ -1,5 +1,6 @@
 .root{
-    background-color: black;
+    background-color: var(--c-lacri);
+
 
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -7,12 +8,38 @@
     
     padding: 0 var(--spacing-gap);
 
+    padding-bottom: var(--spacing-120);
+
     min-height: 100svh;
 
     @include mq(md){
         grid-template-columns: 1fr;
+        padding-bottom: var(--spacing-80);
     }
 
+}
+
+.top {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  padding-top: var(--spacing-100);
+  color: var(--c-white);
+
+  :global(nav) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  @include mq(md){
+    display: none;
+  }
+}
+
+.projectTitle {
+  text-transform: uppercase;
+  color: var(--c-white);
 }
 
 .list{
@@ -95,7 +122,7 @@
         left: 0;
         height: 50svh;
         width: 100%;
-        background-color: black;
+    background-color: var(--c-lacri);
         padding: var(--spacing-68) var(--spacing-8) var(--spacing-16);
     }
 }
@@ -175,7 +202,7 @@
     position: absolute;
     left: 50%;
     bottom: var(--spacing-44);
-    background-color: black;
+    background-color: var(--c-lacri);
     padding: var(--spacing-8);
     transform: translateX(-50%);
 

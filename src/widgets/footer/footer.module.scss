@@ -1,3 +1,83 @@
 .root {
   position: relative;
+  margin-top: var(--spacing-80);
+  padding: var(--spacing-48) var(--spacing-gap) var(--spacing-32);
+  border-top: 1px solid rgba(42, 46, 31, 0.12);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(3, 1fr);
+  gap: var(--spacing-32) var(--spacing-gap);
+
+  @include mq(md) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @include mq(sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+  max-width: vw(360);
+}
+
+.title {
+  margin: 0;
+  text-transform: uppercase;
+  font-size: vw(16);
+
+  @include mq(sm) {
+    font-size: vw(14);
+  }
+}
+
+.text {
+  opacity: 0.75;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+}
+
+.navTitle {
+  margin: 0 0 var(--spacing-4);
+  text-transform: uppercase;
+  opacity: 0.5;
+  font-size: vw(12);
+
+  @include mq(sm) {
+    font-size: vw(10);
+  }
+}
+
+.link {
+  width: max-content;
+  text-transform: uppercase;
+  opacity: 0.8;
+  font-size: vw(12);
+
+  @include mq(sm) {
+    font-size: vw(10);
+  }
+
+  @include hover {
+    opacity: 1;
+  }
+}
+
+.copy {
+  margin: var(--spacing-40) 0 0;
+  opacity: 0.45;
+  font-size: vw(12);
+
+  @include mq(sm) {
+    font-size: vw(10);
+  }
 }

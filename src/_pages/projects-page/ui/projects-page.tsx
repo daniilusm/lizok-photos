@@ -3,6 +3,7 @@
 import clsx from "clsx";
 
 import { type Project, projectTypes } from "@/shared/stub/projects";
+import { Breadcrumbs } from "@/shared/ui/breadcrumbs";
 import { ParallaxScrollContainer } from "@/shared/ui/parallax-scroll-container";
 import { Heading } from "@/shared/ui/typography/heading";
 
@@ -23,6 +24,14 @@ export const ProjectsPage = (props: ProjectsPageProps) => {
 
   return (
     <main className={clsx(s.root, className)}>
+      <Breadcrumbs
+        items={[
+          { label: "Главная", href: "/" },
+          { label: "Портфолио", href: "/portfolio" },
+          { label: projectType?.name ?? projectsType },
+        ]}
+      />
+
       {projectType && (
         <Heading level="2" tag="h1" className={s.title}>
           {projectType.name}

@@ -27,7 +27,7 @@ NEXT_PUBLIC_STRAPI_API_TOKEN=your_api_token_here
 NEXT_PUBLIC_BASE_API_URL=/api/
 
 # URL сайта (для production)
-NEXT_PUBLIC_SITE_URL=https://yourdomain.com
+NEXT_PUBLIC_SITE_URL=https://lizok-a-ph.ru
 
 # Окружение приложения
 NEXT_PUBLIC_APP_ENV=development
@@ -43,7 +43,7 @@ NEXT_PUBLIC_GA_TRACKING_ID=G-XXXXXXXXXX
 | `NEXT_PUBLIC_STRAPI_URL` | URL Strapi CMS сервера | `http://localhost:1337` | ✅ Да |
 | `NEXT_PUBLIC_STRAPI_API_TOKEN` | API токен для аутентификации в Strapi | `your_token_here` | ✅ Да |
 | `NEXT_PUBLIC_BASE_API_URL` | Базовый путь для API запросов | `/api/` | ❌ Нет (по умолчанию `/api/`) |
-| `NEXT_PUBLIC_SITE_URL` | Полный URL сайта для production | `https://example.com` | ❌ Нет |
+| `NEXT_PUBLIC_SITE_URL` | Полный URL сайта для production | `https://lizok-a-ph.ru` | ❌ Нет |
 | `NEXT_PUBLIC_APP_ENV` | Окружение приложения | `development`, `production` | ❌ Нет |
 | `NEXT_PUBLIC_GA_TRACKING_ID` | Google Analytics Tracking ID | `G-XXXXXXXXXX` | ❌ Нет |
 
@@ -64,7 +64,7 @@ NEXT_PUBLIC_APP_ENV=development
 NEXT_PUBLIC_STRAPI_URL=https://api.yourdomain.com
 NEXT_PUBLIC_STRAPI_API_TOKEN=your_production_token
 NEXT_PUBLIC_BASE_API_URL=/api/
-NEXT_PUBLIC_SITE_URL=https://yourdomain.com
+NEXT_PUBLIC_SITE_URL=https://lizok-a-ph.ru
 NEXT_PUBLIC_APP_ENV=production
 ```
 

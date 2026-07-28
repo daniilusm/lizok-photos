@@ -26,15 +26,17 @@ export const PageHero = (props: PageHeroProps) => {
       className={clsx(s.root, className)}
       {...restProps}
     >
-      <div className={s.media} aria-hidden>
+      <div className={s.media}>
         <Image
           className={s.image}
           src={imageSrc}
-          alt=""
+          alt={title}
           height="100%"
           objectFit="cover"
           loading="eager"
           sizes="100vw"
+          fetchPriority="high"
+          preloaded
         />
       </div>
       <div className={s.content}>

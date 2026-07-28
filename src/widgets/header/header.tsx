@@ -90,33 +90,35 @@ export const Header = (props: HeaderProps) => {
           [s.viewHeader]: isFinishEndAnimation,
         })}
       >
-        <Link variant="underline" className={s.link} href="/">
-          главная
-        </Link>
-        <Link
-          variant="underline"
-          className={clsx(s.link, s.hideM)}
-          href="/portfolio"
-        >
-          портфолио
-        </Link>
-        <Link
-          variant="underline"
-          className={clsx(s.link, s.hideM)}
-          href="/price"
-        >
-          стоимость
-        </Link>
-        <Link
-          variant="underline"
-          className={clsx(s.link, s.hideM)}
-          href="/contacts"
-        >
-          контакты
-        </Link>
-        <Button className={s.menuButton} onClick={toggleOpen}>
-          Меню
-        </Button>
+        <nav className={s.nav} aria-label="Основная навигация">
+          <Link variant="underline" className={s.link} href="/">
+            главная
+          </Link>
+          <Link
+            variant="underline"
+            className={clsx(s.link, s.hideM)}
+            href="/portfolio"
+          >
+            портфолио
+          </Link>
+          <Link
+            variant="underline"
+            className={clsx(s.link, s.hideM)}
+            href="/price"
+          >
+            стоимость
+          </Link>
+          <Link
+            variant="underline"
+            className={clsx(s.link, s.hideM)}
+            href="/contacts"
+          >
+            контакты
+          </Link>
+          <Button className={s.menuButton} onClick={toggleOpen}>
+            Меню
+          </Button>
+        </nav>
       </div>
       <Portal id="contact-popup">
         <div

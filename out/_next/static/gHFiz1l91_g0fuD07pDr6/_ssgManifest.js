@@ -1,0 +1,1 @@
+self.__SSG_MANIFEST=new Set(["\u002F","\u002Fcontacts","\u002Fportfolio","\u002Fportfolio\u002F[projectsType]\u002F[[...slug]]","\u002Fprice"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()

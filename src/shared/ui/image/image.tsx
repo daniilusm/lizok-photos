@@ -24,7 +24,7 @@ export const Image = (props: ImageProps) => {
     height,
     objectFit,
     loading = "lazy",
-    preloaded = true,
+    preloaded = false,
     unoptimized = true,
     ...restProps
   } = props;
