@@ -38,7 +38,7 @@ export const ContactsSection = (props: ContactsSectionProps) => {
             <Image
               className={s.image}
               src={imageSrc}
-              alt="Елизавета Акимова — фотограф"
+              alt="Елизавета Акимова — фотограф в Твери"
               height="100%"
               objectFit="cover"
               imageRole="card"

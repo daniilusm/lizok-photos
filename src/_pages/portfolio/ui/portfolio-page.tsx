@@ -14,8 +14,8 @@ export const PortfolioPage = () => {
         items={[{ label: "Главная", href: "/" }, { label: "Портфолио" }]}
       />
       <PageHero
-        title="Портфолио"
-        text="Подборка съёмок: индивидуальные, семейные и мероприятия."
+        title="Портфолио фотографа в Твери"
+        text="Фотосессии в Твери: индивидуальные, семейные, свадебные и репортажные съёмки. Примеры работ Елизаветы Акимовой."
         imageSrc={HOME_CONTENT.favoriteImages[0]}
       />
       <ProjectTypesSection />

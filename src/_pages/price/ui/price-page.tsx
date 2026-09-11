@@ -1,5 +1,8 @@
 "use client";
 
+import { useEffect, useId, useRef, useState } from "react";
+import clsx from "clsx";
+
 import { PRICE_CONTENT } from "@/shared/stub/price";
 import { Image } from "@/shared/ui/image";
 import { Link } from "@/shared/ui/link";
@@ -10,6 +13,76 @@ import { ComparisonSection } from "@/widgets/comparison-section";
 import { PageHero } from "@/widgets/page-hero";
 
 import s from "./price-page.module.scss";
+
+type FaqItemProps = {
+  question: string;
+  answer: string;
+};
+
+const FaqItem = ({ question, answer }: FaqItemProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const answerRef = useRef<HTMLElement>(null);
+  const isFirstRender = useRef(true);
+  const panelId = useId();
+
+  useEffect(() => {
+    const el = answerRef.current;
+    if (!el) return;
+
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      el.style.maxHeight = "0px";
+      return;
+    }
+
+    if (isOpen) {
+      el.style.maxHeight = "0px";
+      void el.offsetHeight;
+      el.style.maxHeight = `${el.scrollHeight}px`;
+      return;
+    }
+
+    el.style.maxHeight = `${el.scrollHeight}px`;
+    void el.offsetHeight;
+    el.style.maxHeight = "0px";
+  }, [isOpen, answer]);
+
+  useEffect(() => {
+    const el = answerRef.current;
+    if (!el || !isOpen) return;
+
+    const onResize = () => {
+      el.style.maxHeight = `${el.scrollHeight}px`;
+    };
+
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [isOpen]);
+
+  return (
+    <div className={clsx(s.faqItem, isOpen && s.faqItemOpen)}>
+      <button
+        type="button"
+        className={s.faqQuestion}
+        aria-expanded={isOpen}
+        aria-controls={panelId}
+        onClick={() => setIsOpen((prev) => !prev)}
+      >
+        {question}
+      </button>
+      <section
+        id={panelId}
+        ref={answerRef}
+        className={s.faqAnswer}
+        aria-hidden={!isOpen}
+      >
+        <Body size="primary" tag="p" className={s.faqAnswerText}>
+          {answer}
+        </Body>
+      </section>
+    </div>
+  );
+};
 
 export const PricePage = () => {
   const { hero, advantages, breakImage, process, packages, note, faq } =
@@ -163,12 +236,11 @@ export const PricePage = () => {
         </Heading>
         <div className={s.faqList}>
           {faq.items.map((item) => (
-            <details key={item.question} className={s.faqItem}>
-              <summary className={s.faqQuestion}>{item.question}</summary>
-              <Body size="primary" tag="p" className={s.faqAnswer}>
-                {item.answer}
-              </Body>
-            </details>
+            <FaqItem
+              key={item.question}
+              question={item.question}
+              answer={item.answer}
+            />
           ))}
         </div>
       </section>

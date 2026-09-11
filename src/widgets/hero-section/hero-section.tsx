@@ -35,7 +35,7 @@ export const HeroSection = (props: HeroSectionProps) => {
             <Image
               className={s.image}
               src={imageSrc}
-              alt={`${title} — фотограф в Твери`}
+              alt="Елизавета Акимова — фотограф в Твери, фотосессии и свадебная съёмка"
               height="100%"
               objectFit="cover"
               imageRole="hero"

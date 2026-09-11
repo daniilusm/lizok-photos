@@ -148,7 +148,7 @@ export const Header = (props: HeaderProps) => {
               <Image
                 className={s.image}
                 src={HOME_CONTENT.contacts.image}
-                alt="Елизавета Акимова — фотограф"
+                alt="Елизавета Акимова — фотограф в Твери"
                 height="100%"
                 objectFit="cover"
                 imageRole="card"

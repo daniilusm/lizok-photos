@@ -67,8 +67,8 @@
 
 .title {
   text-transform: uppercase;
-  max-width: vw(720);
-  @include accentXXL;
+  max-width: vw(900);
+  @include accentM;
 
   @include mq(md) {
     @include accentS;

@@ -138,7 +138,7 @@ export const ComparisonSection = (props: ComparisonSectionProps) => {
           <Image
             className={s.image}
             src={beforeSrc}
-            alt={beforeLabel}
+            alt={`Обработка фотосессии в Твери — ${beforeLabel}`}
             height="100%"
             objectFit="cover"
             imageRole="hero"
@@ -151,7 +151,7 @@ export const ComparisonSection = (props: ComparisonSectionProps) => {
           <Image
             className={s.image}
             src={afterSrc}
-            alt={afterLabel}
+            alt={`Обработка фотосессии в Твери — ${afterLabel}`}
             height="100%"
             objectFit="cover"
             imageRole="hero"

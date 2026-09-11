@@ -1,3 +1,4 @@
+import { HOME_CONTENT } from "@/shared/stub/home";
 import { PRICE_CONTENT } from "@/shared/stub/price";
 import type { Project, ProjectType } from "@/shared/stub/projects";
 import type { Seo } from "@/shared/types/strapi-components/widgets";
@@ -20,27 +21,48 @@ export {
   toAbsoluteUrl,
 } from "./constants";
 
+const city = PHOTOGRAPHER.city;
+
 export const homeSeo: Seo = buildPageSeo({
-  title: `${PHOTOGRAPHER.name} — фотограф в ${PHOTOGRAPHER.city}`,
-  description: `${PHOTOGRAPHER.name} — фотограф в ${PHOTOGRAPHER.city} и ${PHOTOGRAPHER.region}. Индивидуальные, семейные и репортажные съёмки. Живые кадры, кинематографичная обработка, спокойная атмосфера.`,
+  title: `Фотограф ${city} — ${PHOTOGRAPHER.name} | фотосессии и свадьба`,
+  description: `Фотограф в ${city} ${PHOTOGRAPHER.name}: фотосессии, свадебный фотограф, семейная и индивидуальная съёмка. Портфолио, цены и запись на съёмку в ${city} и области.`,
   path: "/",
   keywords: DEFAULT_KEYWORDS,
   structuredData: {
     "@context": "https://schema.org",
-    "@type": "ProfilePage",
-    "@id": `${SITE_ORIGIN}/#homepage`,
-    url: toAbsoluteUrl("/"),
-    name: `${PHOTOGRAPHER.name} — фотограф`,
-    about: { "@id": `${SITE_ORIGIN}/#person` },
-    mainEntity: { "@id": `${SITE_ORIGIN}/#service` },
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${SITE_ORIGIN}/#homepage`,
+        url: toAbsoluteUrl("/"),
+        name: `Фотограф в ${city} — ${PHOTOGRAPHER.name}`,
+        description: `Фотосессии в ${city}: индивидуальные, семейные, свадебные и репортажные съёмки.`,
+        about: { "@id": `${SITE_ORIGIN}/#person` },
+        mainEntity: { "@id": `${SITE_ORIGIN}/#localbusiness` },
+        isPartOf: { "@id": `${SITE_ORIGIN}/#website` },
+        inLanguage: "ru-RU",
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${SITE_ORIGIN}/#home-faq`,
+        mainEntity: HOME_CONTENT.faq.items.map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: item.answer,
+          },
+        })),
+      },
+    ],
   },
 });
 
 export const portfolioSeo: Seo = buildPageSeo({
-  title: `Портфолио фотографа — ${PHOTOGRAPHER.city}`,
-  description: `Портфолио ${PHOTOGRAPHER.name}: индивидуальные, семейные съёмки и мероприятия в ${PHOTOGRAPHER.city}. Примеры работ и готовые проекты.`,
+  title: `Портфолио фотографа ${city} — фотосессии и свадьбы`,
+  description: `Портфолио фотографа в ${city}: индивидуальные и семейные фотосессии, свадебная и репортажная съёмка. Примеры работ ${PHOTOGRAPHER.name}.`,
   path: "/portfolio",
-  keywords: `${DEFAULT_KEYWORDS}, портфолио фотографа, примеры фотосессий`,
+  keywords: `${DEFAULT_KEYWORDS}, портфолио фотографа Тверь, примеры фотосессий Тверь`,
   structuredData: {
     "@context": "https://schema.org",
     "@graph": [
@@ -48,8 +70,10 @@ export const portfolioSeo: Seo = buildPageSeo({
         "@type": "CollectionPage",
         "@id": `${toAbsoluteUrl("/portfolio")}#page`,
         url: toAbsoluteUrl("/portfolio"),
-        name: "Портфолио",
+        name: `Портфолио фотографа — ${city}`,
+        description: `Примеры фотосессий в ${city}`,
         isPartOf: { "@id": `${SITE_ORIGIN}/#website` },
+        about: { "@id": `${SITE_ORIGIN}/#localbusiness` },
       },
       breadcrumbList([
         { name: "Главная", path: "/" },
@@ -64,13 +88,13 @@ const priceOffers = PRICE_CONTENT.packages.items.map((item) => {
 
   return {
     "@type": "Offer",
-    name: item.name,
+    name: `${item.name} — фотосессия в ${city}`,
     description: `${item.duration}. ${item.photos}. ${item.includes.join(". ")}.`,
     url: toAbsoluteUrl("/price"),
     priceCurrency: "RUB",
     ...(minPrice
       ? {
-          price: String(minPrice),
+          price: String(minPrice).replace(/[^\d]/g, "") || undefined,
           priceSpecification: {
             "@type": "UnitPriceSpecification",
             price: minPrice,
@@ -80,15 +104,16 @@ const priceOffers = PRICE_CONTENT.packages.items.map((item) => {
         }
       : {}),
     availability: "https://schema.org/InStock",
-    seller: { "@id": `${SITE_ORIGIN}/#service` },
+    areaServed: city,
+    seller: { "@id": `${SITE_ORIGIN}/#localbusiness` },
   };
 });
 
 export const priceSeo: Seo = buildPageSeo({
-  title: `Стоимость фотосессии — ${PHOTOGRAPHER.city}`,
-  description: `Цены на фотосессии в ${PHOTOGRAPHER.city}: быстрая, индивидуальная, семейная съёмка и мероприятия. Прозрачные пакеты от ${PHOTOGRAPHER.name}.`,
+  title: `Стоимость фотосессии ${city} — цены на съёмку`,
+  description: `Цены на фотосессии в ${city}: индивидуальная, семейная съёмка и мероприятия. Прозрачные пакеты от фотографа ${PHOTOGRAPHER.name}. Свадебная съёмка — по запросу.`,
   path: "/price",
-  keywords: `${DEFAULT_KEYWORDS}, цена фотосессии Тверь, стоимость фотосессии, пакеты фотосъёмки`,
+  keywords: `${DEFAULT_KEYWORDS}, цена фотосессии Тверь, стоимость фотосессии Тверь, сколько стоит фотосессия в Твери`,
   structuredData: {
     "@context": "https://schema.org",
     "@graph": [
@@ -96,8 +121,8 @@ export const priceSeo: Seo = buildPageSeo({
         "@type": "WebPage",
         "@id": `${toAbsoluteUrl("/price")}#page`,
         url: toAbsoluteUrl("/price"),
-        name: "Стоимость",
-        description: `Актуальные пакеты и цены на фотосъёмку в ${PHOTOGRAPHER.city}`,
+        name: `Стоимость фотосессии — ${city}`,
+        description: `Актуальные пакеты и цены на фотосъёмку в ${city}`,
       },
       breadcrumbList([
         { name: "Главная", path: "/" },
@@ -105,7 +130,7 @@ export const priceSeo: Seo = buildPageSeo({
       ]),
       {
         "@type": "ItemList",
-        name: "Пакеты фотосессий",
+        name: `Пакеты фотосессий в ${city}`,
         itemListElement: priceOffers.map((offer, index) => ({
           "@type": "ListItem",
           position: index + 1,
@@ -128,10 +153,10 @@ export const priceSeo: Seo = buildPageSeo({
 });
 
 export const contactsSeo: Seo = buildPageSeo({
-  title: `Контакты фотографа — ${PHOTOGRAPHER.city}`,
-  description: `Связаться с ${PHOTOGRAPHER.name}: Telegram, VK и Instagram. Обсудим съёмку в ${PHOTOGRAPHER.city} и области.`,
+  title: `Контакты фотографа ${city} — заказать фотосессию`,
+  description: `Связаться с фотографом в ${city} ${PHOTOGRAPHER.name}: Telegram, VK и Instagram. Заказать фотосессию или свадебную съёмку в ${city} и области.`,
   path: "/contacts",
-  keywords: `${DEFAULT_KEYWORDS}, контакты фотографа Тверь, заказать фотосессию`,
+  keywords: `${DEFAULT_KEYWORDS}, контакты фотографа Тверь, заказать фотосессию Тверь, записаться на фотосессию`,
   structuredData: {
     "@context": "https://schema.org",
     "@graph": [
@@ -139,8 +164,9 @@ export const contactsSeo: Seo = buildPageSeo({
         "@type": "ContactPage",
         "@id": `${toAbsoluteUrl("/contacts")}#page`,
         url: toAbsoluteUrl("/contacts"),
-        name: "Контакты",
+        name: `Контакты фотографа — ${city}`,
         about: { "@id": `${SITE_ORIGIN}/#person` },
+        mainEntity: { "@id": `${SITE_ORIGIN}/#localbusiness` },
       },
       breadcrumbList([
         { name: "Главная", path: "/" },
@@ -152,11 +178,11 @@ export const contactsSeo: Seo = buildPageSeo({
 
 export const getProjectTypeSeo = (projectType: ProjectType): Seo =>
   buildPageSeo({
-    title: `${projectType.name} — портфолио | ${PHOTOGRAPHER.city}`,
-    description: `${projectType.name} от фотографа ${PHOTOGRAPHER.name} в ${PHOTOGRAPHER.city}. Смотрите примеры съёмок и готовые проекты.`,
+    title: `${projectType.name} в ${city} — портфолио фотографа`,
+    description: `${projectType.name} в ${city} от фотографа ${PHOTOGRAPHER.name}. Смотрите примеры съёмок и готовые проекты.`,
     path: `/portfolio/${projectType.slug}`,
     ogImageUrl: projectType.mainImage,
-    keywords: `${DEFAULT_KEYWORDS}, ${projectType.name.toLowerCase()}, ${projectType.name.toLowerCase()} Тверь`,
+    keywords: `${DEFAULT_KEYWORDS}, ${projectType.name.toLowerCase()}, ${projectType.name.toLowerCase()} Тверь, ${projectType.name.toLowerCase()} в Твери`,
     structuredData: {
       "@context": "https://schema.org",
       "@graph": [
@@ -164,8 +190,9 @@ export const getProjectTypeSeo = (projectType: ProjectType): Seo =>
           "@type": "CollectionPage",
           "@id": `${toAbsoluteUrl(`/portfolio/${projectType.slug}`)}#page`,
           url: toAbsoluteUrl(`/portfolio/${projectType.slug}`),
-          name: projectType.name,
+          name: `${projectType.name} — ${city}`,
           image: toAbsoluteUrl(projectType.mainImage),
+          about: { "@id": `${SITE_ORIGIN}/#localbusiness` },
         },
         breadcrumbList([
           { name: "Главная", path: "/" },
@@ -185,11 +212,11 @@ export const getProjectSeo = (
   typeName: string,
 ): Seo =>
   buildPageSeo({
-    title: `${project.name} — ${typeName} | ${PHOTOGRAPHER.name}`,
-    description: `Проект «${project.name}»: ${typeName.toLowerCase()} фотографа ${PHOTOGRAPHER.name}. Галерея съёмки.`,
+    title: `${project.name} — ${typeName} в ${city} | ${PHOTOGRAPHER.name}`,
+    description: `Проект «${project.name}»: ${typeName.toLowerCase()} фотографа ${PHOTOGRAPHER.name} в ${city}. Галерея съёмки.`,
     path: `/portfolio/${projectsType}/${project.slug}`,
     ogImageUrl: project.mainImage,
-    keywords: `${DEFAULT_KEYWORDS}, ${project.name}, ${typeName.toLowerCase()}`,
+    keywords: `${DEFAULT_KEYWORDS}, ${project.name}, ${typeName.toLowerCase()} Тверь`,
     structuredData: {
       "@context": "https://schema.org",
       "@graph": [
@@ -198,9 +225,13 @@ export const getProjectSeo = (
           "@id": `${toAbsoluteUrl(`/portfolio/${projectsType}/${project.slug}`)}#gallery`,
           url: toAbsoluteUrl(`/portfolio/${projectsType}/${project.slug}`),
           name: project.name,
-          description: `${typeName}: ${project.name}`,
+          description: `${typeName} в ${city}: ${project.name}`,
           image: toAbsoluteUrl(project.mainImage),
           author: { "@id": `${SITE_ORIGIN}/#person` },
+          contentLocation: {
+            "@type": "City",
+            name: city,
+          },
         },
         breadcrumbList([
           { name: "Главная", path: "/" },

@@ -9,9 +9,21 @@ import {
   toAbsoluteUrl,
 } from "./constants";
 
+const SERVICE_TYPES = [
+  "Фотограф в Твери",
+  "Фотосессии в Твери",
+  "Свадебный фотограф",
+  "Свадебная фотосессия",
+  "Индивидуальная фотосессия",
+  "Семейная фотосессия",
+  "Портретная съёмка",
+  "Репортажная съёмка",
+  "Съёмка мероприятий",
+] as const;
+
 export const commonSeo: Seo = {
-  title: `${PHOTOGRAPHER.brand} — фотограф ${PHOTOGRAPHER.city}`,
-  description: `${PHOTOGRAPHER.name} — ${PHOTOGRAPHER.jobTitle.toLowerCase()} в ${PHOTOGRAPHER.city}. Портретная, семейная, индивидуальная и репортажная съёмка. Портфолио ${PHOTOGRAPHER.brand}.`,
+  title: `Фотограф Тверь — ${PHOTOGRAPHER.name} | фотосессии и свадьбы`,
+  description: `Фотограф в Твери ${PHOTOGRAPHER.name}: фотосессии, свадебная, семейная и индивидуальная съёмка. Живые кадры, кинематографичная обработка. ${PHOTOGRAPHER.city} и ${PHOTOGRAPHER.region}.`,
   keywords: DEFAULT_KEYWORDS,
   theme: "#2A2E1F",
   ogImage: createOgImage(toAbsoluteUrl("/og-1200x630.jpg"), PHOTOGRAPHER.brand),
@@ -23,42 +35,50 @@ export const commonSeo: Seo = {
         "@id": `${SITE_ORIGIN}/#website`,
         url: `${SITE_ORIGIN}/`,
         name: PHOTOGRAPHER.brand,
-        description: `${PHOTOGRAPHER.name} — фотограф в ${PHOTOGRAPHER.city}`,
+        alternateName: [
+          `${PHOTOGRAPHER.name} — фотограф Тверь`,
+          `Фотограф в Твери ${PHOTOGRAPHER.name}`,
+        ],
+        description: `Фотограф в ${PHOTOGRAPHER.city}: фотосессии, свадебная и семейная съёмка`,
         inLanguage: "ru-RU",
         publisher: { "@id": `${SITE_ORIGIN}/#person` },
       },
       {
-        "@type": "Person",
+        "@type": ["Person", "Photographer"],
         "@id": `${SITE_ORIGIN}/#person`,
         name: PHOTOGRAPHER.name,
+        alternateName: ["Lizok", PHOTOGRAPHER.brand],
         url: SITE_ORIGIN,
-        jobTitle: PHOTOGRAPHER.jobTitle,
+        jobTitle: `Фотограф в ${PHOTOGRAPHER.city}`,
+        description: `Фотограф в ${PHOTOGRAPHER.city} и ${PHOTOGRAPHER.region}: индивидуальные, семейные, свадебные и репортажные съёмки.`,
         image: toAbsoluteUrl("/og-1200x630.jpg"),
         sameAs: [...PHOTOGRAPHER.sameAs],
+        knowsAbout: [...SERVICE_TYPES],
         address: {
           "@type": "PostalAddress",
           addressLocality: PHOTOGRAPHER.city,
           addressRegion: PHOTOGRAPHER.region,
           addressCountry: "RU",
         },
+        worksFor: { "@id": `${SITE_ORIGIN}/#localbusiness` },
       },
       {
-        "@type": "ProfessionalService",
-        "@id": `${SITE_ORIGIN}/#service`,
-        name: PHOTOGRAPHER.brand,
+        "@type": ["ProfessionalService", "LocalBusiness", "Photographer"],
+        "@id": `${SITE_ORIGIN}/#localbusiness`,
+        name: `${PHOTOGRAPHER.brand} — фотограф в ${PHOTOGRAPHER.city}`,
+        alternateName: [
+          `Фотограф Тверь ${PHOTOGRAPHER.name}`,
+          `Свадебный фотограф Тверь`,
+        ],
         image: toAbsoluteUrl("/og-1200x630.jpg"),
         url: SITE_ORIGIN,
         priceRange: "₽₽",
-        description: `Фотограф в ${PHOTOGRAPHER.city}: индивидуальные, семейные съёмки и мероприятия.`,
+        currenciesAccepted: "RUB",
+        paymentAccepted: "Cash, Bank Transfer",
+        description: `Фотосессии в Твери: свадебный, семейный и индивидуальный фотограф. Съёмка в городе и ${PHOTOGRAPHER.region}.`,
         areaServed: [
-          {
-            "@type": "City",
-            name: PHOTOGRAPHER.city,
-          },
-          {
-            "@type": "AdministrativeArea",
-            name: PHOTOGRAPHER.region,
-          },
+          { "@type": "City", name: PHOTOGRAPHER.city },
+          { "@type": "AdministrativeArea", name: PHOTOGRAPHER.region },
         ],
         address: {
           "@type": "PostalAddress",
@@ -67,13 +87,55 @@ export const commonSeo: Seo = {
           addressCountry: "RU",
         },
         founder: { "@id": `${SITE_ORIGIN}/#person` },
+        employee: { "@id": `${SITE_ORIGIN}/#person` },
         sameAs: [...PHOTOGRAPHER.sameAs],
-        serviceType: [
-          "Индивидуальная фотосессия",
-          "Семейная фотосессия",
-          "Съёмка мероприятий",
-          "Портретная съёмка",
-        ],
+        serviceType: [...SERVICE_TYPES],
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: `Фотосессии в ${PHOTOGRAPHER.city}`,
+          itemListElement: [
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Индивидуальная фотосессия в Твери",
+                areaServed: PHOTOGRAPHER.city,
+              },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Семейная фотосессия в Твери",
+                areaServed: PHOTOGRAPHER.city,
+              },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Свадебный фотограф в Твери",
+                areaServed: PHOTOGRAPHER.city,
+              },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Репортажная съёмка мероприятий в Твери",
+                areaServed: PHOTOGRAPHER.city,
+              },
+            },
+          ],
+        },
+      },
+      // backward-compatible id used across page schemas
+      {
+        "@type": "ProfessionalService",
+        "@id": `${SITE_ORIGIN}/#service`,
+        name: PHOTOGRAPHER.brand,
+        url: SITE_ORIGIN,
+        provider: { "@id": `${SITE_ORIGIN}/#localbusiness` },
       },
     ],
   }),

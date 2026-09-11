@@ -33,7 +33,7 @@ export const PhotoExamplesSection = (props: PhotoExamplesSectionProps) => {
             <Image
               className={s.image}
               src={src}
-              alt={`Пример фотографии ${index + 1}`}
+              alt={`Пример фотосессии в Твери ${index + 1}`}
               height="100%"
               objectFit="cover"
               imageRole="card"

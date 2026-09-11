@@ -4,7 +4,7 @@ import type { ComponentProps } from "react";
 import clsx from "clsx";
 
 import { PHOTOGRAPHER } from "@/shared/seo";
-import { HOME_CONTENT, SOCIAL_LINKS } from "@/shared/stub/home";
+import { SOCIAL_LINKS } from "@/shared/stub/home";
 import { projectTypes } from "@/shared/stub/projects";
 import { Link } from "@/shared/ui/link";
 import { Body } from "@/shared/ui/typography/body";
@@ -25,7 +25,8 @@ export const Footer = (props: FooterProps) => {
         <div className={s.brand}>
           <p className={s.title}>{PHOTOGRAPHER.name}</p>
           <Body size="primary" tag="p" className={s.text}>
-            Фотограф в {PHOTOGRAPHER.city}. {HOME_CONTENT.hero.text}
+            Фотограф в {PHOTOGRAPHER.city}. Фотосессии, свадебная и семейная
+            съёмка.
           </Body>
         </div>
 

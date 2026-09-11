@@ -1,6 +1,8 @@
 import {
   gaTrackingId,
+  isDev,
   isProdServer,
+  isStagingServer,
   yandexTrackingId,
 } from "@/shared/config/vars";
 
@@ -15,7 +17,15 @@ export const AppHooks = () => {
   useFontsLoaded();
   useFoucFix();
 
-  if (!isProdServer) return null;
+  // Не грузим аналитику в dev и на staging.
+  // Раньше требовался только NEXT_PUBLIC_APP_ENV=production — без него
+  // счётчик не монтировался даже при заданном ID (часто на Vercel).
+  const enableAnalytics =
+    !isDev &&
+    !isStagingServer &&
+    (isProdServer || Boolean(yandexTrackingId || gaTrackingId));
+
+  if (!enableAnalytics) return null;
 
   return (
     <>
