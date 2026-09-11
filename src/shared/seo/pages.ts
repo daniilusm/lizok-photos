@@ -1,6 +1,7 @@
 import { HOME_CONTENT } from "@/shared/stub/home";
 import { PRICE_CONTENT } from "@/shared/stub/price";
 import type { Project, ProjectType } from "@/shared/stub/projects";
+import { REVIEWS } from "@/shared/stub/reviews";
 import type { Seo } from "@/shared/types/strapi-components/widgets";
 
 import { commonSeo } from "./common";
@@ -172,6 +173,50 @@ export const contactsSeo: Seo = buildPageSeo({
         { name: "Главная", path: "/" },
         { name: "Контакты", path: "/contacts" },
       ]),
+    ],
+  },
+});
+
+export const reviewsSeo: Seo = buildPageSeo({
+  title: `Отзывы о фотосессиях в ${city} — ${PHOTOGRAPHER.name}`,
+  description: `Отзывы клиентов о фотосессиях в ${city}: индивидуальные, семейные съёмки и мероприятия. Реальные впечатления о работе фотографа ${PHOTOGRAPHER.name}.`,
+  path: "/reviews",
+  keywords: `${DEFAULT_KEYWORDS}, отзывы фотограф Тверь, отзывы о фотосессии`,
+  structuredData: {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": `${toAbsoluteUrl("/reviews")}#page`,
+        url: toAbsoluteUrl("/reviews"),
+        name: `Отзывы о фотосессиях — ${city}`,
+        about: { "@id": `${SITE_ORIGIN}/#localbusiness` },
+      },
+      breadcrumbList([
+        { name: "Главная", path: "/" },
+        { name: "Отзывы", path: "/reviews" },
+      ]),
+      {
+        "@type": "ItemList",
+        name: `Отзывы о фотосессиях в ${city}`,
+        itemListElement: REVIEWS.map((review, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          item: {
+            "@type": "Review",
+            author: {
+              "@type": "Person",
+              name: review.name,
+            },
+            reviewBody: review.text,
+            itemReviewed: {
+              "@type": "Service",
+              name: review.type,
+              provider: { "@id": `${SITE_ORIGIN}/#localbusiness` },
+            },
+          },
+        })),
+      },
     ],
   },
 });

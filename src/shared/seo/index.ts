@@ -17,5 +17,6 @@ export {
   homeSeo,
   portfolioSeo,
   priceSeo,
+  reviewsSeo,
   withCmsSeo,
 } from "./pages";

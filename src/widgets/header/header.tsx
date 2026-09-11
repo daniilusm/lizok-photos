@@ -111,6 +111,13 @@ export const Header = (props: HeaderProps) => {
           <Link
             variant="underline"
             className={clsx(s.link, s.hideM)}
+            href="/reviews"
+          >
+            отзывы
+          </Link>
+          <Link
+            variant="underline"
+            className={clsx(s.link, s.hideM)}
             href="/contacts"
           >
             контакты
@@ -139,6 +146,9 @@ export const Header = (props: HeaderProps) => {
               </Link>
               <Link variant="underline" className={s.link} href="/price">
                 стоимость
+              </Link>
+              <Link variant="underline" className={s.link} href="/reviews">
+                отзывы
               </Link>
               <Link variant="underline" className={s.link} href="/contacts">
                 контакты

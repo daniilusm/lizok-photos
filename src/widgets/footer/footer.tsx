@@ -41,6 +41,9 @@ export const Footer = (props: FooterProps) => {
           <Link href="/price" className={s.link}>
             Стоимость
           </Link>
+          <Link href="/reviews" className={s.link}>
+            Отзывы
+          </Link>
           <Link href="/contacts" className={s.link}>
             Контакты
           </Link>
