@@ -24,6 +24,7 @@ export const ProjectTypeCard = ({ item }: ProjectTypeCardProps) => {
           sizes="(min-width: 1024px) 50vw, 100vw"
           loading="lazy"
         />
+        <div className={s.overlay} />
         <span className={s.caption}>{item.name}</span>
       </Button>
     </div>

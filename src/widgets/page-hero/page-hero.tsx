@@ -40,6 +40,7 @@ export const PageHero = (props: PageHeroProps) => {
           preloaded
         />
       </div>
+      <div className={s.overlay} />
       <div className={s.content}>
         <Heading level="1" tag="h1" className={s.title}>
           {title}

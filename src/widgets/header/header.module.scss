@@ -211,3 +211,9 @@
     overflow: hidden;
   }
 }
+
+.linksWrapper{
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-24);
+}

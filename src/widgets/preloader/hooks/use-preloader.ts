@@ -1,56 +1,54 @@
 "use client";
 
+import { useEffect } from "react";
+import gsap from "gsap";
+
 import { round } from "@shared/utils";
 import { loaderAllImages } from "@shared/utils/loaders/image";
-import {
-  usePreloaderActions,
-  // usePreloaderStore,
-} from "@widgets/preloader/model/preloaderStore";
-import gsap from "gsap";
-import { useEffect } from "react";
+import { usePreloaderActions } from "@widgets/preloader/model/preloaderStore";
 
-export const usePreloader = (delay = 0, additionalResources: string[]) => {
+const uniqueSources = (sources: string[]) =>
+  [...new Set(sources.map((src) => src.trim()).filter(Boolean))];
+
+export const usePreloader = (delay = 0, additionalResources: string[] = []) => {
   const { setPercents } = usePreloaderActions();
-  // const { additionalData } = usePreloaderStore();
 
-  const handleLoad = () => {
-    const images = document.querySelectorAll("img[data-preloaded]");
-    const sources = [...images, ...additionalResources].map((img) => {
-      const src = typeof img === "string" ? img : img?.getAttribute("src");
-      return src || "";
-    });
+  useEffect(() => {
+    const markedImages = document.querySelectorAll<HTMLImageElement>(
+      'img[data-preloaded="true"]',
+    );
 
-    if (images.length <= 0) {
+    const sources = uniqueSources([
+      ...[...markedImages].map((img) => img.currentSrc || img.src || ""),
+      ...additionalResources,
+    ]);
+
+    if (sources.length === 0) {
       setPercents(1);
       return;
     }
 
-    const p = {
-      value: 0,
-    };
+    const progress = { value: 0 };
 
     loaderAllImages(
       sources,
       delay,
-      () => {},
+      () => {
+        setPercents(1);
+      },
       ({ loaded, length }) => {
-        gsap.to(p, {
+        gsap.to(progress, {
           value: loaded / length,
           overwrite: true,
           onUpdate: () => {
-            setPercents(round(p.value, 2));
+            setPercents(round(progress.value, 2));
           },
         });
       },
     );
-  };
-
-  useEffect(() => {
-    handleLoad();
 
     return () => {
       setPercents(0);
-      console.log("reset percent");
     };
-  }, []);
+  }, [additionalResources, delay, setPercents]);
 };

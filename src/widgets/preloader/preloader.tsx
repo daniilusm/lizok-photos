@@ -1,6 +1,6 @@
 "use client";
 
-import { type ComponentProps, useEffect, useRef } from "react";
+import { type ComponentProps, useEffect, useMemo, useRef } from "react";
 import { usePreloader } from "@widgets/preloader/hooks/use-preloader";
 import {
   usePreloaderActions,
@@ -9,6 +9,7 @@ import {
 import clsx from "clsx";
 import gsap from "gsap";
 
+import { optimizeCloudinaryImage } from "@/shared/lib/cloudinary-image";
 import { HOME_CONTENT } from "@/shared/stub/home";
 import { Image } from "@/shared/ui/image";
 
@@ -31,26 +32,37 @@ export const Preloader = (props: PreloaderProps) => {
   const isFinishEndAnimation = usePreloaderStore(
     (state) => state.isFinishEndAnimation,
   );
+  const isPreloaded = usePreloaderStore((state) => state.isPreloaded);
   const { setFinishEndAnimation, setStartEndAnimation } = usePreloaderActions();
 
-  const resources = [
-    ...(imageSrc ? [imageSrc] : []),
-    ...(additionalResources || []),
-  ];
+  const preloadSources = useMemo(() => {
+    const optimizedHero = imageSrc
+      ? optimizeCloudinaryImage(imageSrc, { role: "hero" })
+      : "";
 
-  usePreloader(10, resources);
+    return [
+      ...(optimizedHero ? [optimizedHero] : []),
+      ...(additionalResources || []),
+    ];
+  }, [additionalResources, imageSrc]);
+
+  usePreloader(0, preloadSources);
 
   useEffect(() => {
-    if (isFinishEndAnimation) return;
+    if (isFinishEndAnimation || !isPreloaded) return;
 
-    gsap.to($root.current, {
+    const root = $root.current;
+    if (!root) return;
+
+    const tween = gsap.to(root, {
       "--preloader-progress": 1,
-      duration: 2,
+      duration: 1.2,
       ease: "power2.inOut",
       onComplete: () => {
         setStartEndAnimation();
-        gsap.to($root.current, {
+        gsap.to(root, {
           "--close-progress": 1,
+          duration: 1,
           ease: "power4.inOut",
           onComplete: () => {
             setFinishEndAnimation(true);
@@ -58,8 +70,13 @@ export const Preloader = (props: PreloaderProps) => {
         });
       },
     });
+
+    return () => {
+      tween.kill();
+    };
   }, [
     isFinishEndAnimation,
+    isPreloaded,
     setFinishEndAnimation,
     setStartEndAnimation,
   ]);
@@ -81,15 +98,10 @@ export const Preloader = (props: PreloaderProps) => {
             imageRole="hero"
             loading="eager"
             sizes="100vw"
+            preloaded
           />
         </div>
       )}
-
-      {/* <div className={s.inner}>
-        <div className={s.icon}>
-          <div className={s.line} />
-        </div>
-      </div> */}
     </div>
   );
 };

@@ -14,26 +14,22 @@ export const loaderImage = (
   src: string,
   callback: ImageLoadedCallback,
 ): void => {
-  if (callback) {
-    const image = new Image();
-    image.crossOrigin = "anonymous";
-
-    const prevLoad: ((this: GlobalEventHandlers, ev: Event) => any) | null =
-      image.onload;
-
-    image.onload = function (this: GlobalEventHandlers, ev: Event) {
-      callback(image);
-      if (prevLoad) {
-        // Корректный вызов предыдущего обработчика с нужным контекстом и событием
-        prevLoad.call(this, ev);
-      }
-      // Восстанавливаем обработчик и чистим объект
-      image.onload = prevLoad;
-      image.remove();
-    };
-
-    image.src = src;
+  if (!callback || !src) {
+    return;
   }
+
+  const image = new Image();
+  image.decoding = "async";
+
+  const finish = () => {
+    callback(image);
+    image.onload = null;
+    image.onerror = null;
+  };
+
+  image.onload = finish;
+  image.onerror = finish;
+  image.src = src;
 };
 
 export const promiseImageLoader = (

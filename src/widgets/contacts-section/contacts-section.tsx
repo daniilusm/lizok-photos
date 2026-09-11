@@ -3,12 +3,13 @@
 import type { ComponentProps } from "react";
 import clsx from "clsx";
 
-import { HOME_CONTENT, SOCIAL_LINKS } from "@/shared/stub/home";
+import { HOME_CONTENT, META_DISCLAIMER, SOCIAL_LINKS } from "@/shared/stub/home";
 import { Image } from "@/shared/ui/image";
 import { Link } from "@/shared/ui/link";
 import { ParallaxScrollContainer } from "@/shared/ui/parallax-scroll-container";
 import { Body } from "@/shared/ui/typography/body";
 import { Heading } from "@/shared/ui/typography/heading";
+import { typografText } from "@/shared/utils/typograf";
 
 import s from "./contacts-section.module.scss";
 
@@ -42,7 +43,7 @@ export const ContactsSection = (props: ContactsSectionProps) => {
             <Image
               className={s.image}
               src={imageSrc}
-              alt="Елизавета Акимова — фотограф в Твери"
+              alt={typografText("Елизавета Акимова — фотограф в Твери")}
               height="100%"
               objectFit="cover"
               imageRole="card"
@@ -61,7 +62,7 @@ export const ContactsSection = (props: ContactsSectionProps) => {
           {text}
         </Body>
 
-        <nav className={s.social} aria-label="Соцсети">
+        <nav className={s.social} aria-label={typografText("Соцсети")}>
           {SOCIAL_LINKS.map((link) => (
             <Link
               key={link.href}
@@ -73,11 +74,7 @@ export const ContactsSection = (props: ContactsSectionProps) => {
             </Link>
           ))}
         </nav>
-        <p className={s.alertText}>
-          *Компания Meta, продукты которой, включая социальные сети Facebook и
-          Instagram, признаны экстремистскими организациями и запрещены на
-          территории Рф
-        </p>
+        <p className={s.alertText}>{META_DISCLAIMER}</p>
       </div>
     </section>
   );

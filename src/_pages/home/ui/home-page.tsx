@@ -1,6 +1,7 @@
 "use client";
 
 import { SeoHeading } from "@/shared/ui/seo-heading";
+import { typografText } from "@/shared/utils/typograf";
 import { AboutSection } from "@/widgets/about-section";
 import { ComparisonSection } from "@/widgets/comparison-section";
 import { ContactsSection } from "@/widgets/contacts-section";
@@ -15,17 +16,21 @@ export const HomePage = () => {
   return (
     <main className={s.root}>
       <SeoHeading level={2}>
-        Фотограф Тверь, свадебный фотограф Тверь, фотосессии в Твери — портфолио
-        и запись на съёмку
+        {typografText(
+          "Фотограф Тверь, свадебный фотограф Тверь, фотосессии в Твери — портфолио и запись на съёмку",
+        )}
       </SeoHeading>
       <HeroSection />
       <AboutSection />
       <PhotoExamplesSection />
       <ComparisonSection
-        beforeLabel="До обработки"
-        afterLabel="После обработки"
+        beforeLabel={typografText("До обработки")}
+        afterLabel={typografText("После обработки")}
       />
-      <ProjectTypesSection title="Фотосессии в Твери" className={s.projects} />
+      <ProjectTypesSection
+        title={typografText("Фотосессии")}
+        className={s.projects}
+      />
       <LocalSeoSection />
       <ContactsSection />
     </main>

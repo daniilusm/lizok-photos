@@ -1,5 +1,6 @@
 import type { Image } from "@/shared/types/strapi-components/shared";
 import type { Seo } from "@/shared/types/strapi-components/widgets";
+import { typografDeep, typografText } from "@/shared/utils/typograf";
 
 export const SITE_ORIGIN = (
   process.env.NEXT_PUBLIC_SITE_URL || "https://lizok-a-ph.ru"
@@ -87,13 +88,13 @@ export const buildPageSeo = ({
   ogImageUrl = "/og.webp",
   structuredData,
 }: PageSeoProps): Seo => ({
-  title,
-  description,
+  title: typografText(title),
+  description: typografText(description),
   keywords,
   theme: "#2A2E1F",
   ogImage: createOgImage(ogImageUrl),
   structuredData: structuredData
-    ? stringifyStructuredData(structuredData)
+    ? stringifyStructuredData(typografDeep(structuredData))
     : undefined,
 });
 
@@ -105,7 +106,7 @@ export const breadcrumbList = (
   itemListElement: items.map((item, index) => ({
     "@type": "ListItem",
     position: index + 1,
-    name: item.name,
+    name: typografText(item.name),
     item: toAbsoluteUrl(item.path),
   })),
 });

@@ -11,11 +11,12 @@ import clsx from "clsx";
 import { useRouter } from "next/router";
 
 import { Button } from "@shared/ui/button";
-import { HOME_CONTENT, SOCIAL_LINKS } from "@/shared/stub/home";
+import { HOME_CONTENT, META_DISCLAIMER, SOCIAL_LINKS } from "@/shared/stub/home";
 import { Icon } from "@/shared/ui/icon";
 import { Image } from "@/shared/ui/image";
 import { Link } from "@/shared/ui/link";
 import { Portal } from "@/shared/ui/portal";
+import { typografText } from "@/shared/utils/typograf";
 
 import { usePreloaderStore } from "../preloader/model/preloaderStore";
 
@@ -158,7 +159,9 @@ export const Header = (props: HeaderProps) => {
               <Image
                 className={s.image}
                 src={HOME_CONTENT.contacts.image}
-                alt="Елизавета Акимова — фотограф в Твери"
+                alt={typografText(
+                  "Елизавета Акимова — фотограф в Твери",
+                )}
                 height="100%"
                 objectFit="cover"
                 imageRole="card"
@@ -179,11 +182,7 @@ export const Header = (props: HeaderProps) => {
                   </Link>
                 ))}
               </div>
-              <p className={s.alertText}>
-                *Компания Meta, продукты которой, включая социальные сети
-                Facebook и Instagram, признаны экстремистскими организациями и
-                запрещены на территории Рф
-              </p>
+              <p className={s.alertText}>{META_DISCLAIMER}</p>
             </div>
           </div>
         </div>

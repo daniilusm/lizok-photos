@@ -1,3 +1,5 @@
+import { typografDeep } from "@/shared/utils/typograf";
+
 import { imageLink } from "./projects";
 
 export type Review = {
@@ -8,7 +10,7 @@ export type Review = {
   images: string[];
 };
 
-export const REVIEWS: Review[] = [
+export const REVIEWS: Review[] = typografDeep([
   {
     id: "alina",
     name: "Алина",
@@ -45,4 +47,4 @@ export const REVIEWS: Review[] = [
       `${imageLink}/v1785262924/03_cti8f2.webp`,
     ],
   },
-];
+]);

@@ -13,6 +13,7 @@ import gsap from "gsap";
 import { HOME_CONTENT } from "@/shared/stub/home";
 import { Image } from "@/shared/ui/image";
 import { Heading } from "@/shared/ui/typography/heading";
+import { typografText } from "@/shared/utils/typograf";
 
 import s from "./comparison-section.module.scss";
 
@@ -138,7 +139,9 @@ export const ComparisonSection = (props: ComparisonSectionProps) => {
           <Image
             className={s.image}
             src={beforeSrc}
-            alt={`Обработка фотосессии в Твери — ${beforeLabel}`}
+            alt={typografText(
+              `Обработка фотосессии в Твери — ${beforeLabel}`,
+            )}
             height="100%"
             objectFit="cover"
             imageRole="hero"
@@ -151,7 +154,9 @@ export const ComparisonSection = (props: ComparisonSectionProps) => {
           <Image
             className={s.image}
             src={afterSrc}
-            alt={`Обработка фотосессии в Твери — ${afterLabel}`}
+            alt={typografText(
+              `Обработка фотосессии в Твери — ${afterLabel}`,
+            )}
             height="100%"
             objectFit="cover"
             imageRole="hero"

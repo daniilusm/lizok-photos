@@ -1,3 +1,5 @@
+import { typografDeep } from "@/shared/utils/typograf";
+
 export const imageLink = `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_PROJECTS_ID}/image/upload`;
 
 export type ProjectImage = {
@@ -57,7 +59,7 @@ export const getAllProjects = (): ProjectWithType[] => {
   );
 };
 
-export const projectTypes: ProjectType[] = [
+export const projectTypes: ProjectType[] = typografDeep([
   {
     slug: "individual",
     name: "Индивидуальная фотосессия",
@@ -121,7 +123,7 @@ export const projectTypes: ProjectType[] = [
   //   mainImage: `${imageLink}/v1783330777/10_d4yprq.webp`,
   //   projects: [],
   // },
-];
+]);
 
 /** Плоский список всех проектов (для hero, превью и т.п.) */
 export const projects = getAllProjects();

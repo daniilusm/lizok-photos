@@ -53,12 +53,7 @@
   height: 100%;
   padding: var(--spacing-48) var(--spacing-gap);
   color: var(--c-white);
-  background: linear-gradient(
-    to top,
-    rgb(0 0 0 / 55%) 0%,
-    rgb(0 0 0 / 10%) 45%,
-    transparent 70%
-  );
+ 
 
   @include mq(md) {
     padding: var(--spacing-32) var(--spacing-gap) var(--spacing-40);
@@ -81,4 +76,17 @@
   opacity: 0.85;
 
   @include body-paragraph;
+}
+
+.overlay{
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+ background: linear-gradient(
+    to top,
+    rgb(0 0 0 / 55%) 0%,
+    rgb(0 0 0 / 10%) 45%,
+    transparent 70%
+  );
+  pointer-events: none;
 }

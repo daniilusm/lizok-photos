@@ -1,6 +1,8 @@
 import type { ComponentProps, ReactNode } from "react";
 import clsx from "clsx";
 
+import { typografText } from "@/shared/utils/typograf";
+
 import s from "./seo-heading.module.scss";
 
 export type SeoHeadingProps = {
@@ -15,7 +17,7 @@ export const SeoHeading = (props: SeoHeadingProps) => {
 
   return (
     <Tag className={clsx(s.root, className)} {...rest}>
-      {children}
+      {typeof children === "string" ? typografText(children) : children}
     </Tag>
   );
 };

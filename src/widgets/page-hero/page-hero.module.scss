@@ -10,6 +10,19 @@
   }
 }
 
+.overlay{
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+ background: linear-gradient(
+    to top,
+    rgb(0 0 0 / 55%) 0%,
+    rgb(0 0 0 / 10%) 45%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
 .media {
   position: absolute;
   inset: 0;

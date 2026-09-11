@@ -101,7 +101,7 @@ export const Image = (props: ImageProps) => {
         // static export: Next Image unoptimized не строит srcSet — нужен native img
         // biome-ignore lint/performance/noImgElement: Cloudinary srcSet requires native img under static export
         <img
-          data-preloaded={preloaded}
+          {...(preloaded ? { "data-preloaded": "true" } : {})}
           className={s.image}
           src={optimizedSrc}
           srcSet={optimizedSrcSet}
@@ -115,7 +115,7 @@ export const Image = (props: ImageProps) => {
         />
       ) : (
         <NextImage
-          data-preloaded={preloaded}
+          {...(preloaded ? { "data-preloaded": "true" } : {})}
           className={s.image}
           height={0}
           onLoad={handleLoad}

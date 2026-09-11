@@ -51,9 +51,20 @@
   font-size: vw(24);
   letter-spacing: 0.04em;
 
-  background: linear-gradient(to top, rgb(0 0 0 / 70%), transparent);
-
   @include mq(sm) {
     font-size: vw(18);
   }
+}
+
+.overlay{
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+ background: linear-gradient(
+    to top,
+    rgb(0 0 0 / 55%) 0%,
+    rgb(0 0 0 / 10%) 45%,
+    transparent 70%
+  );
+  pointer-events: none;
 }

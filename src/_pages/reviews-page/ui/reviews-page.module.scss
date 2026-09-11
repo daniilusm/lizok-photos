@@ -82,11 +82,11 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(
-    0deg,
-    rgba(42, 46, 31, 0.82) 0%,
-    rgba(42, 46, 31, 0.35) 45%,
-    rgba(42, 46, 31, 0.2) 100%
+background: linear-gradient(
+    to top,
+    rgb(0 0 0 / 55%) 0%,
+    rgb(0 0 0 / 10%) 45%,
+    transparent 70%
   );
   pointer-events: none;
 }

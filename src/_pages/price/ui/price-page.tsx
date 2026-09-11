@@ -9,6 +9,7 @@ import { Link } from "@/shared/ui/link";
 import { ParallaxScrollContainer } from "@/shared/ui/parallax-scroll-container";
 import { Body } from "@/shared/ui/typography/body";
 import { Heading } from "@/shared/ui/typography/heading";
+import { typografText } from "@/shared/utils/typograf";
 import { ComparisonSection } from "@/widgets/comparison-section";
 import { PageHero } from "@/widgets/page-hero";
 
@@ -218,7 +219,7 @@ export const PricePage = () => {
                 </ul>
 
                 <Link href="/contacts" className={s.packageCta}>
-                  Обсудить съёмку
+                  {typografText("Обсудить съёмку")}
                 </Link>
               </div>
             </article>

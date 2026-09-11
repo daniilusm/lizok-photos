@@ -3,3 +3,4 @@ export { debounce } from "./debounce";
 export { isApiSupported } from "./is-api-supported";
 export * from "./math";
 export { _pad } from "./string";
+export { typografDeep, typografText } from "./typograf";

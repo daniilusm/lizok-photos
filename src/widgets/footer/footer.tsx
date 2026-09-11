@@ -8,6 +8,7 @@ import { SOCIAL_LINKS } from "@/shared/stub/home";
 import { projectTypes } from "@/shared/stub/projects";
 import { Link } from "@/shared/ui/link";
 import { Body } from "@/shared/ui/typography/body";
+import { typografText } from "@/shared/utils/typograf";
 
 import s from "./footer.module.scss";
 
@@ -25,32 +26,33 @@ export const Footer = (props: FooterProps) => {
         <div className={s.brand}>
           <p className={s.title}>{PHOTOGRAPHER.name}</p>
           <Body size="primary" tag="p" className={s.text}>
-            Фотограф в {PHOTOGRAPHER.city}. Фотосессии, свадебная и семейная
-            съёмка.
+            {typografText(
+              `Фотограф в ${PHOTOGRAPHER.city}. Фотосессии, свадебная и семейная съёмка.`,
+            )}
           </Body>
         </div>
 
-        <nav className={s.nav} aria-label="Навигация в подвале">
-          <p className={s.navTitle}>Разделы</p>
+        <nav className={s.nav} aria-label={typografText("Навигация в подвале")}>
+          <p className={s.navTitle}>{typografText("Разделы")}</p>
           <Link href="/" className={s.link}>
-            Главная
+            {typografText("Главная")}
           </Link>
           <Link href="/portfolio" className={s.link}>
-            Портфолио
+            {typografText("Портфолио")}
           </Link>
           <Link href="/price" className={s.link}>
-            Стоимость
+            {typografText("Стоимость")}
           </Link>
           <Link href="/reviews" className={s.link}>
-            Отзывы
+            {typografText("Отзывы")}
           </Link>
           <Link href="/contacts" className={s.link}>
-            Контакты
+            {typografText("Контакты")}
           </Link>
         </nav>
 
-        <nav className={s.nav} aria-label="Типы съёмок">
-          <p className={s.navTitle}>Съёмки</p>
+        <nav className={s.nav} aria-label={typografText("Типы съёмок")}>
+          <p className={s.navTitle}>{typografText("Съёмки")}</p>
           {projectTypes.map((type) => (
             <Link
               key={type.slug}
@@ -62,8 +64,8 @@ export const Footer = (props: FooterProps) => {
           ))}
         </nav>
 
-        <nav className={s.nav} aria-label="Соцсети">
-          <p className={s.navTitle}>Связь</p>
+        <nav className={s.nav} aria-label={typografText("Соцсети")}>
+          <p className={s.navTitle}>{typografText("Связь")}</p>
           {SOCIAL_LINKS.map((link) => (
             <Link
               key={link.href}

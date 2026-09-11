@@ -8,6 +8,7 @@ import { Image } from "@/shared/ui/image";
 import { ParallaxScrollContainer } from "@/shared/ui/parallax-scroll-container";
 import { Body } from "@/shared/ui/typography/body";
 import { Heading } from "@/shared/ui/typography/heading";
+import { typografText } from "@/shared/utils/typograf";
 
 import s from "./hero-section.module.scss";
 
@@ -35,7 +36,9 @@ export const HeroSection = (props: HeroSectionProps) => {
             <Image
               className={s.image}
               src={imageSrc}
-              alt="Елизавета Акимова — фотограф в Твери, фотосессии и свадебная съёмка"
+              alt={typografText(
+                "Елизавета Акимова — фотограф в Твери, фотосессии и свадебная съёмка",
+              )}
               height="100%"
               objectFit="cover"
               imageRole="hero"
@@ -46,6 +49,8 @@ export const HeroSection = (props: HeroSectionProps) => {
             />
           )}
         </div>
+
+        <div className={s.overlay} />
 
         <div className={s.content}>
           <Heading level="1" tag="h1" className={s.title}>
