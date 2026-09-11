@@ -18,6 +18,8 @@ declare global {
   }
 }
 
+let stUpdateQueued = false;
+
 export const Modules = () => {
   useEffect(() => {
     gsap.registerPlugin(CustomEase, ScrollToPlugin, ScrollTrigger, Observer);
@@ -30,8 +32,14 @@ export const Modules = () => {
     ScrollTrigger.defaults({ scroller: "#scroll" });
   }, []);
 
+  // Один ScrollTrigger.update на кадр — Lenis может слать несколько scroll-событий
   const lenis = useScroll(() => {
-    ScrollTrigger.update();
+    if (stUpdateQueued) return;
+    stUpdateQueued = true;
+    requestAnimationFrame(() => {
+      stUpdateQueued = false;
+      ScrollTrigger.update();
+    });
   });
 
   useEffect(() => {

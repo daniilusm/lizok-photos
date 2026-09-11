@@ -33,6 +33,7 @@ export const PageHero = (props: PageHeroProps) => {
           alt={title}
           height="100%"
           objectFit="cover"
+          imageRole="hero"
           loading="eager"
           sizes="100vw"
           fetchPriority="high"

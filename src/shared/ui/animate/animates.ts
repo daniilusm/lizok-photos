@@ -57,6 +57,20 @@ export const ANIMATES: AnimatesMap = {
       ease: "sine.inOut",
     },
   },
+  // Раскрытие снизу вверх через clip-path inset
+  clipRevealUp: {
+    set: {
+      clipPath: "inset(100% 0% 0% 0%)",
+    },
+    in: {
+      clipPath: "inset(0% 0% 0% 0%)",
+      ease: "power2.inOut",
+    },
+    out: {
+      clipPath: "inset(100% 0% 0% 0%)",
+      ease: "power2.inOut",
+    },
+  },
 };
 
 export type { AnimationData, AnimatesMap };

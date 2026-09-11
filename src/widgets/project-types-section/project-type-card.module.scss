@@ -33,12 +33,11 @@
     transform: translate3d(
         calc(var(--pointer-x) * 1%),
         calc(
-          20% * var(--parallax-scroll-progress, 0) + var(--pointer-y) * 1%
+          12% * var(--parallax-scroll-progress, 0) + var(--pointer-y) * 1%
         ),
         0
       )
-      scale(1.4);
-    will-change: transform;
+      scale(1.2);
   }
 }
 

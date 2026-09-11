@@ -4,8 +4,6 @@ import clsx from "clsx";
 import { Button } from "@/shared/ui/button";
 import { Image } from "@/shared/ui/image";
 
-import { getCloudinaryThumbnailUrl } from "../lib/get-cloudinary-image-url";
-
 import s from "./inner-page.module.scss";
 
 type InnerPageGridItemProps = {
@@ -43,9 +41,10 @@ export const InnerPageGridItem = memo(
       >
         <Image
           className={s.image}
-          src={getCloudinaryThumbnailUrl(url)}
+          src={url}
           alt={`${projectName} — фото ${index + 1}`}
           height="100%"
+          imageRole="thumb"
           sizes="(min-width: 1024px) 20vw, (min-width: 768px) 30vw, 45vw"
           loading="lazy"
           preloaded={false}

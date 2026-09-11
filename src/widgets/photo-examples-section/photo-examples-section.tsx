@@ -36,6 +36,7 @@ export const PhotoExamplesSection = (props: PhotoExamplesSectionProps) => {
               alt={`Пример фотографии ${index + 1}`}
               height="100%"
               objectFit="cover"
+              imageRole="card"
               sizes="(min-width: 768px) 50vw, 100vw"
               loading="lazy"
             />

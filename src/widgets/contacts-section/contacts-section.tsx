@@ -4,6 +4,7 @@ import type { ComponentProps } from "react";
 import clsx from "clsx";
 
 import { HOME_CONTENT, SOCIAL_LINKS } from "@/shared/stub/home";
+import { ClipRevealInView } from "@/shared/ui/animate";
 import { Image } from "@/shared/ui/image";
 import { Link } from "@/shared/ui/link";
 import { Body } from "@/shared/ui/typography/body";
@@ -33,15 +34,18 @@ export const ContactsSection = (props: ContactsSectionProps) => {
     <section className={clsx(s.root, className)} {...restProps}>
       <div className={s.media}>
         {imageSrc && (
-          <Image
-            className={s.image}
-            src={imageSrc}
-            alt="Елизавета Акимова — фотограф"
-            height="100%"
-            objectFit="cover"
-            sizes="(min-width: 1024px) 50vw, 100vw"
-            loading="lazy"
-          />
+          <ClipRevealInView duration={1} className={s.imageWrapper}>
+            <Image
+              className={s.image}
+              src={imageSrc}
+              alt="Елизавета Акимова — фотограф"
+              height="100%"
+              objectFit="cover"
+              imageRole="card"
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              loading="lazy"
+            />
+          </ClipRevealInView>
         )}
       </div>
 

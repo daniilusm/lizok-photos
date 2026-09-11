@@ -38,6 +38,7 @@ export const HeroSection = (props: HeroSectionProps) => {
               alt={`${title} — фотограф в Твери`}
               height="100%"
               objectFit="cover"
+              imageRole="hero"
               loading="eager"
               sizes="100vw"
               fetchPriority="high"

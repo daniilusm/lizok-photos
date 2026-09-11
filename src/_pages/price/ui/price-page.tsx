@@ -51,6 +51,7 @@ export const PricePage = () => {
           alt=""
           height="100%"
           objectFit="cover"
+          imageRole="hero"
           sizes="100vw"
           loading="lazy"
         />
@@ -119,6 +120,7 @@ export const PricePage = () => {
                   alt={item.name}
                   height="100%"
                   objectFit="cover"
+                  imageRole="card"
                   sizes="(min-width: 768px) 50vw, 100vw"
                   loading="lazy"
                 />

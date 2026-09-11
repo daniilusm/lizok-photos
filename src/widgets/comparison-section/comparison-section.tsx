@@ -141,6 +141,7 @@ export const ComparisonSection = (props: ComparisonSectionProps) => {
             alt={beforeLabel}
             height="100%"
             objectFit="cover"
+            imageRole="hero"
             sizes="100vw"
             loading="lazy"
           />
@@ -153,6 +154,7 @@ export const ComparisonSection = (props: ComparisonSectionProps) => {
             alt={afterLabel}
             height="100%"
             objectFit="cover"
+            imageRole="hero"
             sizes="100vw"
             loading="lazy"
           />

@@ -28,7 +28,9 @@ export const Preloader = (props: PreloaderProps) => {
   } = props;
 
   const $root = useRef<HTMLDivElement>(null);
-  const { formattedPercents } = usePreloaderStore();
+  const isFinishEndAnimation = usePreloaderStore(
+    (state) => state.isFinishEndAnimation,
+  );
   const { setFinishEndAnimation, setStartEndAnimation } = usePreloaderActions();
 
   const resources = [
@@ -39,6 +41,8 @@ export const Preloader = (props: PreloaderProps) => {
   usePreloader(10, resources);
 
   useEffect(() => {
+    if (isFinishEndAnimation) return;
+
     gsap.to($root.current, {
       "--preloader-progress": 1,
       duration: 2,
@@ -54,7 +58,15 @@ export const Preloader = (props: PreloaderProps) => {
         });
       },
     });
-  }, [setFinishEndAnimation, setStartEndAnimation]);
+  }, [
+    isFinishEndAnimation,
+    setFinishEndAnimation,
+    setStartEndAnimation,
+  ]);
+
+  if (isFinishEndAnimation) {
+    return null;
+  }
 
   return (
     <div ref={$root} className={clsx(s.root, className)}>
@@ -66,17 +78,18 @@ export const Preloader = (props: PreloaderProps) => {
             alt=""
             height="100%"
             objectFit="cover"
+            imageRole="hero"
             loading="eager"
             sizes="100vw"
           />
         </div>
       )}
 
-      <div className={s.inner}>
+      {/* <div className={s.inner}>
         <div className={s.icon}>
-          <div className={s.percents}>{formattedPercents}</div>
+          <div className={s.line} />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -1,10 +1,10 @@
 import { type ComponentProps, useCallback, useEffect, useState } from "react";
 import clsx from "clsx";
 
+import { getCloudinaryPreviewUrl } from "@/shared/lib/cloudinary-image";
 import type { Project } from "@/shared/stub/projects";
 import { ParallaxScrollContainer } from "@/shared/ui/parallax-scroll-container";
 
-import { getCloudinaryPreviewUrl } from "../lib/get-cloudinary-image-url";
 import { InnerPageGridItem } from "./inner-page-grid-item";
 import { InnerPagePreview } from "./inner-page-preview";
 

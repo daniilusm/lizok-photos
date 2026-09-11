@@ -57,7 +57,7 @@ export const ParallaxScrollContainer = (
         onUpdate: (self) => {
           if (!rootRef.current) return;
 
-          if (Math.abs(self.progress - lastProgress) < 0.002) {
+          if (Math.abs(self.progress - lastProgress) < 0.01) {
             return;
           }
 

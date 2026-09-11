@@ -35,10 +35,9 @@
   img {
     transform: translate3d(
         0,
-        calc(15% * var(--parallax-scroll-progress, 0)),
+        calc(12% * var(--parallax-scroll-progress, 0)),
         0
       )
-      scale(1.4);
-    will-change: transform;
+        scale(1.15);
   }
 }

@@ -40,7 +40,6 @@
 .after {
   // Слева видно after, справа — before: clip от правого края
   clip-path: inset(0 calc((1 - var(--compare-progress)) * 100%) 0 0);
-  will-change: clip-path;
 }
 
 .image {

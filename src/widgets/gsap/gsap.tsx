@@ -17,7 +17,8 @@ export const Gsap = () => {
       nullTargetWarn: false,
     });
 
-    gsap.ticker.lagSmoothing(0);
+    // default lag smoothing — не крутить ticker на полную при просадках/в фоне
+    gsap.ticker.lagSmoothing(500, 33);
   }, []);
 
   return <Modules />;

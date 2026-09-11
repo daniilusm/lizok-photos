@@ -2,8 +2,6 @@ import { memo } from "react";
 
 import { Image } from "@/shared/ui/image";
 
-import { getCloudinaryPreviewUrl } from "../lib/get-cloudinary-image-url";
-
 import s from "./inner-page.module.scss";
 
 type InnerPagePreviewProps = {
@@ -23,11 +21,12 @@ export const InnerPagePreview = memo(
     return (
       <div className={s.imageHover}>
         <Image
-          src={getCloudinaryPreviewUrl(activeImage.url)}
+          src={activeImage.url}
           alt={`${projectName} — фото ${activeIndex + 1}`}
           height="100%"
           objectFit="contain"
           className={s.currentImage}
+          imageRole="preview"
           loading="eager"
           sizes="50vw"
           preloaded={false}

@@ -1,6 +1,5 @@
 "use client";
 
-import { usePointerParallax } from "@/shared/hooks/use-pointer-parallax";
 import { getProjectTypeHref, type ProjectType } from "@/shared/stub/projects";
 import { Button } from "@/shared/ui/button";
 import { Image } from "@/shared/ui/image";
@@ -12,17 +11,8 @@ export type ProjectTypeCardProps = {
 };
 
 export const ProjectTypeCard = ({ item }: ProjectTypeCardProps) => {
-  const { rootRef, onMouseMove, onMouseLeave } = usePointerParallax({
-    strength: 2,
-  });
-
   return (
-    <div
-      ref={rootRef}
-      className={s.card}
-      onMouseMove={onMouseMove}
-      onMouseLeave={onMouseLeave}
-    >
+    <div className={s.card}>
       <Button href={getProjectTypeHref(item.slug)} className={s.link}>
         <Image
           className={s.image}
@@ -30,6 +20,7 @@ export const ProjectTypeCard = ({ item }: ProjectTypeCardProps) => {
           alt={item.name}
           height="100%"
           objectFit="cover"
+          imageRole="card"
           sizes="(min-width: 1024px) 50vw, 100vw"
           loading="lazy"
         />

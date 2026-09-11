@@ -9,10 +9,6 @@
   background-color: var(--c-light-graphite);
 
   @include hover {
-    .image img {
-      filter: brightness(0.8);
-    }
-
     .overlay {
       background-color: rgb(0 0 0 / 35%);
     }
@@ -22,11 +18,7 @@
     }
   }
 
-  @include mq(md){
-    .image img {
-      filter: brightness(0.8);
-    }
-
+  @include mq(md) {
     .overlay {
       background-color: rgb(0 0 0 / 30%);
     }
@@ -56,13 +48,11 @@
     transform: translate3d(
         calc(var(--pointer-x) * 1%),
         calc(
-          12% * var(--parallax-scroll-progress, 0) + var(--pointer-y) * 1%
+          8% * var(--parallax-scroll-progress, 0) + var(--pointer-y) * 1%
         ),
         0
       )
-      scale(1.2);
-    will-change: transform;
-    @include transition((filter), 0.4s);
+        scale(1.15);
   }
 }
 

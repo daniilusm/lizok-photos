@@ -151,6 +151,7 @@ export const Header = (props: HeaderProps) => {
                 alt="Елизавета Акимова — фотограф"
                 height="100%"
                 objectFit="cover"
+                imageRole="card"
                 sizes="(min-width: 1024px) 50vw, 100vw"
                 loading="lazy"
               />
