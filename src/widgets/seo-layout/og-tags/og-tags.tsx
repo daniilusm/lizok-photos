@@ -27,6 +27,10 @@ export const OgTags = (props: SeoLayoutDataType) => {
       <meta name="googlebot" content="index, follow, max-image-preview:large" />
       <meta name="yandex" content="index, follow" />
       <meta name="yandex-verification" content="5f7290056ff63009" />
+      <meta
+        name="google-site-verification"
+        content="BhkppVqJo9Au5-9rZuTRvbhKLVtnwvXGqBxnaAG2iHs"
+      />
       <meta name="theme-color" content={theme} />
       <meta name="color-scheme" content="light" />
       <meta name="format-detection" content="telephone=no" />
