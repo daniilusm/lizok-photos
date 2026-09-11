@@ -132,8 +132,13 @@ export const ReviewsPage = () => {
             );
           })}
 
-          <div className={s.progress} aria-hidden>
-            <div className={s.progressBar} />
+          <div className={s.chrome}>
+            <p className={s.counter} aria-live="polite">
+              {activeIndex + 1} / {REVIEWS.length}
+            </p>
+            <div className={s.progress} aria-hidden>
+              <div className={s.progressBar} />
+            </div>
           </div>
         </div>
       </section>

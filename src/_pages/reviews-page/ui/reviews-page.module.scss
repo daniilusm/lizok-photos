@@ -146,12 +146,35 @@
   }
 }
 
-.progress {
+.chrome {
   position: absolute;
   z-index: 3;
   left: var(--spacing-gap);
   right: var(--spacing-gap);
   bottom: var(--spacing-20);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-32);
+
+  @include mq(sm) {
+  gap: var(--spacing-24);
+  }
+}
+
+.counter {
+  margin: 0;
+  align-self: flex-end;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: vw(14);
+  opacity: 0.85;
+
+  @include mq(sm) {
+    font-size: vw(12);
+  }
+}
+
+.progress {
   height: 2px;
   background-color: rgba(250, 240, 230, 0.25);
   overflow: hidden;
