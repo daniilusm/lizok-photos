@@ -15,8 +15,8 @@ export const HomePage = () => {
   return (
     <main className={s.root}>
       <SeoHeading level={2}>
-        Фотограф Тверь, свадебный фотограф Тверь, фотосессии в Твери —
-        портфолио и запись на съёмку
+        Фотограф Тверь, свадебный фотограф Тверь, фотосессии в Твери — портфолио
+        и запись на съёмку
       </SeoHeading>
       <HeroSection />
       <AboutSection />
@@ -25,10 +25,7 @@ export const HomePage = () => {
         beforeLabel="До обработки"
         afterLabel="После обработки"
       />
-      <ProjectTypesSection
-        title="Фотосессии в Твери"
-        className={s.projects}
-      />
+      <ProjectTypesSection title="Фотосессии в Твери" className={s.projects} />
       <LocalSeoSection />
       <ContactsSection />
     </main>

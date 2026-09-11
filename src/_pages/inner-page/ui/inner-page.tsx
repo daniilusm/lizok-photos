@@ -1,7 +1,6 @@
 import { type ComponentProps, useCallback, useEffect, useState } from "react";
 import clsx from "clsx";
 
-import { getCloudinaryPreviewUrl } from "@/shared/lib/cloudinary-image";
 import type { Project } from "@/shared/stub/projects";
 import { ParallaxScrollContainer } from "@/shared/ui/parallax-scroll-container";
 
@@ -29,20 +28,6 @@ export const InnerPage = (props: InnerPageProps) => {
   useEffect(() => {
     setCurrentIndexHover(0);
   }, [project.slug]);
-
-  useEffect(() => {
-    if (!images.length) return;
-
-    for (const index of [currentIndexHover - 1, currentIndexHover + 1]) {
-      const image = images[index];
-
-      if (!image) continue;
-
-      const preloader = new window.Image();
-      preloader.decoding = "async";
-      preloader.src = getCloudinaryPreviewUrl(image.url);
-    }
-  }, [currentIndexHover, images]);
 
   return (
     <ParallaxScrollContainer className={clsx(s.root, className)}>

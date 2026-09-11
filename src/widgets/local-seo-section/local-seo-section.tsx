@@ -4,7 +4,8 @@ import type { ComponentProps } from "react";
 import clsx from "clsx";
 
 import { HOME_CONTENT } from "@/shared/stub/home";
-import { Link } from "@/shared/ui/link";
+import { Image } from "@/shared/ui/image";
+import { ParallaxScrollContainer } from "@/shared/ui/parallax-scroll-container";
 import { Body } from "@/shared/ui/typography/body";
 import { Heading } from "@/shared/ui/typography/heading";
 
@@ -24,52 +25,78 @@ export const LocalSeoSection = (props: LocalSeoSectionProps) => {
       aria-labelledby="local-seo-title"
       {...restProps}
     >
-      <Heading level="2" tag="h2" id="local-seo-title" className={s.title}>
-        {services.title}
-      </Heading>
-      <Body size="primary" tag="p" className={s.lead}>
-        {services.lead}
-      </Body>
-
-      <ul className={s.list}>
-        {services.items.map((item) => (
-          <li key={item.title} className={s.item}>
-            <Heading level="3" tag="h3" className={s.itemTitle}>
-              {item.title}
-            </Heading>
-            <Body size="primary" tag="p" className={s.itemText}>
-              {item.text}
-            </Body>
-          </li>
-        ))}
-      </ul>
-
-      <div className={s.actions}>
-        <Link href="/portfolio" className={s.link}>
-          Смотреть портфолио
-        </Link>
-        <Link href="/price" className={s.link}>
-          Стоимость фотосессии
-        </Link>
-        <Link href="/contacts" className={s.link}>
-          Заказать съёмку
-        </Link>
+      <div className={s.section}>
+        <ParallaxScrollContainer
+          className={s.imageWrapper}
+          start="top bottom"
+          end="bottom top"
+        >
+          <Image
+            height="100%"
+            objectFit="cover"
+            imageRole="card"
+            sizes="(min-width: 768px) 50vw, 100vw"
+            loading="lazy"
+            alt="sec"
+            src="https://res.cloudinary.com/fgedebup/image/upload/v1785262927/06_b2xyh2.webp"
+          />
+        </ParallaxScrollContainer>
+        <div className={s.sectionContent}>
+          <Heading level="2" tag="h2" id="local-seo-title" className={s.title}>
+            {services.title}
+          </Heading>
+          <Body size="primary" tag="p" className={s.lead}>
+            {services.lead}
+          </Body>
+          <ul className={s.list}>
+            {services.items.map((item) => (
+              <li key={item.title} className={s.item}>
+                <Heading level="3" tag="h3" className={s.itemTitle}>
+                  {item.title}
+                </Heading>
+                <Body size="primary" tag="p" className={s.itemText}>
+                  {item.text}
+                </Body>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
-      <Heading level="2" tag="h2" className={s.faqTitle}>
-        {faq.title}
-      </Heading>
-      <div className={s.faqList}>
-        {faq.items.map((item) => (
-          <div key={item.question} className={s.faqItem}>
-            <Heading level="3" tag="h3" className={s.faqQuestion}>
-              {item.question}
-            </Heading>
-            <Body size="primary" tag="p" className={s.faqAnswer}>
-              {item.answer}
-            </Body>
+      <div className={s.section}>
+        <div className={s.sectionContent}>
+          <Heading level="2" tag="h2" className={s.faqTitle}>
+            {faq.title}
+          </Heading>
+          <div className={s.list}>
+            {faq.items.map((item) => (
+              <div key={item.question} className={s.item}>
+                <Heading level="3" tag="h3" className={s.itemTitle}>
+                  {item.question}
+                </Heading>
+                <Body size="primary" tag="p" className={s.itemText}>
+                  {item.answer}
+                </Body>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+
+        <ParallaxScrollContainer
+          className={s.imageWrapper}
+          start="top bottom"
+          end="bottom top"
+        >
+          <Image
+            height="100%"
+            objectFit="cover"
+            imageRole="card"
+            sizes="(min-width: 768px) 50vw, 100vw"
+            loading="lazy"
+            alt="sec"
+            src="https://res.cloudinary.com/fgedebup/image/upload/v1785084918/IMG_6255_x5uiso.jpg"
+          />
+        </ParallaxScrollContainer>
       </div>
     </section>
   );

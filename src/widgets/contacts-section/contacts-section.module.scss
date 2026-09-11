@@ -37,6 +37,19 @@
   width: 100%;
   height: 100%;
 
+
+  overflow: hidden;
+
+
+    img {
+        transform: translate3d(
+            0,
+            calc(12% * var(--parallax-scroll-progress, 0)),
+            0
+        )
+        scale(1.15);
+    }
+
   @include mq(md){
     aspect-ratio: 1/1;
     border-radius: 50%;

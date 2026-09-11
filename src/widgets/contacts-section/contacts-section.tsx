@@ -4,9 +4,9 @@ import type { ComponentProps } from "react";
 import clsx from "clsx";
 
 import { HOME_CONTENT, SOCIAL_LINKS } from "@/shared/stub/home";
-import { ClipRevealInView } from "@/shared/ui/animate";
 import { Image } from "@/shared/ui/image";
 import { Link } from "@/shared/ui/link";
+import { ParallaxScrollContainer } from "@/shared/ui/parallax-scroll-container";
 import { Body } from "@/shared/ui/typography/body";
 import { Heading } from "@/shared/ui/typography/heading";
 
@@ -34,7 +34,11 @@ export const ContactsSection = (props: ContactsSectionProps) => {
     <section className={clsx(s.root, className)} {...restProps}>
       <div className={s.media}>
         {imageSrc && (
-          <ClipRevealInView duration={1} className={s.imageWrapper}>
+          <ParallaxScrollContainer
+            className={s.imageWrapper}
+            start="top bottom"
+            end="bottom top"
+          >
             <Image
               className={s.image}
               src={imageSrc}
@@ -45,7 +49,7 @@ export const ContactsSection = (props: ContactsSectionProps) => {
               sizes="(min-width: 1024px) 50vw, 100vw"
               loading="lazy"
             />
-          </ClipRevealInView>
+          </ParallaxScrollContainer>
         )}
       </div>
 
