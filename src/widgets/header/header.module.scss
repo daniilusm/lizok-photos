@@ -6,13 +6,13 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: var(--spacing-20) var(--spacing-48);    
+  padding: var(--spacing-20) var(--spacing-gap);    
   color: var(--c-white);
 
   font-family: var(--font-family-base);
   text-transform: uppercase;
   font-size: vw(16);
-  background-color: rgb(250 240 230 / 92%);
+  background-color: rgb(250 240 230 / 60%);
   color: var(--main-text-color);
 
   transform: translateY(-100%);

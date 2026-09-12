@@ -1,4 +1,11 @@
-import { createElement, type ElementType, useEffect, useRef } from "react";
+import {
+  createElement,
+  type ElementType,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+} from "react";
 import clsx from "clsx";
 import { gsap } from "gsap";
 
@@ -8,7 +15,6 @@ import { composeRefs } from "@shared/utils/compose-refs";
 
 import s from "./split-text.module.scss";
 
-// Types
 interface SplitTextAnimateProps {
   className?: string;
   children: React.ReactNode;
@@ -31,44 +37,46 @@ export const SplitTextAnimate = ({
   children,
   isVisible,
   stagger = 0,
-  duration = 1,
+  duration = 0.9,
   delay = 0,
-  as: As = "div",
-  type = "char",
+  as: As = "span",
+  type = "word",
   ref,
 }: SplitTextAnimateProps) => {
   const rootRef = useRef<HTMLElement>(null);
-
   const $letters = useRef<HTMLElement[]>([]);
 
-  useEffect(() => {
-    const q = gsap.utils.selector(rootRef.current);
-    $letters.current = q(`.${type}`);
-  }, []);
+  useLayoutEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+
+    // Анимируем `.char`: при type=word — одно «char» на слово, при type=char — по буквам
+    $letters.current = gsap.utils.selector(root)(".char");
+    gsap.set($letters.current, { yPercent: 105 });
+  }, [type, children]);
 
   useEffect(() => {
-    const yFrom = isVisible ? 105 : 0;
-    const yTo = isVisible ? 0 : -105;
+    const targets = $letters.current;
+    if (!targets.length) return;
 
-    const tween = gsap.fromTo(
-      $letters.current,
-      {
-        yPercent: yFrom,
-      },
-      {
-        yPercent: yTo,
-        ease: "power4.inOut",
-        stagger,
-        duration,
-        delay,
-        overwrite: "auto",
-      },
-    );
+    if (!isVisible) {
+      gsap.set(targets, { yPercent: 105 });
+      return;
+    }
+
+    const tween = gsap.to(targets, {
+      yPercent: 0,
+      ease: "power4.out",
+      stagger,
+      duration,
+      delay,
+      overwrite: "auto",
+    });
 
     return () => {
-      tween.revert();
+      tween.kill();
     };
-  }, [isVisible, delay, stagger, duration]);
+  }, [isVisible, delay, stagger, duration, type, children]);
 
   return createElement(
     As,
@@ -84,7 +92,16 @@ export const SplitTextAnimateInView = ({
   children,
   ...props
 }: SplitTextAnimateInViewProps) => {
-  const [ref, inView] = useIntersectionObserver({ triggerOnce: true });
+  const observerOptions = useMemo(
+    () => ({
+      triggerOnce: true,
+      threshold: 0.2,
+      rootMargin: "0px 0px -8% 0px",
+    }),
+    [],
+  );
+
+  const [ref, inView] = useIntersectionObserver(observerOptions);
 
   return (
     <SplitTextAnimate isVisible={inView} ref={ref} {...props}>

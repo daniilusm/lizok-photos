@@ -122,11 +122,15 @@ export const ReviewsPage = () => {
                 <div className={s.overlay} aria-hidden />
 
                 <div className={s.content}>
-                  <p className={s.type}>{review.type}</p>
+                  <Body size="small" tag="p" className={s.type}>
+                    {review.type}
+                  </Body>
                   <Body size="primary" tag="p" className={s.text}>
                     {review.text}
                   </Body>
-                  <p className={s.name}>{review.name}</p>
+                  <Body size="small" tag="p" className={s.name}>
+                    {review.name}
+                  </Body>
                 </div>
               </article>
             );

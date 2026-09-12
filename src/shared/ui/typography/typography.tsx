@@ -3,6 +3,7 @@ import clsx from "clsx";
 
 import { mod } from "@shared/utils";
 import type { ComponentOrTag, DynamicProps } from "@/shared/types";
+import { SplitTextAnimateInView } from "@/shared/ui/animate";
 import { typografText } from "@/shared/utils/typograf";
 
 import styles from "./typography.module.scss";
@@ -12,6 +13,12 @@ export type TypographyProps<
 > = DynamicProps<Element> & {
   weight?: "regular" | "medium" | "semiBold" | "bold" | "extraBold";
   color?: "primary" | "secondary" | "inherit";
+  /** Анимация появления текста. По умолчанию включена для строк. */
+  animate?: boolean;
+  splitType?: "char" | "word";
+  splitStagger?: number;
+  splitDuration?: number;
+  splitDelay?: number;
 };
 
 const typografChildren = (children: ReactNode): ReactNode => {
@@ -30,6 +37,11 @@ export const Typography = <
     tag: Component = "span",
     weight = "regular",
     color = "inherit",
+    animate = true,
+    splitType = "word",
+    splitStagger,
+    splitDuration,
+    splitDelay,
     ...restProps
   } = props as TypographyProps<"span">;
 
@@ -38,9 +50,23 @@ export const Typography = <
     color,
   });
 
+  const content = typografChildren(children);
+  const shouldAnimate = animate && typeof content === "string" && content.trim();
+
   return (
     <Component className={clsx(className, styles.root, mods)} {...restProps}>
-      {typografChildren(children)}
+      {shouldAnimate ? (
+        <SplitTextAnimateInView
+          type={splitType}
+          stagger={splitStagger}
+          duration={splitDuration}
+          delay={splitDelay}
+        >
+          {content}
+        </SplitTextAnimateInView>
+      ) : (
+        content
+      )}
     </Component>
   );
 };

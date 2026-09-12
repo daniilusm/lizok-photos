@@ -9,11 +9,22 @@ import { Typography } from "../typography";
 
 import styles from "./heading.module.scss";
 
+export type HeadingLevel =
+  | "accentXXL"
+  | "accentM"
+  | "1"
+  | "2"
+  | "3"
+  | "4"
+  | "5";
+
 export type HeadingProps<
   Element extends ComponentOrTag<ComponentProps<Element>>,
 > = {
-  level: "accentXXL" | "accentM" | "1" | "2" | "3" | "4" | "5";
+  level: HeadingLevel;
 } & TypographyProps<Element>;
+
+const ACCENT_LEVELS = new Set<HeadingLevel>(["accentXXL", "accentM"]);
 
 export const Heading = <
   Element extends ComponentOrTag<ComponentProps<Element>>,
@@ -24,7 +35,8 @@ export const Heading = <
     level = "1",
     className,
     children,
-    weight = "semiBold",
+    weight = "regular",
+    animate = true,
     ...restProps
   } = props as HeadingProps<"span">;
 
@@ -34,8 +46,10 @@ export const Heading = <
 
   return (
     <Typography
-      className={clsx(styles.root, mods, className)}
+      className={clsx(mods, className)}
       weight={weight}
+      splitType="char"
+      animate={animate && !ACCENT_LEVELS.has(level)}
       {...restProps}
     >
       {children}

@@ -24,31 +24,31 @@
 }
 
 @mixin accentXXL {
-  @include typography(132, 0.88, -0.06em);
+  @include typography(132, 0.88, -0.06em, "normal", var(--font-family-script));
 }
 
 @mixin accentM {
-  @include typography(80, 0.88, -0.06em);
+  @include typography(110, 0.88, -0.06em, "normal", var(--font-family-script));
 }
 
 @mixin accentS {
-  @include typography(60, 0.88, -0.06em);
+  @include typography(60, 0.88, -0.06em, "normal", var(--font-family-script));
 }
 
 @mixin h2 {
-  @include typography(48, 1, -0.05em);
+  @include typography(48, 1, -0.05em, "normal");
 }
 
 @mixin h3 {
-  @include typography(36, 1.1, -0.04em);
+  @include typography(36, 1.1, -0.04em, "normal");
 }
 
 @mixin h4 {
-  @include typography(24, 1.12, -0.04em);
+  @include typography(24, 1.12, -0.04em, "normal");
 }
 
 @mixin h5 {
-  @include typography(24, 1.12, -0.04em);
+  @include typography(24, 1.12, -0.04em, "normal");
 }
 
 @mixin btnS {

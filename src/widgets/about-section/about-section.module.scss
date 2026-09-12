@@ -1,8 +1,9 @@
 .root {
   position: relative;
   display: flex;
-  flex-direction: column;    
-  // align-items: center;
+  flex-direction: column;
+  align-items: center;
+    text-align: center;
 
   gap: var(--spacing-24);
   padding: var(--spacing-section) var(--spacing-gap) ;
@@ -14,7 +15,7 @@
 }
 
 .text {
-  max-width: 64%;
+  max-width: 75%;
   opacity: 0.8;
   font-size: vw(20);
 

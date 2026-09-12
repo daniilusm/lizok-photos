@@ -205,7 +205,9 @@ export const PricePage = () => {
                   <Heading level="3" tag="h3" className={s.packageName}>
                     {item.name}
                   </Heading>
-                  <p className={s.packagePrice}>{item.price}</p>
+                  <Body size="primary" tag="p" className={s.packagePrice}>
+                    {item.price}
+                  </Body>
                 </div>
 
                 <Body size="primary" tag="p" className={s.packageMeta}>
@@ -214,7 +216,11 @@ export const PricePage = () => {
 
                 <ul className={s.packageIncludes}>
                   {item.includes.map((line) => (
-                    <li key={line}>{line}</li>
+                    <li key={line}>
+                      <Body size="small" tag="span">
+                        {line}
+                      </Body>
+                    </li>
                   ))}
                 </ul>
 

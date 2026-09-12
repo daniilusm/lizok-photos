@@ -1,11 +1,12 @@
 "use client";
 
-import { type ComponentProps, useMemo } from "react";
+import type { ComponentProps } from "react";
 import clsx from "clsx";
 
 import { HOME_CONTENT } from "@/shared/stub/home";
 import { Image } from "@/shared/ui/image";
 import { ParallaxScrollContainer } from "@/shared/ui/parallax-scroll-container";
+import { typografText } from "@/shared/utils/typograf";
 
 import s from "./photo-examples-section.module.scss";
 
@@ -14,34 +15,70 @@ export type PhotoExamplesSectionProps = ComponentProps<"section"> & {
   images?: string[];
 };
 
+const chunkImages = (images: readonly string[], size: number) => {
+  const chunks: string[][] = [];
+
+  for (let i = 0; i < images.length; i += size) {
+    chunks.push([...images.slice(i, i + size)]);
+  }
+
+  return chunks;
+};
+
+const PhotoCell = ({
+  src,
+  index,
+  className,
+}: {
+  src: string;
+  index: number;
+  className?: string;
+}) => (
+  <div className={clsx(s.item, className)}>
+    <Image
+      className={s.image}
+      src={src}
+      alt={typografText(`Пример фотосессии в Твери ${index + 1}`)}
+      height="100%"
+      objectFit="cover"
+      imageRole="card"
+      sizes="(min-width: 769px) 50vw, 50vw"
+      loading="lazy"
+    />
+  </div>
+);
+
 export const PhotoExamplesSection = (props: PhotoExamplesSectionProps) => {
   const { className, images: imagesProp, ...restProps } = props;
-
-  const images = useMemo(() => {
-    return HOME_CONTENT.favoriteImages;
-  }, [imagesProp]);
+  const images = imagesProp ?? HOME_CONTENT.favoriteImages;
+  const [firstGroup = [], secondGroup = []] = chunkImages(images, 5);
 
   return (
     <section className={clsx(s.root, className)} {...restProps}>
       <ParallaxScrollContainer
-        className={s.grid}
         start="top bottom"
         end="bottom top"
+        className={s.groups}
       >
-        {images.map((src, index) => (
-          <div key={`${src}-${index + 1}`} className={s.item}>
-            <Image
-              className={s.image}
-              src={src}
-              alt={`Пример фотосессии в Твери ${index + 1}`}
-              height="100%"
-              objectFit="cover"
-              imageRole="card"
-              sizes="(min-width: 768px) 50vw, 100vw"
-              loading="lazy"
-            />
+        {firstGroup.length > 0 && (
+          <div className={clsx(s.grid, s.gridFeatureStart)}>
+            {firstGroup.map((src, index) => (
+              <PhotoCell key={`${src}-${index + 1}`} src={src} index={index} />
+            ))}
           </div>
-        ))}
+        )}
+
+        {secondGroup.length > 0 && (
+          <div className={clsx(s.grid, s.gridFeatureEnd)}>
+            {secondGroup.map((src, index) => (
+              <PhotoCell
+                key={`${src}-${firstGroup.length + index + 1}`}
+                src={src}
+                index={firstGroup.length + index}
+              />
+            ))}
+          </div>
+        )}
       </ParallaxScrollContainer>
     </section>
   );

@@ -88,6 +88,12 @@ export const HOME_CONTENT = typografDeep({
     `${imageLink}/v1785262924/03_cti8f2.webp`,
     `${imageLink}/v1785262924/01_eim26n.webp`,
     `${imageLink}/v1785262925/05_kjjbbh.webp`,
+    `${imageLink}/v1785082994/06_jxs7cu.webp`,
+    `${imageLink}/v1785082992/05_gqvgzf.webp`,
+    `${imageLink}/v1785083025/01_kplwcp.webp`,
+    `${imageLink}/v1783330777/10_d4yprq.webp`,
+    `${imageLink}/v1785082994/07_xwuhcg.webp`,
+    `${imageLink}/v1785083000/14_n1v2uh.webp`,
   ],
   contacts: {
     title: "Контакты",

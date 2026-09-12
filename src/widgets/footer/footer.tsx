@@ -24,7 +24,9 @@ export const Footer = (props: FooterProps) => {
     <footer className={clsx(s.root, className)} {...rest}>
       <div className={s.grid}>
         <div className={s.brand}>
-          <p className={s.title}>{PHOTOGRAPHER.name}</p>
+          <Body size="primary" tag="p" className={s.title}>
+            {PHOTOGRAPHER.name}
+          </Body>
           <Body size="primary" tag="p" className={s.text}>
             {typografText(
               `Фотограф в ${PHOTOGRAPHER.city}. Фотосессии, свадебная и семейная съёмка.`,

@@ -90,7 +90,7 @@
             calc(12% * var(--parallax-scroll-progress, 0)),
             0
         )
-        scale(1.15);
+        scale(1.2);
     }
 
     @include mq(lg){

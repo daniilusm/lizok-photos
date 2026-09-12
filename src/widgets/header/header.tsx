@@ -8,19 +8,24 @@ import {
   useState,
 } from "react";
 import clsx from "clsx";
+import type Lenis from "lenis";
 import { useRouter } from "next/router";
 
 import { Button } from "@shared/ui/button";
-import { HOME_CONTENT, META_DISCLAIMER, SOCIAL_LINKS } from "@/shared/stub/home";
+import {
+  HOME_CONTENT,
+  META_DISCLAIMER,
+  SOCIAL_LINKS,
+} from "@/shared/stub/home";
 import { Icon } from "@/shared/ui/icon";
 import { Image } from "@/shared/ui/image";
 import { Link } from "@/shared/ui/link";
 import { Portal } from "@/shared/ui/portal";
 import { typografText } from "@/shared/utils/typograf";
 
-import { usePreloaderStore } from "../preloader/model/preloaderStore";
-
 import s from "./header.module.scss";
+
+const SHOW_AT_VH = 0.01;
 
 export type HeaderProps = ComponentProps<"div"> & {
   className?: string;
@@ -33,6 +38,7 @@ export const Header = (props: HeaderProps) => {
   const [isOpen, setOpen] = useState(false);
   const [isClosing, setClosing] = useState(false);
   const [noTransition, setNoTransition] = useState(false);
+  const [isScrolledIn, setScrolledIn] = useState(false);
 
   const handleClose = useCallback(() => {
     setOpen((prev) => {
@@ -82,13 +88,43 @@ export const Header = (props: HeaderProps) => {
     };
   }, [router.events, handleClose]);
 
-  const { isFinishEndAnimation } = usePreloaderStore();
+  useEffect(() => {
+    let frameId = 0;
+    let lenis: Lenis | null = null;
+
+    const syncVisibility = () => {
+      if (!lenis) return;
+      const threshold = window.innerHeight * SHOW_AT_VH;
+      setScrolledIn(lenis.scroll >= threshold);
+    };
+
+    const attach = () => {
+      lenis = window.__GLOBAL_SCROLL__ ?? null;
+
+      if (!lenis) {
+        frameId = requestAnimationFrame(attach);
+        return;
+      }
+
+      lenis.on("scroll", syncVisibility);
+      syncVisibility();
+    };
+
+    attach();
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      lenis?.off("scroll", syncVisibility);
+    };
+  }, [router.asPath]);
+
+  const isVisible = isScrolledIn || isOpen || isClosing;
 
   return (
     <>
       <div
         className={clsx(s.root, className, {
-          [s.viewHeader]: isFinishEndAnimation,
+          [s.viewHeader]: isVisible,
         })}
       >
         <nav className={s.nav} aria-label="Основная навигация">
@@ -159,9 +195,7 @@ export const Header = (props: HeaderProps) => {
               <Image
                 className={s.image}
                 src={HOME_CONTENT.contacts.image}
-                alt={typografText(
-                  "Елизавета Акимова — фотограф в Твери",
-                )}
+                alt={typografText("Елизавета Акимова — фотограф в Твери")}
                 height="100%"
                 objectFit="cover"
                 imageRole="card"

@@ -36,17 +36,17 @@
   --spacing-140: #{vw(140)};
 
   --spacing-gap: #{vw(16)};
-  --spacing-section: #{vw(120)};
+  --spacing-section: #{vw(200)};
   --spacing-title: #{vw(48)};
 
   @include mq(lg){
-    --spacing-section: #{vw(100)};
+    --spacing-section: #{vw(200)};
     --spacing-title: #{vw(32)};
   }
 
 
   @include mq(md){
-    --spacing-section: #{vw(80)};
+    --spacing-section: #{vw(140)};
     --spacing-title: #{vw(24)};
     --spacing-gap: #{vw(8)};
   }

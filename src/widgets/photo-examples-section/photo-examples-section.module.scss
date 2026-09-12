@@ -1,20 +1,18 @@
 .root {
   position: relative;
   padding: 0 var(--spacing-gap);
+}
 
-  @include mq(md) {
-    padding: 0 var(--spacing-gap);
-  }
+.groups {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--spacing-gap);
-
-  @include mq(md){
-    grid-template-columns: 1fr;
-  }
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
 }
 
 .item {
@@ -22,9 +20,19 @@
   overflow: hidden;
   aspect-ratio: 1 / 1;
   background-color: var(--c-light-graphite);
+}
 
-  @include mq(md){
-    aspect-ratio: 16/9;
+.gridFeatureStart {
+  .item:first-child {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+}
+
+.gridFeatureEnd {
+  .item:last-child {
+    grid-column: 3 / span 2;
+    grid-row: 1 / span 2;
   }
 }
 

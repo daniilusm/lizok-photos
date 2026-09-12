@@ -33,6 +33,7 @@ export const Body = <Element extends ComponentOrTag<ComponentProps<Element>>>(
     <Typography
       className={clsx(styles.root, mods, size, className)}
       weight={weight}
+      splitType="word"
       {...restProps}
     >
       {children}

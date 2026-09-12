@@ -53,7 +53,7 @@ export const HeroSection = (props: HeroSectionProps) => {
         <div className={s.overlay} />
 
         <div className={s.content}>
-          <Heading level="1" tag="h1" className={s.title}>
+          <Heading level="accentXXL" tag="h1" className={s.title}>
             {title}
           </Heading>
           <Body size="primary" tag="p" className={s.text}>
