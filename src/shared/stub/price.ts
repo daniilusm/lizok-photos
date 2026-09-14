@@ -72,7 +72,7 @@ export const PRICE_CONTENT = typografDeep({
       {
         slug: "individual",
         name: "Индивидуальная",
-        price: "от 4 000 ₽",
+        price: "от 4 500 ₽",
         duration: "от 1 часа",
         photos: "50–70 фото в обработке",
         image: `${imageLink}/v1785083025/01_kplwcp.webp`,
@@ -86,7 +86,7 @@ export const PRICE_CONTENT = typografDeep({
       {
         slug: "family",
         name: "Семейная",
-        price: "от 4 500 ₽",
+        price: "от 5 000 ₽",
         duration: "от 1 часа",
         photos: "50–70 фото в обработке",
         image: `${imageLink}/v1783330777/10_d4yprq.webp`,
@@ -100,10 +100,10 @@ export const PRICE_CONTENT = typografDeep({
       {
         slug: "events",
         name: "Мероприятия",
-        price: "от 7 000 ₽",
+        price: "от 10 000 ₽",
         duration: "от 2 часов",
         photos: "от 70 фото в обработке",
-        image: `${imageLink}/v1785084848/IMG_5381_ezysls.jpg`,
+        image: `${imageLink}/v1789373895/00034_cwodit.webp`,
         includes: [
           "Репортажная и художественная съёмка",
           "Фиксация атмосферы и деталей",

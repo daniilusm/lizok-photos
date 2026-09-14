@@ -15,6 +15,8 @@ export type PhotoExamplesSectionProps = ComponentProps<"section"> & {
   images?: string[];
 };
 
+const GROUP_SIZE = 5;
+
 const chunkImages = (images: readonly string[], size: number) => {
   const chunks: string[][] = [];
 
@@ -25,16 +27,8 @@ const chunkImages = (images: readonly string[], size: number) => {
   return chunks;
 };
 
-const PhotoCell = ({
-  src,
-  index,
-  className,
-}: {
-  src: string;
-  index: number;
-  className?: string;
-}) => (
-  <div className={clsx(s.item, className)}>
+const PhotoCell = ({ src, index }: { src: string; index: number }) => (
+  <div className={s.item}>
     <Image
       className={s.image}
       src={src}
@@ -42,7 +36,7 @@ const PhotoCell = ({
       height="100%"
       objectFit="cover"
       imageRole="card"
-      sizes="(min-width: 769px) 50vw, 50vw"
+      sizes="(min-width: 769px) 25vw, 50vw"
       loading="lazy"
     />
   </div>
@@ -51,7 +45,7 @@ const PhotoCell = ({
 export const PhotoExamplesSection = (props: PhotoExamplesSectionProps) => {
   const { className, images: imagesProp, ...restProps } = props;
   const images = imagesProp ?? HOME_CONTENT.favoriteImages;
-  const [firstGroup = [], secondGroup = []] = chunkImages(images, 5);
+  const groups = chunkImages(images, GROUP_SIZE);
 
   return (
     <section className={clsx(s.root, className)} {...restProps}>
@@ -60,25 +54,28 @@ export const PhotoExamplesSection = (props: PhotoExamplesSectionProps) => {
         end="bottom top"
         className={s.groups}
       >
-        {firstGroup.length > 0 && (
-          <div className={clsx(s.grid, s.gridFeatureStart)}>
-            {firstGroup.map((src, index) => (
-              <PhotoCell key={`${src}-${index + 1}`} src={src} index={index} />
-            ))}
-          </div>
-        )}
+        {groups.map((group, idx) => {
+          const isFeatureStart = idx % 2 === 0;
+          const offset = idx * GROUP_SIZE;
 
-        {secondGroup.length > 0 && (
-          <div className={clsx(s.grid, s.gridFeatureEnd)}>
-            {secondGroup.map((src, index) => (
-              <PhotoCell
-                key={`${src}-${firstGroup.length + index + 1}`}
-                src={src}
-                index={firstGroup.length + index}
-              />
-            ))}
-          </div>
-        )}
+          return (
+            <div
+              key={`group-${idx + 1}`}
+              className={clsx(
+                s.grid,
+                isFeatureStart ? s.gridFeatureStart : s.gridFeatureEnd,
+              )}
+            >
+              {group.map((src, index) => (
+                <PhotoCell
+                  key={`${src}-${offset + index + 1}`}
+                  src={src}
+                  index={offset + index}
+                />
+              ))}
+            </div>
+          );
+        })}
       </ParallaxScrollContainer>
     </section>
   );

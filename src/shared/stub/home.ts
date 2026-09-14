@@ -26,7 +26,7 @@ export const HOME_CONTENT = typografDeep({
   hero: {
     title: "Елизавета Акимова — \n фотограф в Твери",
     text: "Фотосессии в Твери: свадебная, семейная и индивидуальная съёмка. Живые кадры и спокойная атмосфера.",
-    image: `${imageLink}/v1785082070/photo_2026-07-26_19.06.32_endalg.webp`,
+    image: "/images/hero.webp",
   },
   comparisonImages: {
     before: `${imageLink}/v1785185506/IMG_9009-2_dps3lw.webp`,
@@ -84,16 +84,17 @@ export const HOME_CONTENT = typografDeep({
     ],
   },
   favoriteImages: [
-    `${imageLink}/v1785262924/02_wv4bkn.webp`,
-    `${imageLink}/v1785262924/03_cti8f2.webp`,
-    `${imageLink}/v1785262924/01_eim26n.webp`,
-    `${imageLink}/v1785262925/05_kjjbbh.webp`,
-    `${imageLink}/v1785082994/06_jxs7cu.webp`,
-    `${imageLink}/v1785082992/05_gqvgzf.webp`,
-    `${imageLink}/v1785083025/01_kplwcp.webp`,
-    `${imageLink}/v1783330777/10_d4yprq.webp`,
-    `${imageLink}/v1785082994/07_xwuhcg.webp`,
-    `${imageLink}/v1785083000/14_n1v2uh.webp`,
+    `${imageLink}/v1789384258/00000_wfmegm.webp`,
+    `${imageLink}/v1789384350/00011_hd691g.webp`,
+    `${imageLink}/v1789384337/00007_iediva.webp`,
+    `${imageLink}/v1789384331/00005_zc6cjy.webp`,
+    `${imageLink}/v1789384334/00006_u8vi5i.webp`,
+
+    `${imageLink}/v1789384340/00008_lmpxrc.webp`,
+    `${imageLink}/v1789384270/00003_qxi9h3.webp`,
+    `${imageLink}/v1789384260/00001_lyompe.webp`,
+    `${imageLink}/v1789384264/00002_wjsa1k.webp`,
+    `${imageLink}/v1789384356/00013_bkg8nn.webp`,
   ],
   contacts: {
     title: "Контакты",

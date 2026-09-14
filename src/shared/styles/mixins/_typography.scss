@@ -32,7 +32,7 @@
 }
 
 @mixin accentS {
-  @include typography(60, 0.88, -0.06em, "normal", var(--font-family-script));
+  @include typography(52, 0.88, -0.06em, "normal", var(--font-family-script));
 }
 
 @mixin h2 {

@@ -6,13 +6,18 @@
 .groups {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--spacing-4);
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 2px;
+  gap: var(--spacing-4);
+
+  @include mq(md) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-8);
+  }
 }
 
 .item {
@@ -33,6 +38,12 @@
   .item:last-child {
     grid-column: 3 / span 2;
     grid-row: 1 / span 2;
+
+    @include mq(md) {
+      // В 2 колонки крупное фото уходит вниз, без пересечения с сеткой
+      grid-column: 1 / span 2;
+      grid-row: auto / span 2;
+    }
   }
 }
 
@@ -46,6 +57,6 @@
         calc(12% * var(--parallax-scroll-progress, 0)),
         0
       )
-        scale(1.15);
+      scale(1.3);
   }
 }

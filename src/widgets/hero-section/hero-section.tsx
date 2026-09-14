@@ -60,6 +60,10 @@ export const HeroSection = (props: HeroSectionProps) => {
             {text}
           </Body>
         </div>
+
+        <p className={s.scrollHint} aria-hidden>
+          {typografText("Листайте вниз — там ещё интереснее")}
+        </p>
       </ParallaxScrollContainer>
     </section>
   );

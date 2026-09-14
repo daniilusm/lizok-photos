@@ -38,7 +38,7 @@ export const LocalSeoSection = (props: LocalSeoSectionProps) => {
             sizes="(min-width: 768px) 50vw, 100vw"
             loading="lazy"
             alt="sec"
-            src="https://res.cloudinary.com/fgedebup/image/upload/v1785262927/06_b2xyh2.webp"
+            src="https://res.cloudinary.com/fgedebup/image/upload/v1789374533/00010_zpvtm1.webp"
           />
         </ParallaxScrollContainer>
         <div className={s.sectionContent}>
@@ -94,7 +94,7 @@ export const LocalSeoSection = (props: LocalSeoSectionProps) => {
             sizes="(min-width: 768px) 50vw, 100vw"
             loading="lazy"
             alt="sec"
-            src="https://res.cloudinary.com/fgedebup/image/upload/v1785084918/IMG_6255_x5uiso.jpg"
+            src="https://res.cloudinary.com/fgedebup/image/upload/v1785084890/IMG_5688_drsoft.jpg"
           />
         </ParallaxScrollContainer>
       </div>

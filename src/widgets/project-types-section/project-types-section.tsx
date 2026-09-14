@@ -17,8 +17,6 @@ export type ProjectTypesSectionProps = ComponentProps<"section"> & {
   title?: string;
 };
 
-// Изменить отображение карточек - сделать более привлекательными
-
 export const ProjectTypesSection = (props: ProjectTypesSectionProps) => {
   const { className, items = projectTypes, title, ...restProps } = props;
 

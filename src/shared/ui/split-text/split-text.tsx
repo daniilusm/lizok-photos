@@ -3,6 +3,7 @@ import htmlReactParser from "html-react-parser";
 import {
   Children,
   cloneElement,
+  Fragment,
   memo,
   type ReactElement,
   type ReactNode,
@@ -24,6 +25,37 @@ type SplitChildProps = {
   "data-split"?: boolean;
 };
 
+const splitPlainString = (text: string, type: "char" | "word") =>
+  getWordsArray(text, type).map((el, iWord) => {
+    if (!el) return null;
+
+    if (el === "\u00A0" || el === " ") {
+      return " ";
+    }
+
+    return (
+      <span
+        className={clsx(s.word, "word")}
+        // biome-ignore lint/suspicious/noArrayIndexKey: text split is stable
+        key={`word_${iWord}`}
+      >
+        {Array.isArray(el) ? (
+          el.map((elInner, iEl) => (
+            <span
+              // biome-ignore lint/suspicious/noArrayIndexKey: character split is stable
+              key={`char_${iEl}`}
+              className={clsx(s.char, "char char1")}
+            >
+              {elInner}
+            </span>
+          ))
+        ) : (
+          <span className={clsx(s.char, "char char2")}>{el}</span>
+        )}
+      </span>
+    );
+  });
+
 export const SplitText = memo(
   ({ children, type = "word", debug }: SplitTextProps) => {
     if (debug) {
@@ -43,35 +75,19 @@ export const SplitText = memo(
         );
       }
 
-      return getWordsArray(children, type).map((el, iWord) => {
-        if (!el) return null;
+      // Переносы строк: \n / \r\n → <br />, дальше сплит по словам/символам
+      const lines = children.split(/\r?\n/);
 
-        if (el === "\u00A0" || el === " ") {
-          return " ";
-        }
+      if (lines.length > 1) {
+        return lines.map((line, lineIndex) => (
+          <Fragment key={`line_${lineIndex}`}>
+            {lineIndex > 0 ? <br data-split={false} /> : null}
+            {line ? splitPlainString(line, type) : null}
+          </Fragment>
+        ));
+      }
 
-        return (
-          <span
-            className={clsx(s.word, "word")}
-            // biome-ignore lint/suspicious/noArrayIndexKey: text split is stable, order doesn't change
-            key={`word_${iWord}`}
-          >
-            {Array.isArray(el) ? (
-              el.map((elInner, iEl) => (
-                <span
-                  // biome-ignore lint/suspicious/noArrayIndexKey: character split is stable
-                  key={`char_${iEl}`}
-                  className={clsx(s.char, "char char1")}
-                >
-                  {elInner}
-                </span>
-              ))
-            ) : (
-              <span className={clsx(s.char, "char char2")}>{el}</span>
-            )}
-          </span>
-        );
-      });
+      return splitPlainString(children, type);
     }
 
     return Children.map(children, (child) => {

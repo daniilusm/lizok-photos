@@ -1,6 +1,5 @@
 "use client";
 
-import { HOME_CONTENT } from "@/shared/stub/home";
 import { typografText } from "@/shared/utils/typograf";
 import { PageHero } from "@/widgets/page-hero";
 import { ProjectTypesSection } from "@/widgets/project-types-section";
@@ -15,9 +14,9 @@ export const PortfolioPage = () => {
         text={typografText(
           "Фотосессии: индивидуальные, семейные, свадебные и репортажные съёмки.",
         )}
-        imageSrc={HOME_CONTENT.favoriteImages[0]}
+        imageSrc="https://res.cloudinary.com/fgedebup/image/upload/v1789374537/00015_vfvdnt.webp"
       />
-      <ProjectTypesSection />
+      <ProjectTypesSection className={s.section} />
     </main>
   );
 };

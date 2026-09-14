@@ -90,3 +90,43 @@
   background-color: var(--c-black-50);
   pointer-events: none;
 }
+.scrollHint {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: var(--spacing-32);
+  margin: 0;
+  transform: translateX(-50%);
+  color: var(--c-white);
+  font-family: var(--font-family-base);
+  font-size: vw(12);
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0.75;
+  pointer-events: none;
+  animation: hero-scroll-hint 2.4s ease-in-out infinite;
+
+  @include mq(md) {
+    bottom: var(--spacing-24);
+    font-size: vw(11);
+  }
+
+  @include mq(sm) {
+    font-size: vw(10);
+  }
+}
+
+@keyframes hero-scroll-hint {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 0.55;
+  }
+
+  50% {
+    transform: translateX(-50%) translateY(#{vw(6)});
+    opacity: 0.9;
+  }
+}

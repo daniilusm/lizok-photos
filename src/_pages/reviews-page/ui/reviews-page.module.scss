@@ -121,10 +121,22 @@ background: linear-gradient(
   }
 }
 
+.textBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-12);
+}
+
 .text {
   margin: 0;
   font-size: vw(22);
   line-height: 1.35;
+  max-width: 100%;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
 
   @include mq(md) {
     font-size: vw(18);
@@ -132,6 +144,57 @@ background: linear-gradient(
 
   @include mq(sm) {
     font-size: vw(16);
+  }
+}
+
+.textInner {
+  margin: 0;
+  white-space: pre-line;
+}
+
+.textExpanded {
+  display: block;
+  -webkit-line-clamp: unset;
+  height: 70svh;
+  max-height: 70svh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+  }
+}
+
+.moreButton {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: vw(14);
+  font-family: var(--font-family-base);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  opacity: 0.85;
+
+  @include transition((opacity));
+
+  &:hover {
+    opacity: 1;
+  }
+
+  @include mq(sm) {
+    font-size: vw(12);
   }
 }
 
@@ -187,4 +250,52 @@ background: linear-gradient(
   transform: scaleX(var(--scroll-progress, 0));
   transform-origin: left center;
   will-change: transform;
+}
+
+.scrollHint {
+  position: absolute;
+  z-index: 4;
+  top: var(--spacing-32);
+  left: 50%;
+  margin: 0;
+  transform: translateX(-50%);
+  color: var(--c-white);
+  font-family: var(--font-family-base);
+  font-size: vw(12);
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0.75;
+  pointer-events: none;
+  animation: reviews-scroll-hint 2.4s ease-in-out infinite;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+
+  @include mq(md) {
+    top: var(--spacing-24);
+    font-size: vw(11);
+  }
+
+  @include mq(sm) {
+    font-size: vw(10);
+  }
+}
+
+.scrollHintHidden {
+  opacity: 0;
+  visibility: hidden;
+  animation: none;
+}
+
+@keyframes reviews-scroll-hint {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 0.55;
+  }
+
+  50% {
+    transform: translateX(-50%) translateY(#{vw(6)});
+    opacity: 0.9;
+  }
 }

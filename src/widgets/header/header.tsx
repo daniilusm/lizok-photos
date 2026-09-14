@@ -25,7 +25,8 @@ import { typografText } from "@/shared/utils/typograf";
 
 import s from "./header.module.scss";
 
-const SHOW_AT_VH = 0.01;
+const TOP_HIDE_OFFSET = 24;
+const DIRECTION_DELTA = 4;
 
 export type HeaderProps = ComponentProps<"div"> & {
   className?: string;
@@ -38,7 +39,7 @@ export const Header = (props: HeaderProps) => {
   const [isOpen, setOpen] = useState(false);
   const [isClosing, setClosing] = useState(false);
   const [noTransition, setNoTransition] = useState(false);
-  const [isScrolledIn, setScrolledIn] = useState(false);
+  const [isHeaderVisible, setHeaderVisible] = useState(false);
 
   const handleClose = useCallback(() => {
     setOpen((prev) => {
@@ -91,11 +92,35 @@ export const Header = (props: HeaderProps) => {
   useEffect(() => {
     let frameId = 0;
     let lenis: Lenis | null = null;
+    let lastScroll = 0;
+    let visible = false;
+
+    const setVisible = (next: boolean) => {
+      if (visible === next) return;
+      visible = next;
+      setHeaderVisible(next);
+    };
 
     const syncVisibility = () => {
       if (!lenis) return;
-      const threshold = window.innerHeight * SHOW_AT_VH;
-      setScrolledIn(lenis.scroll >= threshold);
+
+      const scroll = lenis.scroll;
+      const delta = scroll - lastScroll;
+
+      if (scroll <= TOP_HIDE_OFFSET) {
+        setVisible(false);
+        lastScroll = scroll;
+        return;
+      }
+
+      if (Math.abs(delta) < DIRECTION_DELTA) {
+        lastScroll = scroll;
+        return;
+      }
+
+      // Вниз — прячем, вверх — показываем
+      setVisible(delta < 0);
+      lastScroll = scroll;
     };
 
     const attach = () => {
@@ -106,6 +131,7 @@ export const Header = (props: HeaderProps) => {
         return;
       }
 
+      lastScroll = lenis.scroll;
       lenis.on("scroll", syncVisibility);
       syncVisibility();
     };
@@ -118,7 +144,7 @@ export const Header = (props: HeaderProps) => {
     };
   }, [router.asPath]);
 
-  const isVisible = isScrolledIn || isOpen || isClosing;
+  const isVisible = isHeaderVisible || isOpen || isClosing;
 
   return (
     <>
