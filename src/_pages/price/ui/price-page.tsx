@@ -125,7 +125,7 @@ export const PricePage = () => {
           alt=""
           height="100%"
           objectFit="cover"
-          imageRole="hero"
+          imageRole="card"
           sizes="100vw"
           loading="lazy"
         />

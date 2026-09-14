@@ -9,7 +9,7 @@ import s from "./link.module.scss";
 
 export type LinkProps = Pick<
   React.AnchorHTMLAttributes<HTMLAnchorElement>,
-  "target"
+  "target" | "rel"
 > & {
   className?: string;
   children: React.ReactNode;
@@ -28,6 +28,7 @@ export const Link = (props: LinkProps) => {
     size = "s",
     disabled,
     target,
+    rel,
   } = props;
 
   const mods = mod(s, {
@@ -35,12 +36,16 @@ export const Link = (props: LinkProps) => {
     size,
   });
 
+  const resolvedRel =
+    rel ?? (target === "_blank" ? "noopener noreferrer" : undefined);
+
   return (
     <Button
       disabled={disabled}
       className={clsx(s.root, className, mods)}
       href={href}
       target={target}
+      rel={resolvedRel}
     >
       {children}
     </Button>

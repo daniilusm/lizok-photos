@@ -2,9 +2,6 @@
 
 import { useEffect } from "react";
 import { gsap } from "gsap";
-import { CustomEase } from "gsap/dist/CustomEase";
-import { Observer } from "gsap/dist/Observer";
-import { ScrollToPlugin } from "gsap/dist/ScrollToPlugin";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import type Lenis from "lenis";
 import { usePathname } from "next/navigation";
@@ -22,10 +19,7 @@ let stUpdateQueued = false;
 
 export const Modules = () => {
   useEffect(() => {
-    gsap.registerPlugin(CustomEase, ScrollToPlugin, ScrollTrigger, Observer);
-
-    /* CustomEase */
-    CustomEase.create("quartIn", "0.5, 0, 0.75, 0");
+    gsap.registerPlugin(ScrollTrigger);
 
     /* ScrollTrigger */
     ScrollTrigger.clearScrollMemory("manual");

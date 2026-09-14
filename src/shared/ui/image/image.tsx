@@ -11,9 +11,9 @@ import NextImage from "next/image";
 
 import {
   type CloudinaryImageRole,
-  type OptimizeCloudinaryImageOptions,
   getCloudinarySrcSet,
   isCloudinaryUrl,
+  type OptimizeCloudinaryImageOptions,
   optimizeCloudinaryImage,
 } from "@/shared/lib/cloudinary-image";
 
@@ -52,6 +52,7 @@ export const Image = (props: ImageProps) => {
     imageRole = "card",
     imageWidth,
     src,
+    srcSet,
     alt,
     ...restProps
   } = props;
@@ -84,9 +85,11 @@ export const Image = (props: ImageProps) => {
   }, [optimizeOptions, shouldOptimize, src]);
 
   const optimizedSrcSet = useMemo(() => {
-    if (!shouldOptimize) return undefined;
+    if (!shouldOptimize) return srcSet;
     return getCloudinarySrcSet(src, optimizeOptions);
-  }, [optimizeOptions, shouldOptimize, src]);
+  }, [optimizeOptions, shouldOptimize, src, srcSet]);
+
+  const useNativeImg = shouldOptimize || Boolean(srcSet);
 
   const imageStyle = {
     ...(width ? { "--image-width": width } : {}),
@@ -97,9 +100,9 @@ export const Image = (props: ImageProps) => {
 
   return (
     <div className={clsx(s.root, className)} data-loading={isLoading}>
-      {shouldOptimize ? (
+      {useNativeImg ? (
         // static export: Next Image unoptimized не строит srcSet — нужен native img
-        // biome-ignore lint/performance/noImgElement: Cloudinary srcSet requires native img under static export
+        // biome-ignore lint/performance/noImgElement: Cloudinary/local srcSet requires native img under static export
         <img
           {...(preloaded ? { "data-preloaded": "true" } : {})}
           className={s.image}

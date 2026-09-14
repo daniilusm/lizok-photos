@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import {
   gaTrackingId,
   isDev,
@@ -5,6 +7,10 @@ import {
   isStagingServer,
   yandexTrackingId,
 } from "@/shared/config/vars";
+import {
+  COOKIE_CONSENT_EVENT,
+  hasCookieConsent,
+} from "@/widgets/cookie-consent/constants";
 
 import { GAScripts } from "./app-ga";
 import { useFontsLoaded } from "./use-fonts-loaded";
@@ -17,10 +23,25 @@ export const AppHooks = () => {
   useFontsLoaded();
   useFoucFix();
 
+  const [analyticsAllowed, setAnalyticsAllowed] = useState(false);
+
+  useEffect(() => {
+    const sync = () => setAnalyticsAllowed(hasCookieConsent());
+
+    sync();
+    window.addEventListener(COOKIE_CONSENT_EVENT, sync);
+    window.addEventListener("storage", sync);
+
+    return () => {
+      window.removeEventListener(COOKIE_CONSENT_EVENT, sync);
+      window.removeEventListener("storage", sync);
+    };
+  }, []);
+
   // Не грузим аналитику в dev и на staging.
-  // Раньше требовался только NEXT_PUBLIC_APP_ENV=production — без него
-  // счётчик не монтировался даже при заданном ID (часто на Vercel).
+  // Только после согласия на cookie (localStorage).
   const enableAnalytics =
+    analyticsAllowed &&
     !isDev &&
     !isStagingServer &&
     (isProdServer || Boolean(yandexTrackingId || gaTrackingId));

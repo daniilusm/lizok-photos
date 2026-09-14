@@ -199,7 +199,11 @@ export const Header = (props: HeaderProps) => {
           })}
           onTransitionEnd={handlePopupTransitionEnd}
         >
-          <Button onClick={handleClose} className={s.crossBtn}>
+          <Button
+            onClick={handleClose}
+            className={s.crossBtn}
+            aria-label={typografText("Закрыть меню")}
+          >
             <Icon name="close" size="s" />
           </Button>
           <div className={s.wrapper}>

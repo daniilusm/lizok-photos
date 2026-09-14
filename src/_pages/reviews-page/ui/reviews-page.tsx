@@ -202,7 +202,7 @@ export const ReviewsPage = () => {
                       alt=""
                       height="100%"
                       objectFit="cover"
-                      imageRole="hero"
+                      imageRole="preview"
                       sizes="100vw"
                       loading={reviewIndex === 0 ? "eager" : "lazy"}
                     />

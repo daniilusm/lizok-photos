@@ -1,12 +1,14 @@
 /* TEAM */
 Photographer: Елизавета Акимова
+City: Тверь, Тверская область, Россия
 Site: https://lizok-a-ph.ru/
-Location: Тверь, Россия
+Services: фотосессии в Твери, свадебный фотограф, семейная и индивидуальная съёмка
 Telegram: https://t.me/Mu_lS
 VK: https://vk.ru/lizok.a.phtver
 Instagram: https://www.instagram.com/lizok.a.ph
 
 /* SITE */
-Standards: HTML5, CSS3, Schema.org
+Standards: HTML5, CSS3, Schema.org LocalBusiness Photographer FAQPage
 Language: Russian
 Doctype: HTML5
+Keywords: фотограф Тверь, свадебный фотограф Тверь, фотосессии в Твери

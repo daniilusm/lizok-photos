@@ -8,6 +8,7 @@ import { Image } from "@/shared/ui/image";
 import { ParallaxScrollContainer } from "@/shared/ui/parallax-scroll-container";
 import { Body } from "@/shared/ui/typography/body";
 import { Heading } from "@/shared/ui/typography/heading";
+import { typografText } from "@/shared/utils/typograf";
 
 import s from "./local-seo-section.module.scss";
 
@@ -37,7 +38,9 @@ export const LocalSeoSection = (props: LocalSeoSectionProps) => {
             imageRole="card"
             sizes="(min-width: 768px) 50vw, 100vw"
             loading="lazy"
-            alt="sec"
+            alt={typografText(
+              "Фотосессия в Твери — портрет из портфолио Елизаветы Акимовой",
+            )}
             src="https://res.cloudinary.com/fgedebup/image/upload/v1789374533/00010_zpvtm1.webp"
           />
         </ParallaxScrollContainer>
@@ -93,7 +96,9 @@ export const LocalSeoSection = (props: LocalSeoSectionProps) => {
             imageRole="card"
             sizes="(min-width: 768px) 50vw, 100vw"
             loading="lazy"
-            alt="sec"
+            alt={typografText(
+              "Свадебная и семейная съёмка в Твери — кадр из портфолио",
+            )}
             src="https://res.cloudinary.com/fgedebup/image/upload/v1785084890/IMG_5688_drsoft.jpg"
           />
         </ParallaxScrollContainer>

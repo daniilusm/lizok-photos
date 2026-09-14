@@ -144,8 +144,8 @@ export const ComparisonSection = (props: ComparisonSectionProps) => {
             )}
             height="100%"
             objectFit="cover"
-            imageRole="hero"
-            sizes="100vw"
+            imageRole="card"
+            sizes="(max-width: 768px) 100vw, min(900px, 90vw)"
             loading="lazy"
           />
         </div>
@@ -159,8 +159,8 @@ export const ComparisonSection = (props: ComparisonSectionProps) => {
             )}
             height="100%"
             objectFit="cover"
-            imageRole="hero"
-            sizes="100vw"
+            imageRole="card"
+            sizes="(max-width: 768px) 100vw, min(900px, 90vw)"
             loading="lazy"
           />
         </div>

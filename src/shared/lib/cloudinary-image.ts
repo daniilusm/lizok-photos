@@ -5,10 +5,10 @@ const CLOUDINARY_UPLOAD_PREFIX =
 /** Роль → базовая ширина и набор для srcSet */
 export const CLOUDINARY_IMAGE_ROLES = {
   thumb: { width: 400, widths: [240, 400, 560] },
-  card: { width: 800, widths: [400, 800, 1200] },
-  preview: { width: 1400, widths: [800, 1200, 1600] },
-  hero: { width: 1600, widths: [800, 1200, 1600, 2000] },
-  full: { width: 2000, widths: [1200, 1600, 2000, 2400] },
+  card: { width: 600, widths: [240, 400, 600, 800] },
+  preview: { width: 1000, widths: [480, 800, 1000, 1400] },
+  hero: { width: 1400, widths: [640, 960, 1400, 1800] },
+  full: { width: 1800, widths: [1000, 1400, 1800, 2200] },
 } as const;
 
 export type CloudinaryImageRole = keyof typeof CLOUDINARY_IMAGE_ROLES;

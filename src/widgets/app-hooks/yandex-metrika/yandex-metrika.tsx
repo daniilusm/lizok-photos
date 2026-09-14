@@ -10,7 +10,7 @@ import type { YandexMetrikaProps } from "./type";
 
 export const YandexMetrika = ({
   options = {
-    webvisor: true,
+    webvisor: false,
     clickmap: true,
     accurateTrackBounce: true,
     trackLinks: true,
@@ -36,7 +36,7 @@ export const YandexMetrika = ({
     <>
       <Script
         id="yandex-metrika"
-        strategy="afterInteractive"
+        strategy="lazyOnload"
         dangerouslySetInnerHTML={{
           __html: `
             (function(m,e,t,r,i,k,a){

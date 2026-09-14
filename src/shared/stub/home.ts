@@ -26,7 +26,7 @@ export const HOME_CONTENT = typografDeep({
   hero: {
     title: "Елизавета Акимова — \n фотограф в Твери",
     text: "Фотосессии в Твери: свадебная, семейная и индивидуальная съёмка. Живые кадры и спокойная атмосфера.",
-    image: "/images/hero.webp",
+    image: "/images/hero-800.webp",
   },
   comparisonImages: {
     before: `${imageLink}/v1785185506/IMG_9009-2_dps3lw.webp`,

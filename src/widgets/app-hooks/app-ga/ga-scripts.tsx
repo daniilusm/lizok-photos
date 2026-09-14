@@ -24,13 +24,13 @@ export const GAScripts = () => {
   return (
     <>
       <Script
-        strategy="afterInteractive"
+        strategy="lazyOnload"
         async
         src={`https://www.googletagmanager.com/gtag/js?id=${gaTrackingId}`}
       />
       <Script
         id="gtag-init"
-        strategy="afterInteractive"
+        strategy="lazyOnload"
         dangerouslySetInnerHTML={{
           __html: `
             window.dataLayer = window.dataLayer || [];

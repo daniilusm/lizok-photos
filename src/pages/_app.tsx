@@ -14,6 +14,7 @@ import type { AppProps } from "next/app";
 
 import { FontsProvider } from "@/shared/fonts";
 import { commonSeo } from "@/shared/seo";
+import { CookieConsent } from "@/widgets/cookie-consent";
 import { Footer } from "@/widgets/footer";
 
 export default function App({ Component, pageProps, router }: AppProps) {
@@ -38,6 +39,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
                 </DataStoreProvider>
               </TransitionLayout>
             </Scroll>
+            <CookieConsent />
           </DataStoreProvider>
         </ResizeProvider>
         <AppHooks />

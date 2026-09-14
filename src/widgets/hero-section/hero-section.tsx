@@ -3,11 +3,11 @@
 import type { ComponentProps } from "react";
 import clsx from "clsx";
 
+import { HERO_IMAGE_SIZES, HERO_IMAGE_SRCSET } from "@/shared/lib/hero-image";
 import { HOME_CONTENT } from "@/shared/stub/home";
 import { Image } from "@/shared/ui/image";
 import { ParallaxScrollContainer } from "@/shared/ui/parallax-scroll-container";
 import { Body } from "@/shared/ui/typography/body";
-import { Heading } from "@/shared/ui/typography/heading";
 import { typografText } from "@/shared/utils/typograf";
 
 import s from "./hero-section.module.scss";
@@ -28,6 +28,10 @@ export const HeroSection = (props: HeroSectionProps) => {
     ...restProps
   } = props;
 
+  const isHomeHero =
+    Boolean(imageSrc) &&
+    (imageSrc.includes("/images/hero-") || imageSrc.includes("/images/hero."));
+
   return (
     <section className={clsx(s.root, className)} {...restProps}>
       <ParallaxScrollContainer className={s.parallax} end="bottom top">
@@ -36,6 +40,7 @@ export const HeroSection = (props: HeroSectionProps) => {
             <Image
               className={s.image}
               src={imageSrc}
+              srcSet={isHomeHero ? HERO_IMAGE_SRCSET : undefined}
               alt={typografText(
                 "Елизавета Акимова — фотограф в Твери, фотосессии и свадебная съёмка",
               )}
@@ -43,7 +48,7 @@ export const HeroSection = (props: HeroSectionProps) => {
               objectFit="cover"
               imageRole="hero"
               loading="eager"
-              sizes="100vw"
+              sizes={HERO_IMAGE_SIZES}
               fetchPriority="high"
               preloaded
             />
@@ -53,10 +58,8 @@ export const HeroSection = (props: HeroSectionProps) => {
         <div className={s.overlay} />
 
         <div className={s.content}>
-          <Heading level="accentXXL" tag="h1" className={s.title}>
-            {title}
-          </Heading>
-          <Body size="primary" tag="p" className={s.text}>
+          <h1 className={s.title}>{title}</h1>
+          <Body size="primary" tag="p" className={s.text} animate={false}>
             {text}
           </Body>
         </div>

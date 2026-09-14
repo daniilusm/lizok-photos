@@ -15,12 +15,12 @@ import s from "./home-page.module.scss";
 export const HomePage = () => {
   return (
     <main className={s.root}>
+      <HeroSection />
       <SeoHeading level={2}>
         {typografText(
           "Фотограф Тверь, свадебный фотограф Тверь, фотосессии в Твери — портфолио и запись на съёмку",
         )}
       </SeoHeading>
-      <HeroSection />
       <AboutSection />
       <PhotoExamplesSection />
       <ComparisonSection

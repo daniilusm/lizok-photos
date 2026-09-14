@@ -27,7 +27,15 @@ const chunkImages = (images: readonly string[], size: number) => {
   return chunks;
 };
 
-const PhotoCell = ({ src, index }: { src: string; index: number }) => (
+const PhotoCell = ({
+  src,
+  index,
+  featured,
+}: {
+  src: string;
+  index: number;
+  featured?: boolean;
+}) => (
   <div className={s.item}>
     <Image
       className={s.image}
@@ -35,8 +43,12 @@ const PhotoCell = ({ src, index }: { src: string; index: number }) => (
       alt={typografText(`Пример фотосессии в Твери ${index + 1}`)}
       height="100%"
       objectFit="cover"
-      imageRole="card"
-      sizes="(min-width: 769px) 25vw, 50vw"
+      imageRole={featured ? "card" : "thumb"}
+      sizes={
+        featured
+          ? "(min-width: 769px) 50vw, 100vw"
+          : "(min-width: 769px) 25vw, 50vw"
+      }
       loading="lazy"
     />
   </div>
@@ -57,6 +69,7 @@ export const PhotoExamplesSection = (props: PhotoExamplesSectionProps) => {
         {groups.map((group, idx) => {
           const isFeatureStart = idx % 2 === 0;
           const offset = idx * GROUP_SIZE;
+          const featuredIndex = isFeatureStart ? 0 : group.length - 1;
 
           return (
             <div
@@ -71,6 +84,7 @@ export const PhotoExamplesSection = (props: PhotoExamplesSectionProps) => {
                   key={`${src}-${offset + index + 1}`}
                   src={src}
                   index={offset + index}
+                  featured={index === featuredIndex}
                 />
               ))}
             </div>
