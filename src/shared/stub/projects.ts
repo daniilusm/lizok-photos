@@ -63,7 +63,7 @@ export const projectTypes: ProjectType[] = typografDeep([
   {
     slug: "individual",
     name: "Индивидуальная",
-    mainImage: `${imageLink}/v1785082994/06_jxs7cu.webp`,
+    mainImage: `${imageLink}/v1789377977/00020_xzzxlc.webp`,
     projects: [
       {
         slug: "danya",
@@ -124,7 +124,7 @@ export const projectTypes: ProjectType[] = typografDeep([
   {
     slug: "family",
     name: "Семейная",
-    mainImage: `${imageLink}/v1783330777/10_d4yprq.webp`,
+    mainImage: `${imageLink}/v1789374354/00009_efwni4.webp`,
     projects: [
       {
         slug: "shablino",
