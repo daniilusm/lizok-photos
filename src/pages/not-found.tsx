@@ -3,7 +3,6 @@ import type { GetStaticProps } from "next";
 import { NotFoundPage } from "@/_pages/not-found/ui";
 import { notFoundSeo, withCmsSeo } from "@/shared/seo";
 
-/** Used by Next in `next dev` / client transitions. Production host serves frozen HTML. */
 const Page = () => {
   return <NotFoundPage />;
 };

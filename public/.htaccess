@@ -1,19 +1,17 @@
-# Static hosting via file manager (Apache).
-# Host often cannot map missing URLs to the Next page correctly —
-# force a real redirect to /404/ (exported as out/404/index.html).
+# REG.RU Linux hosting — upload to site root with contents of out/
 
 Options -Indexes -MultiViews
 RewriteEngine On
 RewriteBase /
 
-# Existing assets and pages (…/index.html directories) — leave alone
-RewriteCond %{REQUEST_FILENAME} -f [OR]
-RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^ - [L]
+# Canonical host: www → without www
+RewriteCond %{HTTP_HOST} ^www\.lizok-a-ph\.ru$ [NC]
+RewriteRule ^ https://lizok-a-ph.ru%{REQUEST_URI} [R=301,L]
 
-# Unknown path → custom 404 page (address bar becomes /404/)
-RewriteRule ^ /404/ [R=302,L]
+# Missing path → HTTP 404, then ErrorDocument serves frozen custom page
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ - [R=404,L]
 
-# If mod_rewrite is disabled, many panels still honor this:
-# public/404.html is a tiny redirect stub (see scripts/copy-404.mjs)
+# Frozen custom page (no Next.js scripts — cannot hydrate into default 404)
 ErrorDocument 404 /404.html

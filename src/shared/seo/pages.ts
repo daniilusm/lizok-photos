@@ -180,15 +180,15 @@ export const contactsSeo: Seo = buildPageSeo({
 export const notFoundSeo: Seo = buildPageSeo({
   title: `Страница не найдена — фотограф ${city}`,
   description: `Этой страницы нет. Портфолио и запись на фотосессию к ${PHOTOGRAPHER.name} в ${city} — на главной и в контактах.`,
-  path: "/404",
+  path: "/not-found",
   keywords: `${DEFAULT_KEYWORDS}, страница не найдена`,
   structuredData: {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "WebPage",
-        "@id": `${toAbsoluteUrl("/404")}#page`,
-        url: toAbsoluteUrl("/404"),
+        "@id": `${toAbsoluteUrl("/not-found")}#page`,
+        url: toAbsoluteUrl("/not-found"),
         name: "Страница не найдена",
         isPartOf: { "@id": `${SITE_ORIGIN}/#website` },
       },

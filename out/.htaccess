@@ -1,19 +1,21 @@
-# Static hosting via file manager (Apache).
-# Host often cannot map missing URLs to the Next page correctly —
-# force a real redirect to /404/ (exported as out/404/index.html).
+# REG.RU Linux hosting (Apache behind nginx).
+# Upload this file to the site root together with the contents of out/.
 
 Options -Indexes -MultiViews
 RewriteEngine On
 RewriteBase /
 
-# Existing assets and pages (…/index.html directories) — leave alone
+# 1) One canonical host: www → apex (matches SEO: https://lizok-a-ph.ru)
+RewriteCond %{HTTP_HOST} ^www\.lizok-a-ph\.ru$ [NC]
+RewriteRule ^ https://lizok-a-ph.ru%{REQUEST_URI} [R=301,L]
+
+# 2) Existing files/dirs — serve as is
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-# Unknown path → custom 404 page (address bar becomes /404/)
+# 3) Unknown path → custom 404 page
 RewriteRule ^ /404/ [R=302,L]
 
-# If mod_rewrite is disabled, many panels still honor this:
-# public/404.html is a tiny redirect stub (see scripts/copy-404.mjs)
+# Fallback if rewrite for missing files is off
 ErrorDocument 404 /404.html
