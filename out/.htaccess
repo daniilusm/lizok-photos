@@ -1,3 +1,19 @@
-# Static hosting (Apache / shared hosting file manager).
-# Serves custom Next export 404 for missing paths.
+# Static hosting via file manager (Apache).
+# Host often cannot map missing URLs to the Next page correctly —
+# force a real redirect to /404/ (exported as out/404/index.html).
+
+Options -Indexes -MultiViews
+RewriteEngine On
+RewriteBase /
+
+# Existing assets and pages (…/index.html directories) — leave alone
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Unknown path → custom 404 page (address bar becomes /404/)
+RewriteRule ^ /404/ [R=302,L]
+
+# If mod_rewrite is disabled, many panels still honor this:
+# public/404.html is a tiny redirect stub (see scripts/copy-404.mjs)
 ErrorDocument 404 /404.html
