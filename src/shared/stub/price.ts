@@ -102,7 +102,7 @@ export const PRICE_CONTENT = typografDeep({
         name: "Мероприятия",
         price: "от 10 000 ₽",
         duration: "от 2 часов",
-        photos: "от 70 фото в обработке",
+        photos: "от 100 фото в обработке",
         image: `${imageLink}/v1789373895/00034_cwodit.webp`,
         includes: [
           "Репортажная и художественная съёмка",

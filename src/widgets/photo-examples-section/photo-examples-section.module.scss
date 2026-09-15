@@ -58,5 +58,9 @@
         0
       )
       scale(1.3);
+
+    @include mq(md) {
+      transform: scale(1);
+    }
   }
 }

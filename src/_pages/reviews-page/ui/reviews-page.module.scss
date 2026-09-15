@@ -255,10 +255,10 @@ background: linear-gradient(
 .scrollHint {
   position: absolute;
   z-index: 4;
-  top: var(--spacing-32);
+  top: 40%;
   left: 50%;
   margin: 0;
-  transform: translateX(-50%);
+  transform: translate(-50%,-50%);
   color: var(--c-white);
   font-family: var(--font-family-base);
   font-size: vw(12);
@@ -272,7 +272,6 @@ background: linear-gradient(
   transition: opacity 0.35s ease, visibility 0.35s ease;
 
   @include mq(md) {
-    top: var(--spacing-24);
     font-size: vw(11);
   }
 

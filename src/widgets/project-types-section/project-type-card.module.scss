@@ -48,6 +48,10 @@
         0
       )
       scale(1.2);
+
+    @include mq(md) {
+      transform: scale(1);
+    }
   }
 }
 
