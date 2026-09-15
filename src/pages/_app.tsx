@@ -20,6 +20,8 @@ import { Footer } from "@/widgets/footer";
 export default function App({ Component, pageProps, router }: AppProps) {
   useAppViewport();
 
+  const hideFooter = router.pathname === "/404";
+
   return (
     <FontsProvider>
       <Gsap />
@@ -35,7 +37,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
               <TransitionLayout router={router}>
                 <DataStoreProvider data={pageProps.cms ?? {}}>
                   <Component {...pageProps} />
-                  <Footer />
+                  {!hideFooter && <Footer />}
                 </DataStoreProvider>
               </TransitionLayout>
             </Scroll>

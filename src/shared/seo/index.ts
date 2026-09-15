@@ -15,6 +15,7 @@ export {
   getProjectSeo,
   getProjectTypeSeo,
   homeSeo,
+  notFoundSeo,
   portfolioSeo,
   priceSeo,
   reviewsSeo,

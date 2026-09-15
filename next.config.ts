@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 import path from "node:path";
 
 /**
- * Static deploy (Vercel / CDN)
+ * Static deploy (upload `out/` via file manager / CDN)
  *
  * `output: "export"` — полностью статическая сборка без Node.js runtime.
  * Не работает с:

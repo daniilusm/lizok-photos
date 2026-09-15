@@ -1,0 +1,3 @@
+# Static hosting (Apache / shared hosting file manager).
+# Serves custom Next export 404 for missing paths.
+ErrorDocument 404 /404.html
