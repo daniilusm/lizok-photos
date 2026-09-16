@@ -27,7 +27,7 @@ export type ImageProps = ComponentProps<"img"> & {
   loading?: "eager" | "lazy";
   unoptimized?: boolean;
   /**
-   * Оптимизация Cloudinary URL (q_auto, f_auto, width + srcSet).
+   * Оптимизация Cloudinary URL (q_auto:best, f_auto, width + srcSet).
    * По умолчанию включена для res.cloudinary.com.
    */
   optimize?: boolean;

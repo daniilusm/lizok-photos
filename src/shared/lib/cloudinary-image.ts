@@ -2,16 +2,23 @@ const CLOUDINARY_HOST = "res.cloudinary.com";
 const CLOUDINARY_UPLOAD_PREFIX =
   /^(https?:\/\/res\.cloudinary\.com\/[^/]+\/(?:image|video)\/upload\/)(.+)$/i;
 
-/** Роль → базовая ширина и набор для srcSet */
+/** Роль → базовая ширина и набор для srcSet (Retina / широкие экраны) */
 export const CLOUDINARY_IMAGE_ROLES = {
-  thumb: { width: 400, widths: [240, 400, 560] },
-  card: { width: 600, widths: [240, 400, 600, 800] },
-  preview: { width: 1000, widths: [480, 800, 1000, 1400] },
-  hero: { width: 1400, widths: [640, 960, 1400, 1800] },
-  full: { width: 1800, widths: [1000, 1400, 1800, 2200] },
+  thumb: { width: 640, widths: [320, 480, 640, 800] },
+  card: { width: 1000, widths: [480, 720, 1000, 1400] },
+  preview: { width: 1600, widths: [800, 1200, 1600, 2000] },
+  hero: { width: 2000, widths: [960, 1400, 2000, 2560] },
+  full: { width: 2400, widths: [1400, 1800, 2400, 2800] },
 } as const;
 
 export type CloudinaryImageRole = keyof typeof CLOUDINARY_IMAGE_ROLES;
+
+export type CloudinaryQuality =
+  | "auto"
+  | "auto:eco"
+  | "auto:good"
+  | "auto:best"
+  | number;
 
 export type OptimizeCloudinaryImageOptions = {
   /** Готовый пресет */
@@ -21,9 +28,11 @@ export type OptimizeCloudinaryImageOptions = {
   height?: number;
   /** c_fill | c_limit | c_fit — по умолчанию limit (без кропа) */
   crop?: "fill" | "limit" | "fit";
-  quality?: "auto" | number;
+  quality?: CloudinaryQuality;
   format?: "auto";
 };
+
+const DEFAULT_QUALITY: CloudinaryQuality = "auto:best";
 
 const isTransformSegment = (segment: string) => {
   if (/^v\d+$/.test(segment)) return false;
@@ -79,7 +88,7 @@ const buildTransformString = (
   const roleConfig = CLOUDINARY_IMAGE_ROLES[role];
   const width = options.width ?? roleConfig.width;
   const crop = options.crop ?? (options.height ? "fill" : "limit");
-  const quality = options.quality ?? "auto";
+  const quality = options.quality ?? DEFAULT_QUALITY;
   const format = options.format ?? "auto";
 
   const parts = [`c_${crop}`, `w_${width}`];
@@ -131,7 +140,7 @@ export const getCloudinarySrcSet = (
     .join(", ");
 };
 
-export const getCloudinaryThumbnailUrl = (url: string, width = 400) =>
+export const getCloudinaryThumbnailUrl = (url: string, width = 640) =>
   optimizeCloudinaryImage(url, {
     role: "thumb",
     width,
@@ -139,11 +148,11 @@ export const getCloudinaryThumbnailUrl = (url: string, width = 400) =>
     crop: "fill",
   });
 
-export const getCloudinaryPreviewUrl = (url: string, width = 1400) =>
+export const getCloudinaryPreviewUrl = (url: string, width = 2000) =>
   optimizeCloudinaryImage(url, { role: "preview", width, crop: "limit" });
 
-export const getCloudinaryHeroUrl = (url: string, width = 1600) =>
+export const getCloudinaryHeroUrl = (url: string, width = 2400) =>
   optimizeCloudinaryImage(url, { role: "hero", width, crop: "limit" });
 
-export const getCloudinaryCardUrl = (url: string, width = 800) =>
+export const getCloudinaryCardUrl = (url: string, width = 1400) =>
   optimizeCloudinaryImage(url, { role: "card", width, crop: "limit" });
