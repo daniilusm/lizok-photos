@@ -14,10 +14,6 @@
     text-transform: $text-transform;
   }
 
-  @include mq(md) {
-    font-size: vw($font-size + 6);
-  }
-
   @include mq(sm) {
     font-size: vw($font-size - 2);
   }
@@ -38,9 +34,6 @@
 @mixin h2 {
   @include typography(48, 1, -0.05em, "normal");
 
-  @include mq(sm){
-    @include typography(36, 1, -0.05em, "normal");
-  }
 }
 
 @mixin h3 {

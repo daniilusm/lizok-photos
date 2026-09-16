@@ -19,6 +19,10 @@ import { Image } from "@/shared/ui/image";
 import { Body } from "@/shared/ui/typography/body";
 import { typografText } from "@/shared/utils/typograf";
 import { useScroll } from "@/widgets/scroll";
+import {
+  EVENTS_TRANSITION_LAYOUT,
+  transitionLayoutEmitter,
+} from "@/widgets/transition-layout/emmiter";
 
 import s from "./reviews-page.module.scss";
 
@@ -120,6 +124,11 @@ export const ReviewsPage = () => {
     setShowScrollHint(false);
   }, []);
 
+  const showHint = useCallback(() => {
+    showHintRef.current = true;
+    setShowScrollHint(true);
+  }, []);
+
   const getLenis = useCallback(() => {
     return lenis ?? window.__GLOBAL_SCROLL__ ?? null;
   }, [lenis]);
@@ -162,7 +171,18 @@ export const ReviewsPage = () => {
     [getLenis, hideHint],
   );
 
+  // Hint: always visible on enter; hide only after real user scroll past baseline
   useEffect(() => {
+    showHint();
+
+    const hintArmedRef = { current: false };
+    const baselineProgressRef = { current: 0 };
+
+    const armHint = (progress = 0) => {
+      baselineProgressRef.current = progress;
+      hintArmedRef.current = true;
+    };
+
     gsap.registerPlugin(ScrollTrigger);
 
     const track = trackRef.current;
@@ -180,7 +200,10 @@ export const ReviewsPage = () => {
       end: "bottom bottom",
       scrub: true,
       onUpdate: (self) => {
-        if (self.progress > 0.005) {
+        if (
+          hintArmedRef.current &&
+          Math.abs(self.progress - baselineProgressRef.current) > 0.02
+        ) {
           hideHint();
         }
 
@@ -205,15 +228,42 @@ export const ReviewsPage = () => {
       },
     });
 
+    const syncAndArm = () => {
+      showHint();
+      ScrollTrigger.refresh();
+      armHint(st.progress);
+    };
+
     const refreshId = window.requestAnimationFrame(() => {
       ScrollTrigger.refresh();
+      // Don't arm yet — wait for page transition / scroll settle
     });
+
+    const armTimeoutId = window.setTimeout(syncAndArm, 500);
+
+    transitionLayoutEmitter.on(
+      EVENTS_TRANSITION_LAYOUT.pageInComplete,
+      syncAndArm,
+    );
+    transitionLayoutEmitter.on(
+      EVENTS_TRANSITION_LAYOUT.resetScroll,
+      syncAndArm,
+    );
 
     return () => {
       window.cancelAnimationFrame(refreshId);
+      window.clearTimeout(armTimeoutId);
+      transitionLayoutEmitter.off(
+        EVENTS_TRANSITION_LAYOUT.pageInComplete,
+        syncAndArm,
+      );
+      transitionLayoutEmitter.off(
+        EVENTS_TRANSITION_LAYOUT.resetScroll,
+        syncAndArm,
+      );
       st.kill();
     };
-  }, [hideHint]);
+  }, [hideHint, showHint]);
 
   useEffect(() => {
     if (!isMobile) return;
