@@ -37,6 +37,10 @@
 
 @mixin h2 {
   @include typography(48, 1, -0.05em, "normal");
+
+  @include mq(sm){
+    @include typography(36, 1, -0.05em, "normal");
+  }
 }
 
 @mixin h3 {
