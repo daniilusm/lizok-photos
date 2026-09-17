@@ -1,14 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import { ZodError } from "zod";
 
-import z, { ZodError } from "zod";
-
+import { contactFormSchema } from "./schema";
 import type { ResponseData } from "./type";
-
-// import you schema
-export const contactFormSchema = z.object({
-  name: z.string().min(1),
-});
-
 import { sendEmail } from "./utils/sendEmail";
 
 export default async function handler(
@@ -25,7 +19,6 @@ export default async function handler(
 
   try {
     const validatedData = contactFormSchema.parse(req.body);
-
     await sendEmail(validatedData);
 
     res.status(200).json({
@@ -35,7 +28,6 @@ export default async function handler(
   } catch (error) {
     console.error("Ошибка отправки формы:", error);
 
-    // Если это ошибка валидации Zod
     if (error instanceof ZodError) {
       res.status(400).json({
         success: false,

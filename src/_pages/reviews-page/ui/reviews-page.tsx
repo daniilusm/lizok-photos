@@ -17,12 +17,15 @@ import { useMedia } from "@/shared/hooks/use-media";
 import { REVIEWS } from "@/shared/stub/reviews";
 import { Image } from "@/shared/ui/image";
 import { Body } from "@/shared/ui/typography/body";
+import { Heading } from "@/shared/ui/typography/heading";
 import { typografText } from "@/shared/utils/typograf";
 import { useScroll } from "@/widgets/scroll";
 import {
   EVENTS_TRANSITION_LAYOUT,
   transitionLayoutEmitter,
 } from "@/widgets/transition-layout/emmiter";
+
+import { ReviewForm } from "./review-form";
 
 import s from "./reviews-page.module.scss";
 
@@ -208,7 +211,10 @@ export const ReviewsPage = () => {
         }
 
         if (isSnappingRef.current) {
-          track.style.setProperty("--scroll-progress", self.progress.toFixed(4));
+          track.style.setProperty(
+            "--scroll-progress",
+            self.progress.toFixed(4),
+          );
           return;
         }
 
@@ -283,6 +289,14 @@ export const ReviewsPage = () => {
       }
       if (Math.abs(event.deltaY) < MOBILE_WHEEL_DELTA) return;
 
+      const atStart = activeIndexRef.current <= 0;
+      const atEnd = activeIndexRef.current >= REVIEWS.length - 1;
+      // Дать уйти со страницы отзывов к форме / назад
+      if ((event.deltaY > 0 && atEnd) || (event.deltaY < 0 && atStart)) {
+        getLenis()?.start();
+        return;
+      }
+
       event.preventDefault();
       getLenis()?.stop();
       step(event.deltaY > 0 ? 1 : -1);
@@ -307,9 +321,20 @@ export const ReviewsPage = () => {
       const deltaY = currentY - touchStartYRef.current;
       if (Math.abs(deltaY) < MOBILE_SWIPE_PX) return;
 
+      const atStart = activeIndexRef.current <= 0;
+      const atEnd = activeIndexRef.current >= REVIEWS.length - 1;
+      const goingNext = deltaY < 0;
+      const goingPrev = deltaY > 0;
+
+      if ((goingNext && atEnd) || (goingPrev && atStart)) {
+        touchStartYRef.current = null;
+        getLenis()?.start();
+        return;
+      }
+
       event.preventDefault();
       touchStartYRef.current = null;
-      step(deltaY < 0 ? 1 : -1);
+      step(goingNext ? 1 : -1);
     };
 
     const onTouchEnd = () => {
@@ -419,7 +444,10 @@ export const ReviewsPage = () => {
           </div>
 
           <p
-            className={clsx(s.scrollHint, !showScrollHint && s.scrollHintHidden)}
+            className={clsx(
+              s.scrollHint,
+              !showScrollHint && s.scrollHintHidden,
+            )}
             aria-hidden
           >
             {typografText(
@@ -428,6 +456,25 @@ export const ReviewsPage = () => {
                 : "Листайте вниз — следующие отзывы",
             )}
           </p>
+        </div>
+      </section>
+
+      <section
+        className={s.formSection}
+        aria-label={typografText("Оставить отзыв")}
+      >
+        <div className={s.formInner}>
+          <div className={s.formTexts}>
+            <Heading level="2" tag="h2" className={s.formTitle} animate={false}>
+              {typografText("Оставить отзыв")}
+            </Heading>
+            <Body size="primary" tag="p" className={s.formLead} animate={false}>
+              {typografText(
+                "Если вы уже были на съёмке — напишите пару слов. Это помогает другим решиться.",
+              )}
+            </Body>
+          </div>
+          <ReviewForm className={s.reviewForm} />
         </div>
       </section>
     </main>

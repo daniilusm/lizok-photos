@@ -2,7 +2,7 @@
   position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  height: 100svh;
+  min-height: 100svh;
   overflow: hidden;
 
   @include mq(md) {
@@ -11,18 +11,22 @@
     gap: var(--spacing-40);
     align-items: center;
     height: auto;
+    min-height: 0;
+    overflow: visible;
   }
 }
 
 .media {
   position: relative;
-  height: 100svh;
+  min-height: 100svh;
+  height: 100%;
   overflow: hidden;
   background-color: var(--c-light-graphite);
 
   @include mq(md) {
     height: vw(400);
     width: vw(400);
+    min-height: 0;
     margin-top: 15svh;
     flex-shrink: 0;
   }
@@ -36,26 +40,23 @@
 .image {
   width: 100%;
   height: 100%;
-
-
   overflow: hidden;
 
+  img {
+    transform: translate3d(
+        0,
+        calc(12% * var(--parallax-scroll-progress, 0)),
+        0
+      )
+      scale(1.15);
 
-    img {
-        transform: translate3d(
-            0,
-            calc(12% * var(--parallax-scroll-progress, 0)),
-            0
-        )
-        scale(1.15);
-
-      @include mq(md) {
-        transform: scale(1);
-      }
+    @include mq(md) {
+      transform: scale(1);
     }
+  }
 
-  @include mq(md){
-    aspect-ratio: 1/1;
+  @include mq(md) {
+    aspect-ratio: 1 / 1;
     border-radius: 50%;
     overflow: hidden;
   }
@@ -63,22 +64,21 @@
 
 .content {
   position: relative;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: var(--spacing-24);
-  padding: var(--spacing-48) var(--spacing-gap) var(--spacing-24);
+  padding: var(--spacing-48) var(--spacing-gap) var(--spacing-56);
 
   @include mq(md) {
-    padding: 0 var(--spacing-gap);
+    padding: 0 var(--spacing-gap) var(--spacing-48);
     height: 100%;
-    justify-content: flex-start; 
+    justify-content: flex-start;
     text-align: center;
     width: 80%;
   }
 
-  @include mq(sm){
+  @include mq(sm) {
     width: 100%;
   }
 }
@@ -91,26 +91,30 @@
   width: vw(360);
   opacity: 0.8;
 
-  @include mq(md){
+  @include mq(md) {
     width: 100%;
   }
+}
+
+.form {
+  margin-top: var(--spacing-8);
 }
 
 .social {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-16);
-  margin-top: var(--spacing-16);
+  margin-top: var(--spacing-8);
   text-transform: uppercase;
 
-  @include mq(md){
+  @include mq(md) {
     flex-direction: row;
     justify-content: center;
     gap: var(--spacing-40);
-    margin-bottom: vw(120);
+    margin-bottom: vw(80);
   }
 
-  @include mq(sm){
+  @include mq(sm) {
     flex-direction: column;
     align-items: center;
   }
@@ -119,20 +123,23 @@
 .link {
 }
 
-.alertText{
+.alertText {
   position: absolute;
   bottom: var(--spacing-gap);
   left: var(--spacing-gap);
-
   opacity: 0.5;
-
   font-size: vw(12);
+
+  @include mq(md) {
+    position: static;
+    margin-top: var(--spacing-24);
+  }
 
   @include mq(sm) {
     font-size: vw(10);
   }
 }
 
-.imageWrapper{
+.imageWrapper {
   height: 100%;
 }

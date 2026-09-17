@@ -11,6 +11,7 @@ import { Body } from "@/shared/ui/typography/body";
 import { Heading } from "@/shared/ui/typography/heading";
 import { typografText } from "@/shared/utils/typograf";
 
+import { ContactForm } from "./contact-form";
 import s from "./contacts-section.module.scss";
 
 export type ContactsSectionProps = ComponentProps<"section"> & {
@@ -61,6 +62,8 @@ export const ContactsSection = (props: ContactsSectionProps) => {
         <Body size="primary" tag="p" className={s.text}>
           {text}
         </Body>
+
+        <ContactForm className={s.form} />
 
         <nav className={s.social} aria-label={typografText("Соцсети")}>
           {SOCIAL_LINKS.map((link) => (

@@ -298,3 +298,47 @@ background: linear-gradient(
     opacity: 0.9;
   }
 }
+
+.formSection {
+  position: relative;
+  z-index: 1;
+  padding: var(--spacing-100) var(--spacing-gap) var(--spacing-80);
+  background-color: var(--c-lacri);
+  color: var(--c-white);
+
+  @include mq(md) {
+    padding: var(--spacing-80) var(--spacing-gap) var(--spacing-64);
+  }
+}
+
+.formInner {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: 100%;
+
+  @include mq(md){
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-32);
+  }
+}
+
+.formTexts{
+  grid-column: 1;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-24);
+}
+
+.formTitle {
+  text-transform: uppercase;
+}
+
+.formLead {
+  opacity: 0.75;
+}
+
+.reviewForm{
+  grid-column: 3/5;
+}
