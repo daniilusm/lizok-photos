@@ -33,6 +33,7 @@ export const LocalSeoSection = (props: LocalSeoSectionProps) => {
           end="bottom top"
         >
           <Image
+            className={s.image}
             height="100%"
             objectFit="cover"
             imageRole="card"
@@ -91,6 +92,7 @@ export const LocalSeoSection = (props: LocalSeoSectionProps) => {
           end="bottom top"
         >
           <Image
+            className={s.image}
             height="100%"
             objectFit="cover"
             imageRole="card"
